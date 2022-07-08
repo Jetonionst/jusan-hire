@@ -15,7 +15,7 @@ import { useState } from "react";
 export default function Anketa() {
   const [page, setPage] = useState(1);
 
-  const fieldsSize = 175;
+  const fieldsSize = 200;
   const fSize = "14px";
   const formik = useFormik({
     initialValues: {
@@ -78,9 +78,77 @@ export default function Anketa() {
           university: "",
         },
       ],
-      extracurricularList: {},
-      lastThreeWorkplaces: {},
-      threeRecommendationPeople: {},
+      extracurricularList: [
+        {
+          endDate: "",
+          educationTime: "",
+          educationName: "",
+          speciality: "",
+          degree: "",
+        },
+        {
+          endDate: "",
+          educationTime: "",
+          educationName: "",
+          speciality: "",
+          degree: "",
+        },
+      ],
+      lastThreeWorkplaces: [
+        {
+          workPeriod: "",
+          organizationName: "",
+          organizationType: "",
+          organizationAddress: "",
+          organizationPhone: "",
+          speciality: "",
+          employerFio: "",
+          employerNumber: "",
+          leavingReazon: "",
+        },
+        {
+          workPeriod: "",
+          organizationName: "",
+          organizationType: "",
+          organizationAddress: "",
+          organizationPhone: "",
+          speciality: "",
+          employerFio: "",
+          employerNumber: "",
+          leavingReazon: "",
+        },
+        {
+          workPeriod: "",
+          organizationName: "",
+          organizationType: "",
+          organizationAddress: "",
+          organizationPhone: "",
+          speciality: "",
+          employerFio: "",
+          employerNumber: "",
+          leavingReazon: "",
+        },
+      ],
+      threeRecommendationPeople: [
+        {
+          peopleFio: "",
+          peopleWorkPlace: "",
+          peopleMajor: "",
+          peoplePhone: "",
+        },
+        {
+          peopleFio: "",
+          peopleWorkPlace: "",
+          peopleMajor: "",
+          peoplePhone: "",
+        },
+        {
+          peopleFio: "",
+          peopleWorkPlace: "",
+          peopleMajor: "",
+          peoplePhone: "",
+        },
+      ],
       marriageStatus: "",
       chilrenList: {},
       relativeList: {},
@@ -103,18 +171,18 @@ export default function Anketa() {
     },
     onSubmit: async (values) => {
       try {
-        values.previousName = "sd";
         // alert(JSON.stringify(values, null, 2));
-        const req = await fetch("http://localhost:8081/api/v1/anketa/submit", {
-          method: "POST",
-          body: JSON.stringify(values, null, 2),
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "*/*",
-            // "Access-Control-Allow-Origin": "*",
-          },
-        });
-        console.log(req);
+        // const req = await fetch("http://localhost:8081/api/v1/anketa/submit", {
+        //   method: "POST",
+        //   body: JSON.stringify(values, null, 2),
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //     Accept: "*/*",
+        //     // "Access-Control-Allow-Origin": "*",
+        //   },
+        // });
+        // console.log(req);
+        console.log(values);
       } catch (err) {
         console.log(err);
       }
@@ -320,12 +388,12 @@ export default function Anketa() {
                     />
                   </div>
                 </FormControl>
+                <FormLabel htmlFor="text">
+                  Укажите, пожалуйста, номера телефонов, по которым с Вами можно
+                  связаться:
+                </FormLabel>
                 <div className="fieldsContainer">
                   <div className="fieldsContex">
-                    <FormLabel htmlFor="text">
-                      Укажите, пожалуйста, номера телефонов, по которым с Вами
-                      можно связаться:
-                    </FormLabel>
                     <FormControl
                       display="flex"
                       flexWrap="wrap"
@@ -438,12 +506,11 @@ export default function Anketa() {
                     </FormControl>
                   </div>
                 </div>
-
+                <FormLabel htmlFor="text">
+                  Адрес постоянной регистрации:
+                </FormLabel>
                 <div className="fieldsContainer">
                   <div className="fieldsContex">
-                    <FormLabel htmlFor="text">
-                      Адрес постоянной регистрации:
-                    </FormLabel>
                     <FormControl
                       display="flex"
                       flexWrap="wrap"
@@ -473,11 +540,11 @@ export default function Anketa() {
                           fontSize={fSize}
                           w={150}
                           id="permanentRegion"
-                          name="permanentDistrict"
+                          name="permanentRegion"
                           type="text"
                           variant="filled"
                           onChange={formik.handleChange}
-                          value={formik.values.permanentDistrict}
+                          value={formik.values.permanentRegion}
                         />
                       </div>
                       <div className="field">
@@ -719,7 +786,7 @@ export default function Anketa() {
   if (page === 2) {
     return (
       <ChakraProvider>
-        <Flex bg="gray.100" align="center" justify="center" h="100vh">
+        <Flex bg="gray.100" align="center" justify="center">
           <Box bg="white" p={6} rounded="md" w={"80%"}>
             <form onSubmit={formik.handleSubmit}>
               <VStack spacing={4} align="flex-start">
@@ -1031,6 +1098,187 @@ export default function Anketa() {
                     </FormControl>
                   </div>
                 </div>
+                <FormLabel htmlFor="text">
+                  Специальные курсы,школы,стажировки
+                </FormLabel>
+                <div className="fieldsContainer">
+                  <div className="fieldsContex">
+                    <FormControl
+                      display="flex"
+                      // justifyContent="space-between"
+                      flexWrap="wrap"
+                    >
+                      <div className="field">
+                        <FormLabel htmlFor="text" fontSize={fSize}>
+                          Год окончания:
+                        </FormLabel>
+                        <Input
+                          fontSize={fSize}
+                          w={fieldsSize}
+                          id={`extracurricularList[0].endDate`}
+                          name={`extracurricularList[0].endDate`}
+                          type="text"
+                          variant="filled"
+                          placeholder="01.01.2000"
+                          onChange={formik.handleChange}
+                          value={formik.values.extracurricularList[0].endDate}
+                        />
+                      </div>
+                      <div className="field">
+                        <FormLabel htmlFor="text" fontSize={fSize}>
+                          Длительность обучения:
+                        </FormLabel>
+                        <Input
+                          fontSize={fSize}
+                          w={fieldsSize}
+                          id={`extracurricularList[0]].educationTime`}
+                          name={`extracurricularList[0].educationTime`}
+                          type="text"
+                          variant="filled"
+                          onChange={formik.handleChange}
+                          value={
+                            formik.values.extracurricularList[0].educationTime
+                          }
+                        />
+                      </div>
+                      <div className="field">
+                        <FormLabel htmlFor="text" fontSize={fSize}>
+                          Полное наименование курсов:
+                        </FormLabel>
+                        <Input
+                          fontSize={fSize}
+                          w={fieldsSize}
+                          id="extracurricularList[0].educationName"
+                          name="extracurricularList[0].educationName"
+                          type="text"
+                          variant="filled"
+                          onChange={formik.handleChange}
+                          value={formik.values.educationList[0].educationName}
+                        />
+                      </div>
+                      <div className="field">
+                        <FormLabel htmlFor="text" fontSize={fSize}>
+                          Специальность:
+                        </FormLabel>
+                        <Input
+                          fontSize={fSize}
+                          w={fieldsSize}
+                          id="extracurricularList[0].speciality"
+                          name="extracurricularList[0].speciality"
+                          type="text"
+                          variant="filled"
+                          onChange={formik.handleChange}
+                          value={
+                            formik.values.extracurricularList[0].speciality
+                          }
+                        />
+                      </div>
+                      <div className="field">
+                        <FormLabel htmlFor="text" fontSize={fSize}>
+                          Учёная степень, сертификаты:
+                        </FormLabel>
+                        <Input
+                          fontSize={fSize}
+                          w={fieldsSize}
+                          id="extracurricularList[0].degree"
+                          name="extracurricularList[0].degree"
+                          type="text"
+                          variant="filled"
+                          onChange={formik.handleChange}
+                          value={formik.values.extracurricularList[0].degree}
+                        />
+                      </div>
+                    </FormControl>
+                  </div>
+                  <div className="fieldsContex">
+                    <FormControl
+                      display="flex"
+                      // justifyContent="space-between"
+                      flexWrap="wrap"
+                    >
+                      <div className="field">
+                        <FormLabel htmlFor="text" fontSize={fSize}>
+                          Год окончания:
+                        </FormLabel>
+                        <Input
+                          fontSize={fSize}
+                          w={fieldsSize}
+                          id={`extracurricularList[1].endDate`}
+                          name={`extracurricularList[1].endDate`}
+                          type="text"
+                          variant="filled"
+                          placeholder="01.01.2000"
+                          onChange={formik.handleChange}
+                          value={formik.values.extracurricularList[1].endDate}
+                        />
+                      </div>
+                      <div className="field">
+                        <FormLabel htmlFor="text" fontSize={fSize}>
+                          Длительность обучения:
+                        </FormLabel>
+                        <Input
+                          fontSize={fSize}
+                          w={fieldsSize}
+                          id={`extracurricularList[1]].educationTime`}
+                          name={`extracurricularList[1].educationTime`}
+                          type="text"
+                          variant="filled"
+                          onChange={formik.handleChange}
+                          value={
+                            formik.values.extracurricularList[1].educationTime
+                          }
+                        />
+                      </div>
+                      <div className="field">
+                        <FormLabel htmlFor="text" fontSize={fSize}>
+                          Полное наименование курсов:
+                        </FormLabel>
+                        <Input
+                          fontSize={fSize}
+                          w={fieldsSize}
+                          id="extracurricularList[1].educationName"
+                          name="extracurricularList[1].educationName"
+                          type="text"
+                          variant="filled"
+                          onChange={formik.handleChange}
+                          value={formik.values.educationList[1].educationName}
+                        />
+                      </div>
+                      <div className="field">
+                        <FormLabel htmlFor="text" fontSize={fSize}>
+                          Специальность:
+                        </FormLabel>
+                        <Input
+                          fontSize={fSize}
+                          w={fieldsSize}
+                          id="extracurricularList[0].speciality"
+                          name="extracurricularList[0].speciality"
+                          type="text"
+                          variant="filled"
+                          onChange={formik.handleChange}
+                          value={
+                            formik.values.extracurricularList[1].speciality
+                          }
+                        />
+                      </div>
+                      <div className="field">
+                        <FormLabel htmlFor="text" fontSize={fSize}>
+                          Учёная степень, сертификаты:
+                        </FormLabel>
+                        <Input
+                          fontSize={fSize}
+                          w={fieldsSize}
+                          id="extracurricularList[1].degree"
+                          name="extracurricularList[1].degree"
+                          type="text"
+                          variant="filled"
+                          onChange={formik.handleChange}
+                          value={formik.values.extracurricularList[1].degree}
+                        />
+                      </div>
+                    </FormControl>
+                  </div>
+                </div>
 
                 <div className="buttons">
                   <Button
@@ -1049,6 +1297,593 @@ export default function Anketa() {
                     marginLeft="50px"
                     onClick={() => {
                       setPage(3);
+                    }}
+                  >
+                    Далее
+                  </Button>
+                </div>
+              </VStack>
+            </form>
+          </Box>
+        </Flex>
+      </ChakraProvider>
+    );
+  }
+  if (page === 3) {
+    return (
+      <ChakraProvider>
+        <Flex bg="gray.100" align="center" justify="center">
+          <Box bg="white" p={6} rounded="md" w={"80%"}>
+            <form onSubmit={formik.handleSubmit}>
+              <VStack spacing={4} align="flex-start">
+                <FormLabel htmlFor="text">
+                  АНКЕТА КАНДИДАТА (<span style={{ color: "red" }}>*</span>
+                  обязательные поля)
+                </FormLabel>
+                <FormLabel htmlFor="text">
+                  Укажите предшествующие 3 (три) места работы в обратном
+                  хронологическом порядке, начиная с последнего или действующего
+                  места работы:
+                </FormLabel>
+                <div className="fieldsContainer">
+                  <div className="filedsContex">
+                    <FormControl
+                      isRequired
+                      display="flex"
+                      // justifyContent="space-between"
+                      flexWrap="wrap"
+                    >
+                      <div className="field">
+                        <FormLabel htmlFor="text" fontSize={fSize}>
+                          Период работы (месяц, год) :
+                        </FormLabel>
+                        <Input
+                          fontSize={fSize}
+                          w={fieldsSize}
+                          id={`lastThreeWorkplaces[0].workPeriod`}
+                          name={`lastThreeWorkplaces[0].workPeriod`}
+                          type="text"
+                          variant="filled"
+                          placeholder="01.01.2000"
+                          onChange={formik.handleChange}
+                          value={
+                            formik.values.lastThreeWorkplaces[0].workPeriod
+                          }
+                        />
+                      </div>
+                      <div className="field">
+                        <FormLabel htmlFor="text" fontSize={fSize}>
+                          Полное название организации:
+                        </FormLabel>
+                        <Input
+                          fontSize={fSize}
+                          w={fieldsSize}
+                          id={`lastThreeWorkplaces[0].organizationName`}
+                          name={`lastThreeWorkplaces[0].organizationName`}
+                          type="text"
+                          variant="filled"
+                          onChange={formik.handleChange}
+                          value={
+                            formik.values.lastThreeWorkplaces[0]
+                              .organizationName
+                          }
+                        />
+                      </div>
+                      <div className="field">
+                        <FormLabel htmlFor="text" fontSize={fSize}>
+                          Вид деятельности:
+                        </FormLabel>
+                        <Input
+                          fontSize={fSize}
+                          w={fieldsSize}
+                          id={`lastThreeWorkplaces[0].organizationType`}
+                          name={`lastThreeWorkplaces[0].organizationType`}
+                          type="text"
+                          variant="filled"
+                          onChange={formik.handleChange}
+                          value={
+                            formik.values.lastThreeWorkplaces[0]
+                              .organizationType
+                          }
+                        />
+                      </div>
+                      <div className="field">
+                        <FormLabel htmlFor="text" fontSize={fSize}>
+                          Адрес:
+                        </FormLabel>
+                        <Input
+                          fontSize={fSize}
+                          w={fieldsSize}
+                          id={`lastThreeWorkplaces[0].organizationAddress`}
+                          name={`lastThreeWorkplaces[0].organizationAddress`}
+                          type="text"
+                          variant="filled"
+                          onChange={formik.handleChange}
+                          value={
+                            formik.values.lastThreeWorkplaces[0]
+                              .organizationAddress
+                          }
+                        />
+                      </div>
+                      <div className="field">
+                        <FormLabel htmlFor="text" fontSize={fSize}>
+                          Телефон:
+                        </FormLabel>
+                        <Input
+                          fontSize={fSize}
+                          w={fieldsSize}
+                          id={`lastThreeWorkplaces[0].organizationPhone`}
+                          name={`lastThreeWorkplaces[0].organizationPhone`}
+                          type="text"
+                          variant="filled"
+                          onChange={formik.handleChange}
+                          value={
+                            formik.values.lastThreeWorkplaces[0]
+                              .organizationPhone
+                          }
+                        />
+                      </div>
+                    </FormControl>
+                  </div>
+                  <div className="filedsContex">
+                    <FormControl
+                      display="flex"
+                      // justifyContent="space-between"
+                      flexWrap="wrap"
+                    >
+                      <div className="field">
+                        <FormLabel htmlFor="text" fontSize={fSize}>
+                          Период работы (месяц, год) :
+                        </FormLabel>
+                        <Input
+                          fontSize={fSize}
+                          w={fieldsSize}
+                          id={`lastThreeWorkplaces[1].workPeriod`}
+                          name={`lastThreeWorkplaces[1].workPeriod`}
+                          type="text"
+                          variant="filled"
+                          placeholder="01.01.2000"
+                          onChange={formik.handleChange}
+                          value={
+                            formik.values.lastThreeWorkplaces[1].workPeriod
+                          }
+                        />
+                      </div>
+                      <div className="field">
+                        <FormLabel htmlFor="text" fontSize={fSize}>
+                          Полное название организации:
+                        </FormLabel>
+                        <Input
+                          fontSize={fSize}
+                          w={fieldsSize}
+                          id={`lastThreeWorkplaces[1].organizationName`}
+                          name={`lastThreeWorkplaces[1].organizationName`}
+                          type="text"
+                          variant="filled"
+                          onChange={formik.handleChange}
+                          value={
+                            formik.values.lastThreeWorkplaces[1]
+                              .organizationName
+                          }
+                        />
+                      </div>
+                      <div className="field">
+                        <FormLabel htmlFor="text" fontSize={fSize}>
+                          Вид деятельности:
+                        </FormLabel>
+                        <Input
+                          fontSize={fSize}
+                          w={fieldsSize}
+                          id={`lastThreeWorkplaces[1].organizationType`}
+                          name={`lastThreeWorkplaces[1].organizationType`}
+                          type="text"
+                          variant="filled"
+                          onChange={formik.handleChange}
+                          value={
+                            formik.values.lastThreeWorkplaces[1]
+                              .organizationType
+                          }
+                        />
+                      </div>
+                      <div className="field">
+                        <FormLabel htmlFor="text" fontSize={fSize}>
+                          Адрес:
+                        </FormLabel>
+                        <Input
+                          fontSize={fSize}
+                          w={fieldsSize}
+                          id={`lastThreeWorkplaces[1].organizationAddress`}
+                          name={`lastThreeWorkplaces[1].organizationAddress`}
+                          type="text"
+                          variant="filled"
+                          onChange={formik.handleChange}
+                          value={
+                            formik.values.lastThreeWorkplaces[1]
+                              .organizationAddress
+                          }
+                        />
+                      </div>
+                      <div className="field">
+                        <FormLabel htmlFor="text" fontSize={fSize}>
+                          Телефон:
+                        </FormLabel>
+                        <Input
+                          fontSize={fSize}
+                          w={fieldsSize}
+                          id={`lastThreeWorkplaces[1].organizationPhone`}
+                          name={`lastThreeWorkplaces[1].organizationPhone`}
+                          type="text"
+                          variant="filled"
+                          onChange={formik.handleChange}
+                          value={
+                            formik.values.lastThreeWorkplaces[1]
+                              .organizationPhone
+                          }
+                        />
+                      </div>
+                    </FormControl>
+                  </div>
+                  <div className="filedsContex">
+                    <FormControl
+                      display="flex"
+                      // justifyContent="space-between"
+                      flexWrap="wrap"
+                    >
+                      <div className="field">
+                        <FormLabel htmlFor="text" fontSize={fSize}>
+                          Период работы (месяц, год) :
+                        </FormLabel>
+                        <Input
+                          fontSize={fSize}
+                          w={fieldsSize}
+                          id={`lastThreeWorkplaces[2].workPeriod`}
+                          name={`lastThreeWorkplaces[2].workPeriod`}
+                          type="text"
+                          variant="filled"
+                          placeholder="01.01.2000"
+                          onChange={formik.handleChange}
+                          value={
+                            formik.values.lastThreeWorkplaces[2].workPeriod
+                          }
+                        />
+                      </div>
+                      <div className="field">
+                        <FormLabel htmlFor="text" fontSize={fSize}>
+                          Полное название организации:
+                        </FormLabel>
+                        <Input
+                          fontSize={fSize}
+                          w={fieldsSize}
+                          id={`lastThreeWorkplaces[2].organizationName`}
+                          name={`lastThreeWorkplaces[2].organizationName`}
+                          type="text"
+                          variant="filled"
+                          onChange={formik.handleChange}
+                          value={
+                            formik.values.lastThreeWorkplaces[2]
+                              .organizationName
+                          }
+                        />
+                      </div>
+                      <div className="field">
+                        <FormLabel htmlFor="text" fontSize={fSize}>
+                          Вид деятельности:
+                        </FormLabel>
+                        <Input
+                          fontSize={fSize}
+                          w={fieldsSize}
+                          id={`lastThreeWorkplaces[2].organizationType`}
+                          name={`lastThreeWorkplaces[2].organizationType`}
+                          type="text"
+                          variant="filled"
+                          onChange={formik.handleChange}
+                          value={
+                            formik.values.lastThreeWorkplaces[2]
+                              .organizationType
+                          }
+                        />
+                      </div>
+                      <div className="field">
+                        <FormLabel htmlFor="text" fontSize={fSize}>
+                          Адрес:
+                        </FormLabel>
+                        <Input
+                          fontSize={fSize}
+                          w={fieldsSize}
+                          id={`lastThreeWorkplaces[2].organizationAddress`}
+                          name={`lastThreeWorkplaces[2].organizationAddress`}
+                          type="text"
+                          variant="filled"
+                          onChange={formik.handleChange}
+                          value={
+                            formik.values.lastThreeWorkplaces[2]
+                              .organizationAddress
+                          }
+                        />
+                      </div>
+                      <div className="field">
+                        <FormLabel htmlFor="text" fontSize={fSize}>
+                          Телефон:
+                        </FormLabel>
+                        <Input
+                          fontSize={fSize}
+                          w={fieldsSize}
+                          id={`lastThreeWorkplaces[2].organizationPhone`}
+                          name={`lastThreeWorkplaces[2].organizationPhone`}
+                          type="text"
+                          variant="filled"
+                          onChange={formik.handleChange}
+                          value={
+                            formik.values.lastThreeWorkplaces[2]
+                              .organizationPhone
+                          }
+                        />
+                      </div>
+                    </FormControl>
+                  </div>
+                </div>
+                <FormLabel htmlFor="text">
+                  Укажите не менее 3 (трёх) лиц, которые могут дать Вам
+                  профессиональную рекомендацию{" "}
+                  <i>(бывшие и/или настоящие руководители, коллеги)</i>:
+                </FormLabel>
+                <div className="filedsContainer">
+                  <div className="filedsContex">
+                    <FormControl
+                      isRequired
+                      display="flex"
+                      // justifyContent="space-between"
+                      flexWrap="wrap"
+                    >
+                      <div className="field">
+                        <FormLabel htmlFor="text" fontSize={fSize}>
+                          ФИО:
+                        </FormLabel>
+                        <Input
+                          fontSize={fSize}
+                          w={fieldsSize}
+                          id={`threeRecommendationPeople[0].peopleFio`}
+                          name={`threeRecommendationPeople[0].peopleFio`}
+                          type="text"
+                          variant="filled"
+                          onChange={formik.handleChange}
+                          value={
+                            formik.values.threeRecommendationPeople[0].peopleFio
+                          }
+                        />
+                      </div>
+                      <div className="field">
+                        <FormLabel htmlFor="text" fontSize={fSize}>
+                          Место работы:
+                        </FormLabel>
+                        <Input
+                          fontSize={fSize}
+                          w={fieldsSize}
+                          id={`threeRecommendationPeople[0].peopleWorkPlace`}
+                          name={`threeRecommendationPeople[0].peopleWorkPlace`}
+                          type="text"
+                          variant="filled"
+                          onChange={formik.handleChange}
+                          value={
+                            formik.values.threeRecommendationPeople[0]
+                              .peopleWorkPlace
+                          }
+                        />
+                      </div>
+                      <div className="field">
+                        <FormLabel htmlFor="text" fontSize={fSize}>
+                          Должность:
+                        </FormLabel>
+                        <Input
+                          fontSize={fSize}
+                          w={fieldsSize}
+                          id={`threeRecommendationPeople[0].peopleMajor`}
+                          name={`threeRecommendationPeople[0].peopleMajor`}
+                          type="text"
+                          variant="filled"
+                          onChange={formik.handleChange}
+                          value={
+                            formik.values.threeRecommendationPeople[0]
+                              .peopleMajor
+                          }
+                        />
+                      </div>
+                      <div className="field">
+                        <FormLabel htmlFor="text" fontSize={fSize}>
+                          Телефон:
+                        </FormLabel>
+                        <Input
+                          fontSize={fSize}
+                          w={fieldsSize}
+                          id={`threeRecommendationPeople[0].peoplePhone`}
+                          name={`threeRecommendationPeople[0].peoplePhone`}
+                          type="text"
+                          variant="filled"
+                          onChange={formik.handleChange}
+                          value={
+                            formik.values.threeRecommendationPeople[0]
+                              .peoplePhone
+                          }
+                        />
+                      </div>
+                    </FormControl>
+                  </div>
+                  <div className="filedsContex">
+                    <FormControl
+                      display="flex"
+                      // justifyContent="space-between"
+                      flexWrap="wrap"
+                    >
+                      <div className="field">
+                        <FormLabel htmlFor="text" fontSize={fSize}>
+                          ФИО:
+                        </FormLabel>
+                        <Input
+                          fontSize={fSize}
+                          w={fieldsSize}
+                          id={`threeRecommendationPeople[1].peopleFio`}
+                          name={`threeRecommendationPeople[1].peopleFio`}
+                          type="text"
+                          variant="filled"
+                          onChange={formik.handleChange}
+                          value={
+                            formik.values.threeRecommendationPeople[1].peopleFio
+                          }
+                        />
+                      </div>
+                      <div className="field">
+                        <FormLabel htmlFor="text" fontSize={fSize}>
+                          Место работы:
+                        </FormLabel>
+                        <Input
+                          fontSize={fSize}
+                          w={fieldsSize}
+                          id={`threeRecommendationPeople[1].peopleWorkPlace`}
+                          name={`threeRecommendationPeople[1].peopleWorkPlace`}
+                          type="text"
+                          variant="filled"
+                          onChange={formik.handleChange}
+                          value={
+                            formik.values.threeRecommendationPeople[1]
+                              .peopleWorkPlace
+                          }
+                        />
+                      </div>
+                      <div className="field">
+                        <FormLabel htmlFor="text" fontSize={fSize}>
+                          Должность:
+                        </FormLabel>
+                        <Input
+                          fontSize={fSize}
+                          w={fieldsSize}
+                          id={`threeRecommendationPeople[1].peopleMajor`}
+                          name={`threeRecommendationPeople[1].peopleMajor`}
+                          type="text"
+                          variant="filled"
+                          onChange={formik.handleChange}
+                          value={
+                            formik.values.threeRecommendationPeople[1]
+                              .peopleMajor
+                          }
+                        />
+                      </div>
+                      <div className="field">
+                        <FormLabel htmlFor="text" fontSize={fSize}>
+                          Телефон:
+                        </FormLabel>
+                        <Input
+                          fontSize={fSize}
+                          w={fieldsSize}
+                          id={`threeRecommendationPeople[1].peoplePhone`}
+                          name={`threeRecommendationPeople[1].peoplePhone`}
+                          type="text"
+                          variant="filled"
+                          onChange={formik.handleChange}
+                          value={
+                            formik.values.threeRecommendationPeople[1]
+                              .peoplePhone
+                          }
+                        />
+                      </div>
+                    </FormControl>
+                  </div>
+                  <div className="filedsContex">
+                    <FormControl
+                      display="flex"
+                      // justifyContent="space-between"
+                      flexWrap="wrap"
+                    >
+                      <div className="field">
+                        <FormLabel htmlFor="text" fontSize={fSize}>
+                          ФИО:
+                        </FormLabel>
+                        <Input
+                          fontSize={fSize}
+                          w={fieldsSize}
+                          id={`threeRecommendationPeople[2].peopleFio`}
+                          name={`threeRecommendationPeople[2].peopleFio`}
+                          type="text"
+                          variant="filled"
+                          onChange={formik.handleChange}
+                          value={
+                            formik.values.threeRecommendationPeople[2].peopleFio
+                          }
+                        />
+                      </div>
+                      <div className="field">
+                        <FormLabel htmlFor="text" fontSize={fSize}>
+                          Место работы:
+                        </FormLabel>
+                        <Input
+                          fontSize={fSize}
+                          w={fieldsSize}
+                          id={`threeRecommendationPeople[2].peopleWorkPlace`}
+                          name={`threeRecommendationPeople[2].peopleWorkPlace`}
+                          type="text"
+                          variant="filled"
+                          onChange={formik.handleChange}
+                          value={
+                            formik.values.threeRecommendationPeople[2]
+                              .peopleWorkPlace
+                          }
+                        />
+                      </div>
+                      <div className="field">
+                        <FormLabel htmlFor="text" fontSize={fSize}>
+                          Должность:
+                        </FormLabel>
+                        <Input
+                          fontSize={fSize}
+                          w={fieldsSize}
+                          id={`threeRecommendationPeople[2].peopleMajor`}
+                          name={`threeRecommendationPeople[2].peopleMajor`}
+                          type="text"
+                          variant="filled"
+                          onChange={formik.handleChange}
+                          value={
+                            formik.values.threeRecommendationPeople[2]
+                              .peopleMajor
+                          }
+                        />
+                      </div>
+                      <div className="field">
+                        <FormLabel htmlFor="text" fontSize={fSize}>
+                          Телефон:
+                        </FormLabel>
+                        <Input
+                          fontSize={fSize}
+                          w={fieldsSize}
+                          id={`threeRecommendationPeople[2].peoplePhone`}
+                          name={`threeRecommendationPeople[2].peoplePhone`}
+                          type="text"
+                          variant="filled"
+                          onChange={formik.handleChange}
+                          value={
+                            formik.values.threeRecommendationPeople[2]
+                              .peoplePhone
+                          }
+                        />
+                      </div>
+                    </FormControl>
+                  </div>
+                </div>
+                <div className="buttons">
+                  <Button
+                    colorScheme="orange"
+                    width="30%"
+                    marginLeft="50px"
+                    onClick={() => {
+                      setPage(2);
+                    }}
+                  >
+                    Назад
+                  </Button>
+                  <Button
+                    colorScheme="orange"
+                    width="30%"
+                    marginLeft="50px"
+                    onClick={() => {
+                      setPage(4);
                     }}
                   >
                     Далее
