@@ -19,14 +19,14 @@ public class UserService {
     private PasswordEncoder passwordEncoder;
 
     public UserEntity saveUser(UserEntity user) {
-        RoleEntity userRole = roleRepository.findByName("ROLE_USER");
-        user.setRoleId(userRole.getId());
+        RoleEntity userRole = roleRepository.findRoleEntityByName("ROLE_USER");
+        user.setRoleEntity(userRole);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 
     public UserEntity findByUsername(String username) {
-        return userRepository.findUserByUsername(username);
+        return userRepository.findUserEntityByUsername(username);
     }
 
     public UserEntity findByUsernameAndPassword(String username, String password) {

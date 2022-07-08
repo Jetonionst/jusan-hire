@@ -4,20 +4,26 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.relational.core.mapping.Column;
-import org.springframework.data.relational.core.mapping.Table;
 
+import javax.persistence.*;
 import java.util.Collection;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Table("users")
+@Entity
+@Table(name = "users")
 public class UserEntity {
-    private @Id @Column("id") int userID;
-    private @Column("username") String username;
-    private @Column("password") String password;
-    private @Column("role_id") int roleId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    private int userID;
+    @Column(name = "username", nullable = false)
+    private String username;
+    @Column(name = "password", nullable = false)
+    private String password;
+    @JoinColumn(name = "role_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private RoleEntity roleEntity;
 }
