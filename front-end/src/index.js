@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Login from "./components/pages/login";
 import Registration from "./components/pages/registration";
 import NotFoundPage from "./components/pages/NotFoundPage";
+import Anketa from "./components/pages/Anketa";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -17,6 +18,7 @@ root.render(
         <Route path="*" exact={true} element={<NotFoundPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/registration" element={<Registration />} />
+        <Route path="/anketa" element={<Anketa />} />
       </Routes>
     </Router>
   </React.StrictMode>
