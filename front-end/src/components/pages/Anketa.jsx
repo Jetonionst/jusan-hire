@@ -9,6 +9,7 @@ import {
   FormLabel,
   Input,
   Select,
+  Textarea,
   VStack,
 } from "@chakra-ui/react";
 import { useState } from "react";
@@ -234,16 +235,28 @@ export default function Anketa() {
         },
       ],
       isCarOwner: "",
-      carList: {},
+      carList: [
+        {
+          model: "",
+          year: "",
+          govNumber: "",
+        },
+      ],
       isMilitary: "",
       isSVC: "",
-      svc: "",
+      isSVCAnswer: "",
       isExpiredLoan: "",
+      isExpiredLoanAnswer: "",
       isCriminal: "",
+      isCriminalAnswer: "",
       isRelativeCriminal: "",
+      isRelativeCriminalAnswer: "",
       isCriminalDelo: "",
+      isCriminalDeloAnswer: "",
       isAlimentPayer: "",
+      isAlimentPayerAnswer: "",
       isHooligan: "",
+      isHooliganAnswer: "",
       additionalInfo: "",
       isExtraIncome: "",
     },
@@ -1329,8 +1342,8 @@ export default function Anketa() {
                         <Input
                           fontSize={fSize}
                           w={fieldsSize}
-                          id="extracurricularList[0].speciality"
-                          name="extracurricularList[0].speciality"
+                          id="extracurricularList[1].speciality"
+                          name="extracurricularList[1].speciality"
                           type="text"
                           variant="filled"
                           onChange={formik.handleChange}
@@ -2975,6 +2988,379 @@ export default function Anketa() {
                     }}
                   >
                     Далее
+                  </Button>
+                </div>
+              </VStack>
+            </form>
+          </Box>
+        </Flex>
+      </ChakraProvider>
+    );
+  }
+  if (page === 6) {
+    return (
+      <ChakraProvider>
+        <Flex bg="gray.100" align="center" justify="center">
+          <Box bg="white" p={6} rounded="md" w={"80%"}>
+            <form onSubmit={formik.handleSubmit}>
+              <VStack spacing={4} align="flex-start">
+                <FormLabel htmlFor="text">
+                  АНКЕТА КАНДИДАТА (<span style={{ color: "red" }}>*</span>
+                  обязательные поля)
+                </FormLabel>
+                <FormLabel htmlFor="text">Дополнительная информация:</FormLabel>
+                <FormLabel htmlFor="text">Наличие Автомобиля</FormLabel>
+                <Checkbox
+                  id="isCarOwner"
+                  name="isCarOwner"
+                  onChange={formik.handleChange}
+                  isChecked={formik.values.isCarOwner}
+                  colorScheme="purple"
+                >
+                  Да
+                </Checkbox>
+
+                {formik.values.isCarOwner && (
+                  <div className="fieldsContainer">
+                    <div className="fieldsContex">
+                      <div className="field">
+                        <FormLabel htmlFor="text" fontSize={fSize}>
+                          Модель:
+                        </FormLabel>
+                        <Input
+                          fontSize={fSize}
+                          w={fieldsSize}
+                          id="carList[0].model"
+                          name="carList[0].model"
+                          type="text"
+                          variant="filled"
+                          onChange={formik.handleChange}
+                          value={formik.values.carList[0].model}
+                        />
+                      </div>
+                      <div className="field">
+                        <FormLabel htmlFor="text" fontSize={fSize}>
+                          Гос.Номер:
+                        </FormLabel>
+                        <Input
+                          fontSize={fSize}
+                          w={fieldsSize}
+                          id="carList[0].govNumber"
+                          name="carList[0].govNumber"
+                          type="text"
+                          variant="filled"
+                          onChange={formik.handleChange}
+                          value={formik.values.carList[0].govNumber}
+                        />
+                      </div>
+                      <div className="field">
+                        <FormLabel htmlFor="text" fontSize={fSize}>
+                          Год выпуска:
+                        </FormLabel>
+                        <Input
+                          fontSize={fSize}
+                          w={fieldsSize}
+                          id="carList[0].year"
+                          name="carList[0].year"
+                          type="text"
+                          variant="filled"
+                          onChange={formik.handleChange}
+                          value={formik.values.carList[0].year}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                )}
+                <div className="field">
+                  <span style={{ color: "red" }}>*</span>
+                  <Select
+                    isRequired
+                    id="isMilitary"
+                    name="isMilitary"
+                    onChange={formik.handleChange}
+                    placeholder="Отношение к воинской службе"
+                  >
+                    <option value="Военнообязанный">Военнообязанный</option>
+                    <option value="невоеннообязанный ">
+                      невоеннообязанный{" "}
+                    </option>
+                  </Select>
+                </div>
+                <FormLabel htmlFor="text" fontSize={fSize}>
+                  Внимательно прочитайте и ответьте, пожалуйста, на следующие
+                  вопросы
+                </FormLabel>
+                <div className="fieldsContex">
+                  <div className="fieldAnsw">
+                    <FormLabel htmlFor="text" fontSize={fSize}>
+                      Имеете ли Вы право на льготы согласно действующему
+                      законодательству?
+                    </FormLabel>
+                    <Checkbox
+                      id="isSVC"
+                      name="isSVC"
+                      onChange={formik.handleChange}
+                      isChecked={formik.values.isSVC}
+                      colorScheme="orange"
+                    >
+                      Да
+                    </Checkbox>
+                    {formik.values.isSVC && (
+                      <div className="field">
+                        <FormLabel htmlFor="text" fontSize={fSize}>
+                          Уточните
+                        </FormLabel>
+                        <Input
+                          fontSize={fSize}
+                          w={fieldsSize}
+                          id="isSVCAnswer"
+                          name="isSVCAnswer"
+                          type="text"
+                          variant="filled"
+                          onChange={formik.handleChange}
+                          value={formik.values.isSVCAnswer}
+                        />
+                      </div>
+                    )}
+                  </div>
+                  <div className="fieldAnsw">
+                    <FormLabel htmlFor="text" fontSize={fSize}>
+                      Имеете ли Вы просроченный заем?
+                    </FormLabel>
+                    <Checkbox
+                      id="isExpiredLoan"
+                      name="isExpiredLoan"
+                      onChange={formik.handleChange}
+                      isChecked={formik.values.isExpiredLoan}
+                      colorScheme="orange"
+                    >
+                      Да
+                    </Checkbox>
+                    {formik.values.isExpiredLoan && (
+                      <div className="field">
+                        <FormLabel htmlFor="text" fontSize={fSize}>
+                          Уточните
+                        </FormLabel>
+                        <Input
+                          fontSize={fSize}
+                          w={fieldsSize}
+                          id="isExpiredLoanAnswer"
+                          name="isExpiredLoanAnswer"
+                          type="text"
+                          variant="filled"
+                          onChange={formik.handleChange}
+                          value={formik.values.isExpiredLoanAnswer}
+                        />
+                      </div>
+                    )}
+                  </div>
+                  <div className="fieldAnsw">
+                    <FormLabel htmlFor="text" fontSize={fSize}>
+                      Привлекались ли Вы к уголовной ответственности?
+                    </FormLabel>
+                    <Checkbox
+                      id="isCriminal"
+                      name="isCriminal"
+                      onChange={formik.handleChange}
+                      isChecked={formik.values.isCriminal}
+                      colorScheme="orange"
+                    >
+                      Да
+                    </Checkbox>
+                    {formik.values.isCriminal && (
+                      <div className="field">
+                        <FormLabel htmlFor="text" fontSize={fSize}>
+                          Уточните
+                        </FormLabel>
+                        <Input
+                          fontSize={fSize}
+                          w={fieldsSize}
+                          id="isCriminalAnswer"
+                          name="isCriminalAnswer"
+                          type="text"
+                          variant="filled"
+                          onChange={formik.handleChange}
+                          value={formik.values.isCriminalAnswer}
+                        />
+                      </div>
+                    )}
+                  </div>
+                  <div className="fieldAnsw">
+                    <FormLabel htmlFor="text" fontSize={fSize}>
+                      Привлекались ли Ваши близкие родственники, члены семьи к
+                      уголовной ответственности?
+                    </FormLabel>
+                    <Checkbox
+                      id="isRelativeCriminal"
+                      name="isRelativeCriminal"
+                      onChange={formik.handleChange}
+                      isChecked={formik.values.isRelativeCriminal}
+                      colorScheme="orange"
+                    >
+                      Да
+                    </Checkbox>
+                    {formik.values.isRelativeCriminal && (
+                      <div className="field">
+                        <FormLabel htmlFor="text" fontSize={fSize}>
+                          Уточните
+                        </FormLabel>
+                        <Input
+                          fontSize={fSize}
+                          w={fieldsSize}
+                          id="isRelativeCriminalAnswer"
+                          name="isRelativeCriminalAnswer"
+                          type="text"
+                          variant="filled"
+                          onChange={formik.handleChange}
+                          value={formik.values.isRelativeCriminalAnswer}
+                        />
+                      </div>
+                    )}
+                  </div>
+                  <div className="fieldAnsw">
+                    <FormLabel htmlFor="text" fontSize={fSize}>
+                      Против Вас когда-либо возбуждалось уголовное дело?
+                    </FormLabel>
+                    <Checkbox
+                      id="isCriminalDelo"
+                      name="isCriminalDelo"
+                      onChange={formik.handleChange}
+                      isChecked={formik.values.isCriminalDelo}
+                      colorScheme="orange"
+                    >
+                      Да
+                    </Checkbox>
+                    {formik.values.isCriminalDelo && (
+                      <div className="field">
+                        <FormLabel htmlFor="text" fontSize={fSize}>
+                          Уточните
+                        </FormLabel>
+                        <Input
+                          fontSize={fSize}
+                          w={fieldsSize}
+                          id="isCriminalDeloAnswer"
+                          name="isCriminalDeloAnswer"
+                          type="text"
+                          variant="filled"
+                          onChange={formik.handleChange}
+                          value={formik.values.isCriminalDeloAnswer}
+                        />
+                      </div>
+                    )}
+                  </div>
+                  <div className="fieldAnsw">
+                    <FormLabel htmlFor="text" fontSize={fSize}>
+                      Выплачиваете ли Вы алименты?
+                    </FormLabel>
+                    <Checkbox
+                      id="isAlimentPayer"
+                      name="isAlimentPayer"
+                      onChange={formik.handleChange}
+                      isChecked={formik.values.isAlimentPayer}
+                      colorScheme="orange"
+                    >
+                      Да
+                    </Checkbox>
+                    {formik.values.isAlimentPayer && (
+                      <div className="field">
+                        <FormLabel htmlFor="text" fontSize={fSize}>
+                          Уточните
+                        </FormLabel>
+                        <Input
+                          fontSize={fSize}
+                          w={fieldsSize}
+                          id="isAlimentPayerAnswer"
+                          name="isAlimentPayerAnswer"
+                          type="text"
+                          variant="filled"
+                          onChange={formik.handleChange}
+                          value={formik.values.isAlimentPayerAnswer}
+                        />
+                      </div>
+                    )}
+                  </div>
+                  <div className="fieldAnsw">
+                    <FormLabel htmlFor="text" fontSize={fSize}>
+                      Привлекались ли Вы к административной ответственности?
+                    </FormLabel>
+                    <Checkbox
+                      id="isHooligan"
+                      name="isHooligan"
+                      onChange={formik.handleChange}
+                      isChecked={formik.values.isHooligan}
+                      colorScheme="orange"
+                    >
+                      Да
+                    </Checkbox>
+                    {formik.values.isHooligan && (
+                      <div className="field">
+                        <FormLabel htmlFor="text" fontSize={fSize}>
+                          Уточните
+                        </FormLabel>
+                        <Input
+                          fontSize={fSize}
+                          w={fieldsSize}
+                          id="isHooliganAnswer"
+                          name="isHooliganAnswer"
+                          type="text"
+                          variant="filled"
+                          onChange={formik.handleChange}
+                          value={formik.values.isHooliganAnswer}
+                        />
+                      </div>
+                    )}
+                  </div>
+                </div>
+                <div className="field">
+                  <FormLabel htmlFor="text" fontSize={fSize}>
+                    Дополнительная информация о себе:
+                  </FormLabel>
+                  <Textarea
+                    fontSize={fSize}
+                    id="additionalInfo"
+                    name="additionalInfo"
+                    type="text"
+                    variant="filled"
+                    onChange={formik.handleChange}
+                    value={formik.values.additionalInfo}
+                  />
+                </div>
+                <div className="field">
+                  <FormLabel htmlFor="text" fontSize={fSize}>
+                    Есть ли у Вас дополнительный доход (работа,
+                    дистрибьютерство/представительство в торговых компаниях):
+                  </FormLabel>
+                  <Textarea
+                    fontSize={fSize}
+                    id="isExtraIncome"
+                    name="isExtraIncome"
+                    type="text"
+                    variant="filled"
+                    onChange={formik.handleChange}
+                    value={formik.values.isExtraIncome}
+                  />
+                </div>
+                <div className="buttons">
+                  <Button
+                    colorScheme="orange"
+                    width="30%"
+                    marginLeft="50px"
+                    onClick={() => {
+                      setPage(5);
+                    }}
+                  >
+                    Назад
+                  </Button>
+                  <Button
+                    colorScheme="orange"
+                    width="30%"
+                    marginLeft="50px"
+                    type="submit"
+                    // onClick={() => {
+                    //   console.log(formik.values);
+                    // }}
+                  >
+                    Отправить
                   </Button>
                 </div>
               </VStack>
