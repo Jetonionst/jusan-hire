@@ -17,8 +17,8 @@ public class AnketaController {
     @Autowired
     private AnketaService anketaService;
     @PostMapping("/submit")
-    public int postAnketa(HttpServletRequest request, AnketaDto anketaDto) {
-//        anketaService.create(anketaDto);
+    public int postAnketa(@RequestBody AnketaDto anketaDto) {
+        anketaService.createAnketa(anketaDto);
         return 100;
     }
 
