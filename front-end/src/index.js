@@ -18,7 +18,7 @@ root.render(
         <Route path="*" exact={true} element={<NotFoundPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/registration" element={<Registration />} />
-        <Route path="/anketa" element={<Anketa />} />
+        <Route path="/form" element={<Anketa />} />
       </Routes>
     </Router>
   </React.StrictMode>
