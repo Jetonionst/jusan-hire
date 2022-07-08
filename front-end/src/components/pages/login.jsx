@@ -25,42 +25,27 @@ export default function Login() {
           <Formik
             bg="#23252d"
             initialValues={{
-              login: "",
+              username: "",
               password: "",
             }}
             onSubmit={async (values) => {
               try {
-                const req = await fetch(
-                  "http://localhost:8189/api/v1/app/auth",
-                  {
-                    method: "POST",
-                    body: JSON.stringify(values, null, 2),
-                    headers: {
-                      "Content-Type": "application/json",
-                      Accept: "application/json",
-                      "Access-Control-Allow-Origin": "*",
-                    },
-                  }
-                );
+                const req = await fetch("http://localhost:8081/api/v1/auth", {
+                  method: "POST",
+                  body: JSON.stringify(values, null, 2),
+                  headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json",
+                    // "Access-Control-Allow-Origin": "*",
+                  },
+                });
+                console.log(req);
                 const reqJ = await req.json();
 
-                if (reqJ.roles) {
-                  sessionStorage.setItem("role", reqJ.roles[0]);
-                }
+                console.log(reqJ);
 
                 if (reqJ.token) {
                   sessionStorage.setItem("token", `${reqJ.token}`);
-                  const userReq = await fetch(
-                    "http://localhost:8189/api/v1/app/user",
-                    {
-                      method: "GET",
-                      headers: {
-                        "Content-Type": "application/json",
-                        Accept: "application/json",
-                        Authorization: `Bearer ${reqJ.token}`,
-                      },
-                    }
-                  );
 
                   // const userRes = await userReq.json();
                   // sessionStorage.setItem(
@@ -68,13 +53,14 @@ export default function Login() {
                   //   `${userRes.firstName} ${userRes.lastName}`
                   // );
                   // sessionStorage.setItem('login', `${userRes.login}`);
-                  window.location.pathname = "/";
+                  // window.location.pathname = "/";
+                  alert("succses");
                 } else {
                   AlertMessage(reqJ.message, "error");
                 }
                 //
               } catch (error) {
-                window.location.pathname = "/500";
+                // window.location.pathname = "/500";
                 console.log(error);
               }
             }}
@@ -90,9 +76,9 @@ export default function Login() {
                     <Field
                       as={Input}
                       bg="white"
-                      id="login"
-                      name="login"
-                      type="login"
+                      id="username"
+                      name="username"
+                      type="text"
                       // variant="filled"
                     />
                   </FormControl>

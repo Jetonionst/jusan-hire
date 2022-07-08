@@ -17,4 +17,6 @@
 }
 
 .fieldsContex {
+  display: flex;
+  flex-wrap: wrap;
 }
