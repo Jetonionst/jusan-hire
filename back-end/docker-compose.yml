@@ -1,0 +1,7 @@
+services:
+  web:
+    build: .
+    image: jusan-backend:stable
+    container_name: api
+    ports:
+      - 8081:8081
