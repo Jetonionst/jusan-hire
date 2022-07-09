@@ -20,14 +20,14 @@ public class AnketaEntity {
     private String iin;
     private String fio;
     private String previousName;
-    private Date birthDate;
+    private String birthDate;
     private String birthPlace;
     private String nationality;
     private String citizenship;
     private String passportSerie;
     private String passportNumber;
     private String passportIssuedBy;
-    private Date passportIssuedAt;
+    private String passportIssuedAt;
     private String homePhone;
     private String workPhone;
     private String mobilePhone;
