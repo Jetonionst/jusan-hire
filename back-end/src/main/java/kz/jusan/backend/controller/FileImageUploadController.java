@@ -16,7 +16,7 @@ import java.nio.file.StandardCopyOption;
 
 @RestController
 @RequestMapping(path="/api/v1/upload")
-public class ImageUploadController {
+public class FileImageUploadController {
 
     @PostMapping(value = "/image", produces = {MediaType.IMAGE_JPEG_VALUE, "application/json"})
     public String uploadImage(@RequestParam("image") MultipartFile file) throws Exception {
@@ -26,6 +26,21 @@ public class ImageUploadController {
         System.out.println(file.getSize());
 
         String imgPath = new ClassPathResource("static/image").getFile().getAbsolutePath();
+        Files.copy(file.getInputStream(), Paths.get(imgPath+ File.separator + file.getOriginalFilename()),
+                StandardCopyOption.REPLACE_EXISTING);
+        return "Success";
+
+
+    }
+
+    @PostMapping(value = "/file", produces = {MediaType.IMAGE_JPEG_VALUE, "application/json"})
+    public String uploadFile(@RequestParam("file") MultipartFile file) throws Exception {
+        System.out.println(file.getOriginalFilename());
+        System.out.println(file.getName());
+        System.out.println(file.getContentType());
+        System.out.println(file.getSize());
+
+        String imgPath = new ClassPathResource("static/files").getFile().getAbsolutePath();
         Files.copy(file.getInputStream(), Paths.get(imgPath+ File.separator + file.getOriginalFilename()),
                 StandardCopyOption.REPLACE_EXISTING);
         return "Success";
