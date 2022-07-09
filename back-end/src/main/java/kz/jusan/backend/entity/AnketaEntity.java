@@ -1,12 +1,14 @@
 package kz.jusan.backend.entity;
 
+import kz.jusan.backend.dto.EducationDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -33,4 +35,21 @@ public class AnketaEntity {
     private String relativeFIO;
     private String relativeLevel;
     private String email;
+    private String permanentCity;
+    private String permanentRegion;
+    private String permanentDistrict;
+    private String permanentStreet;
+    private String permanentHouse;
+    private String permanentCorpus;
+    private String permanentApartment;
+    private boolean isAddressMatches = false;
+    private String factualCity;
+    private String factualRegion;
+    private String factualDistrict;
+    private String factualStreet;
+    private String factualHouse;
+    private String factualCorpus;
+    private String factualApartment;
+    @ElementCollection
+    private List<EducationDto> educationList = new ArrayList<EducationDto>();
 }

@@ -37,27 +37,27 @@ public class AnketaDto {
     private String relativeLevel;
     @NotBlank
     private String email;
-//    @NotBlank
-//    private String permanentCity;
-//    @NotBlank
-//    private String permanentRegion;
-//    @NotBlank
-//    private String permanentDistrict;
-//    @NotBlank
-//    private String permanentStreet;
-//    @NotBlank
-//    private String permanentHouse;
-//    private String permanentCorpus;
-//    private String permanentApartment;
-//    private boolean isAddressMatches = false;
-//    private String factualCity;
-//    private String factualRegion;
-//    private String factualDistrict;
-//    private String factualStreet;
-//    private String factualHouse;
-//    private String factualCorpus;
-//    private String factualApartment;
-//    private List<EducationDto> educationList;
+    @NotBlank
+    private String permanentCity;
+    @NotBlank
+    private String permanentRegion;
+    @NotBlank
+    private String permanentDistrict;
+    @NotBlank
+    private String permanentStreet;
+    @NotBlank
+    private String permanentHouse;
+    private String permanentCorpus;
+    private String permanentApartment;
+    private boolean isAddressMatches = false;
+    private String factualCity;
+    private String factualRegion;
+    private String factualDistrict;
+    private String factualStreet;
+    private String factualHouse;
+    private String factualCorpus;
+    private String factualApartment;
+    private List<EducationDto> educationList;
 //    private List<ExtracurricularDto> extracurricularList;
 //    private List<WorkplaceDto> lastThreeWorkplaces;
 //    private List<RecommendationPersonDto> threeRecommendationPeople;
