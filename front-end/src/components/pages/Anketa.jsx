@@ -262,17 +262,17 @@ export default function Anketa() {
     },
     onSubmit: async (values) => {
       try {
-        // alert(JSON.stringify(values, null, 2));
-        // const req = await fetch("http://localhost:8081/api/v1/anketa/submit", {
-        //   method: "POST",
-        //   body: JSON.stringify(values, null, 2),
-        //   headers: {
-        //     "Content-Type": "application/json",
-        //     Accept: "*/*",
-        //     // "Access-Control-Allow-Origin": "*",
-        //   },
-        // });
-        // console.log(req);
+        alert(JSON.stringify(values, null, 2));
+        const req = await fetch("http://localhost:8081/api/v1/anketa/submit", {
+          method: "POST",
+          body: JSON.stringify(values, null, 2),
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "*/*",
+            "Access-Control-Allow-Origin": "*",
+          },
+        });
+        console.log(req);
         console.log(values);
       } catch (err) {
         console.log(err);
