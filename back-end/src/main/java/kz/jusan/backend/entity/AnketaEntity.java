@@ -1,6 +1,6 @@
 package kz.jusan.backend.entity;
 
-import kz.jusan.backend.dto.EducationDto;
+import kz.jusan.backend.dto.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -52,4 +52,42 @@ public class AnketaEntity {
     private String factualApartment;
     @ElementCollection
     private List<EducationDto> educationList = new ArrayList<EducationDto>();
+    @ElementCollection
+    private List<ExtracurricularDto> extracurricularList;
+    @ElementCollection
+    private List<WorkplaceDto> lastThreeWorkplaces;
+    @ElementCollection
+    private List<RecommendationPersonDto> threeRecommendationPeople;
+    private String marriageStatus;
+    @ElementCollection
+    private List<LifeCompanionDto> lifeCompanion;
+    @ElementCollection
+    private List<ChildDto> chilrenList;
+    @ElementCollection
+    private List<RelativeDto> relativeList;
+    @ElementCollection
+    private List<CommercialOrganisationDto> commercialOrganisationList;
+    private boolean isRelativeJusanEmployee;
+    @ElementCollection
+    private List<RelativeJusanEmployeeDto> relativeJusanEmployeeList;
+    private boolean isCarOwner;
+    @ElementCollection
+    private List<CarDto> carList;
+    private boolean isMilitary;
+    private boolean isSVC;
+    private String isSVCAnswer; // WARNING: before it was svc
+    private boolean isExpiredLoan;
+    private String isExpiredLoanAnswer;
+    private boolean isCriminal;
+    private String isCriminalAnswer;
+    private boolean isRelativeCriminal;
+    private String isRelativeCriminalAnswer;
+    private boolean isCriminalDelo;
+    private String isCriminalDeloAnswer;
+    private boolean isAlimentPayer;
+    private String isAlimentPayerAnswer;
+    private boolean isHooligan;
+    private String isHooliganAnswer;
+    private String additionalInfo;
+    private boolean isExtraIncome;
 }

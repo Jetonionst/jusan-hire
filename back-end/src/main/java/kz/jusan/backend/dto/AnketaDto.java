@@ -58,26 +58,35 @@ public class AnketaDto {
     private String factualCorpus;
     private String factualApartment;
     private List<EducationDto> educationList;
-//    private List<ExtracurricularDto> extracurricularList;
-//    private List<WorkplaceDto> lastThreeWorkplaces;
-//    private List<RecommendationPersonDto> threeRecommendationPeople;
-//    private String marriageStatus;
-//    private List<ChildDto> chilrenList;
-//    private List<RelativeDto> relativeList;
-//    private List<CommercialOrganisationDto> commercialOrganisationList;
-//    private boolean isRelativeJusanEmployee;
-//    private List<RelativeJusanEmployeeDto> relativeJusanEmployeeList;
-//    private boolean isCarOwner;
-//    private List<CarDto> carList;
-//    private boolean isMilitary;
-//    private boolean isSVC;
-//    private String svc;
-//    private boolean isExpiredLoan;
-//    private boolean isCriminal;
-//    private boolean isRelativeCriminal;
-//    private boolean isCriminalDelo;
-//    private boolean isAlimentPayer;
-//    private boolean isHooligan;
-//    private String additionalInfo;
-//    private boolean isExtraIncome;
+    private List<ExtracurricularDto> extracurricularList;
+    private List<WorkplaceDto> lastThreeWorkplaces;
+    private List<RecommendationPersonDto> threeRecommendationPeople;
+    private String marriageStatus;
+
+    private List<LifeCompanionDto> lifeCompanion;
+
+    private List<ChildDto> chilrenList;
+    private List<RelativeDto> relativeList;
+    private List<CommercialOrganisationDto> commercialOrganisationList;
+    private boolean isRelativeJusanEmployee;
+    private List<RelativeJusanEmployeeDto> relativeJusanEmployeeList;
+    private boolean isCarOwner;
+    private List<CarDto> carList;
+    private boolean isMilitary;
+    private boolean isSVC;
+    private String isSVCAnswer; // WARNING: before it was svc
+    private boolean isExpiredLoan;
+    private String isExpiredLoanAnswer;
+    private boolean isCriminal;
+    private String isCriminalAnswer;
+    private boolean isRelativeCriminal;
+    private String isRelativeCriminalAnswer;
+    private boolean isCriminalDelo;
+    private String isCriminalDeloAnswer;
+    private boolean isAlimentPayer;
+    private String isAlimentPayerAnswer;
+    private boolean isHooligan;
+    private String isHooliganAnswer;
+    private String additionalInfo;
+    private boolean isExtraIncome;
 }
