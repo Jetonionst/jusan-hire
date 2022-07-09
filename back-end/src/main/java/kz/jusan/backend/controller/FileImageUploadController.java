@@ -25,7 +25,8 @@ public class FileImageUploadController {
         System.out.println(file.getContentType());
         System.out.println(file.getSize());
 
-        String imgPath = new ClassPathResource("static/image").getFile().getAbsolutePath();
+        String imgPath = "/tmp";
+        //String imgPath = new ClassPathResource("static/image").getFile().getAbsolutePath();
         Files.copy(file.getInputStream(), Paths.get(imgPath+ File.separator + file.getOriginalFilename()),
                 StandardCopyOption.REPLACE_EXISTING);
         return "Success";
@@ -40,7 +41,7 @@ public class FileImageUploadController {
         System.out.println(file.getContentType());
         System.out.println(file.getSize());
 
-        String imgPath = new ClassPathResource("static/files").getFile().getAbsolutePath();
+        String imgPath = "/tmp";
         Files.copy(file.getInputStream(), Paths.get(imgPath+ File.separator + file.getOriginalFilename()),
                 StandardCopyOption.REPLACE_EXISTING);
         return "Success";
