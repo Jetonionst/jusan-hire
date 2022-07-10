@@ -54,6 +54,7 @@ public class PdfGenerator {
             throws DocumentException {
         PdfPTable table = new PdfPTable(2);
         table.setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
+        table.setWidthPercentage(100);
         table.addCell(new Paragraph("ФИО", font));
         table.addCell(new Paragraph(anketa.getFio()+" ", font));
         table.addCell(new Paragraph("Если Вы сменили фамилию, укажите, пожалуйста, прежнюю", font));
@@ -74,7 +75,8 @@ public class PdfGenerator {
 
     private static void createTable2(Document document, AnketaEntity anketa, Font font) throws DocumentException {
         PdfPTable table = new PdfPTable(2);
-        table.setHorizontalAlignment(Element.ALIGN_BASELINE);
+        table.setHorizontalAlignment(Element.ALIGN_LEFT);
+        table.setWidthPercentage(100);
         table.addCell(new Paragraph("Телефоны", font));
         PdfPTable phoneTypes = new PdfPTable(2);
         phoneTypes.addCell(new Paragraph("домашний", font));
@@ -93,20 +95,21 @@ public class PdfGenerator {
 
     private static void createTable3(Document document, AnketaEntity anketa, Font font) throws DocumentException {
         PdfPTable table = new PdfPTable(2);
-        table.setHorizontalAlignment(Element.ALIGN_BASELINE);
+        table.setHorizontalAlignment(Element.ALIGN_LEFT);
+        table.setWidthPercentage(100);
         table.addCell(new Paragraph("Адрес постоянной регистрации:", font));
-        table.addCell(new Paragraph("Город: "+anketa.getPermanentCity(), font));
-        table.addCell(new Paragraph("Область: "+anketa.getPermanentRegion(), font));
-        table.addCell(new Paragraph("Район: "+anketa.getPermanentDistrict(), font));
-        table.addCell(new Paragraph("Улица: "+anketa.getPermanentStreet(), font));
-        table.addCell(new Paragraph(String.format("Дом: %s, Корпус: %s, Квартира: %s",
-                anketa.getPermanentHouse(), anketa.getPermanentCorpus(), anketa.getPermanentApartment()), font));
         table.addCell(new Paragraph("Адрес фактического проживания: \n" +
                 "\uF0A8 совпадает с адресом постоянной регистрации\n", font));
+        table.addCell(new Paragraph("Город: "+anketa.getPermanentCity(), font));
         table.addCell(new Paragraph("Город: "+anketa.getFactualCity(), font));
+        table.addCell(new Paragraph("Область: "+anketa.getPermanentRegion(), font));
         table.addCell(new Paragraph("Область: "+anketa.getFactualRegion(), font));
+        table.addCell(new Paragraph("Район: "+anketa.getPermanentDistrict(), font));
         table.addCell(new Paragraph("Район: "+anketa.getFactualDistrict(), font));
+        table.addCell(new Paragraph("Улица: "+anketa.getPermanentStreet(), font));
         table.addCell(new Paragraph("Улица: "+anketa.getFactualStreet(), font));
+        table.addCell(new Paragraph(String.format("Дом: %s, Корпус: %s, Квартира: %s",
+                anketa.getPermanentHouse(), anketa.getPermanentCorpus(), anketa.getPermanentApartment()), font));
         table.addCell(new Paragraph(String.format("Дом: %s, Корпус: %s, Квартира: %s",
                 anketa.getFactualHouse(), anketa.getFactualCorpus(), anketa.getFactualApartment()), font));
         document.add(table);
