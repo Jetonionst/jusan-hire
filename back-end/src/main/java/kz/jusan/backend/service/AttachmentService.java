@@ -32,6 +32,7 @@ public class AttachmentService {
                 StandardCopyOption.REPLACE_EXISTING);
         Attachment attachment = Attachment.builder()
                 .fileName(fileName)
+                .iin(iin)
                 .fileType(file.getContentType())
                 .filePath(targetPath.toString())
                 .build();
@@ -46,5 +47,9 @@ public class AttachmentService {
 
     public List<Attachment> findAllAttachments() {
         return attachmentRepository.findAll();
+    }
+
+    public List<Attachment> findAttachmentsByIin(String iin) {
+        return attachmentRepository.findAttachmentsByIin(iin);
     }
 }
