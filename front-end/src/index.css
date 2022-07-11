@@ -1,3 +1,9 @@
+/* body {
+  padding-top: 25px;
+  padding-bottom: 25px;
+  background-color: #edf2f7;
+} */
+
 .autorizationNavElemes {
   display: flex;
 }
@@ -30,4 +36,20 @@
 .fieldAnsw {
   display: block;
   width: 100%;
+}
+
+.addBtn {
+  margin-top: 15px;
+  display: block;
+  width: 100%;
+}
+.checker {
+  width: 100%;
+  display: block;
+  margin-top: 5px;
+}
+
+.bg {
+  background-color: #edf2f7;
+  height: 100%;
 }
