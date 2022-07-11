@@ -1,20 +1,15 @@
 package kz.jusan.backend.service;
 
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
-
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.BaseFont;
-import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.text.pdf.PdfWriter;
 import kz.jusan.backend.dto.*;
 import kz.jusan.backend.entity.AnketaEntity;
-import org.springframework.security.core.parameters.P;
+
 
 public class PdfGenerator {
     public static String FILE = "src/main/resources/templates/output.pdf";
@@ -30,10 +25,6 @@ public class PdfGenerator {
     public static final String TIMES_BOLD_ITALIC = "/static/fonts/TIMCYRBI.ttf";
     public static final String TIMES_ITALIC = "/static/fonts/TIMCYRI.ttf";
 
-
-    // iText allows to add metadata to the PDF which can be viewed in your Adobe
-    // Reader
-    // under File -> Properties
     public static void addMetaData(Document document, AnketaEntity anketa) {
         document.addTitle(anketa.getIin());
         document.addSubject("Using iText");
@@ -79,6 +70,7 @@ public class PdfGenerator {
                 "Телефон"
         ));
         createTable7(document, anketa, smallBold, headers);
+        document.add(new Paragraph("\n"));
         PdfPTable table = new PdfPTable(2);
         table.setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
         table.setWidthPercentage(100);
@@ -114,6 +106,50 @@ public class PdfGenerator {
                 "Являетесь ли Вы руководителем/учредителем (соучредителем), членом совета директоров и/или правления коммерческих организаций (ИП/ТОО)",
                 "Наименование, ИНН, адрес, вид деятельности, телефон"));
         createTable11(document, anketa, smallBold, headers);
+        document.add(new Paragraph("\n"));
+        PdfPTable isRelativeTable = new PdfPTable(2);
+        isRelativeTable.setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
+        isRelativeTable.setWidthPercentage(100);
+        isRelativeTable.addCell(new Paragraph("Имеете ли Вы родственников, членов семьи, работающих в АО \" Jusan Bank\" " +
+                "или связанных с деятельностью  АО \"Jusan Bank\"", smallBold));
+        String isRelativeJusan = getBoolAsYesOrNo(anketa.isRelativeJusanEmployee());
+        isRelativeTable.addCell(new Paragraph(isRelativeJusan, smallBold));
+        document.add(isRelativeTable);
+        headers = new ArrayList<>(Arrays.asList(
+                "Степень родства",
+                "ФИО",
+                "Подразделение, должность"));
+        createTable12(document, anketa, smallBold, headers);
+        document.add(new Paragraph("\n"));
+        createTable13(document, anketa, smallBold);
+        document.add(new Paragraph("\n"));
+        createTable14(document, anketa, smallBold);
+        document.add(new Paragraph("\n"));
+        createTable15(document, anketa, smallBold);
+        document.add(new Paragraph("\n"));
+        headers = new ArrayList<>(Arrays.asList(
+                "Внимательно прочитайте и ответьте, пожалуйста, на следующие вопросы",
+                "ДА",
+                "НЕТ",
+                "Раскрыть"));
+        createTable16(document, anketa, smallBold, headers);
+        document.add(new Paragraph("\n"));
+        createTable17(document, anketa, smallBold);
+        document.add(new Paragraph("\nВ соответствии с требованиями Закона Республики Казахстан «О персональных " +
+                "данных и их защите» даю  АО \" Jusan Bank\" (далее – «Банк») безусловное согласие на сбор, " +
+                "обработку, хранение и распространение Банком информации обо мне [и представляемом мной лице]," +
+                " включая мои персональные данные [и персональные данные представляемого мной лица], в том числе" +
+                " биометрические, зафиксированные на электронном, бумажном и любом ином носителе, а также происходящие" +
+                " в них в будущем изменения и дополнения, в связи с возникновением с Банком, в том числе в будущем," +
+                " любых правоотношений, связанных, включая, но не ограничиваясь, с банковским и/или иным обслуживанием.\n" +
+                "При этом мои персональные данные [и персональные данные представляемого мной лица] должны " +
+                "распространяться Банком с учетом ограничений, установленных законодательством Республики Казахстан," +
+                " в том числе, ст. 50 Закона Республики Казахстан «О банках и банковской деятельности в Республике" +
+                " Казахстан».", smallBold));
+        document.add(new Paragraph("\n" +
+                "ФИО___________________________   Подпись _________________________\n" +
+                "\n" +
+                "Дата  ____ /____________ / 20 __ г.\t", smallBold));
     }
 
     private static void createTable1(Document document, AnketaEntity anketa, Font font)
@@ -314,5 +350,140 @@ public class PdfGenerator {
                     + comm.getType() + ", "+comm.getPhone(), font));
         }
         document.add(table);
+    }
+
+    public static void createTable12(Document document, AnketaEntity anketa, Font font, List<String> headers) throws DocumentException {
+        PdfPTable table = new PdfPTable(headers.size());
+        table.setHorizontalAlignment(Element.ALIGN_LEFT);
+        table.setWidthPercentage(100);
+        for (String header: headers) {
+            table.addCell(new Paragraph(header, font));
+        }
+        for (RelativeJusanEmployeeDto relative: anketa.getRelativeJusanEmployeeList()) {
+            table.addCell(new Paragraph(relative.getLevel(), font));
+            table.addCell(new Paragraph(relative.getFio(), font));
+            table.addCell(new Paragraph(relative.getDivision()+", "+relative.getMajor(), font));
+        }
+        document.add(table);
+    }
+
+    public static void createTable13(Document document, AnketaEntity anketa, Font font) throws DocumentException {
+        PdfPTable table = new PdfPTable(3);
+        table.setHorizontalAlignment(Element.ALIGN_LEFT);
+        table.setWidthPercentage(100);
+        table.addCell(new Paragraph("Наличие автомобиля", font));
+        table.addCell(new Paragraph(getBoolAsYesOrNo(anketa.isCarOwner()), font));
+        PdfPTable tableInner = new PdfPTable(3);
+        tableInner.addCell(new Paragraph("Модель", font));
+        tableInner.addCell(new Paragraph("Год выпуска", font));
+        tableInner.addCell(new Paragraph("Гос. номер", font));
+        for (CarDto car: anketa.getCarList()) {
+            table.addCell(new Paragraph(car.getModel(), font));
+            table.addCell(new Paragraph(car.getYear(), font));
+            table.addCell(new Paragraph(car.getGovNumber(), font));
+        }
+        document.add(table);
+    }
+
+    public static void createTable14(Document document, AnketaEntity anketa, Font font) throws DocumentException {
+        PdfPTable table = new PdfPTable(2);
+        table.setHorizontalAlignment(Element.ALIGN_LEFT);
+        table.setWidthPercentage(100);
+        table.addCell(new Paragraph("Отношение к воинской службе", font));
+        if (anketa.isMilitary()){
+            table.addCell(new Paragraph("Военнообязанный", font));
+        } else {
+            table.addCell(new Paragraph("Невоеннообязанный", font));
+        }
+        document.add(table);
+    }
+
+    public static void createTable15(Document document, AnketaEntity anketa, Font font) throws DocumentException {
+        PdfPTable table = new PdfPTable(2);
+        table.setHorizontalAlignment(Element.ALIGN_LEFT);
+        table.setWidthPercentage(100);
+        table.addCell(new Paragraph("Имеете ли Вы право на льготы согласно действующему законодательству?", font));
+        table.addCell(new Paragraph(getBoolAsYesOrNo(anketa.isSVC()), font));
+        document.add(table);
+    }
+
+    public static void createTable16(Document document, AnketaEntity anketa, Font font, List<String> headers) throws DocumentException {
+        PdfPTable table = new PdfPTable(headers.size());
+        table.setHorizontalAlignment(Element.ALIGN_LEFT);
+        table.setWidthPercentage(100);
+        for (String header: headers) {
+            table.addCell(new Paragraph(header, font));
+        }
+        table.addCell(new Paragraph("Имеете ли Вы просроченный заем?", font));
+        if (anketa.isExpiredLoan()){
+            table.addCell(new Paragraph("ДА", font));
+            table.addCell(new Paragraph("", font));
+        } else {
+            table.addCell(new Paragraph("", font));
+            table.addCell(new Paragraph("НЕТ", font));
+        }
+        table.addCell(new Paragraph(anketa.getIsExpiredLoanAnswer(), font));
+        table.addCell(new Paragraph("Привлекались ли Вы к уголовной ответственности?", font));
+        if (anketa.isCriminal()){
+            table.addCell(new Paragraph("ДА", font));
+            table.addCell(new Paragraph("", font));
+        } else {
+            table.addCell(new Paragraph("", font));
+            table.addCell(new Paragraph("НЕТ", font));
+        }
+        table.addCell(new Paragraph(anketa.getIsCriminalAnswer(), font));
+        table.addCell(new Paragraph("Привлекались ли Ваши близкие родственники, члены семьи  к уголовной ответственности?", font));
+        if (anketa.isRelativeCriminal()){
+            table.addCell(new Paragraph("ДА", font));
+            table.addCell(new Paragraph("", font));
+        } else {
+            table.addCell(new Paragraph("", font));
+            table.addCell(new Paragraph("НЕТ", font));
+        }
+        table.addCell(new Paragraph(anketa.getIsRelativeCriminalAnswer(), font));
+        table.addCell(new Paragraph("Против Вас когда-либо возбуждалось уголовное дело?", font));
+        if (anketa.isCriminalDelo()){
+            table.addCell(new Paragraph("ДА", font));
+            table.addCell(new Paragraph("", font));
+        } else {
+            table.addCell(new Paragraph("", font));
+            table.addCell(new Paragraph("НЕТ", font));
+        }
+        table.addCell(new Paragraph(anketa.getIsCriminalDeloAnswer(), font));
+        table.addCell(new Paragraph("Выплачиваете ли Вы алименты?", font));
+        if (anketa.isAlimentPayer()){
+            table.addCell(new Paragraph("ДА", font));
+            table.addCell(new Paragraph("", font));
+        } else {
+            table.addCell(new Paragraph("", font));
+            table.addCell(new Paragraph("НЕТ", font));
+        }
+        table.addCell(new Paragraph(anketa.getIsAlimentPayerAnswer(), font));
+        table.addCell(new Paragraph("Привлекались ли Вы к административной ответственности?", font));
+        if (anketa.isHooligan()){
+            table.addCell(new Paragraph("ДА", font));
+            table.addCell(new Paragraph("", font));
+        } else {
+            table.addCell(new Paragraph("", font));
+            table.addCell(new Paragraph("НЕТ", font));
+        }
+        table.addCell(new Paragraph(anketa.getIsHooliganAnswer(), font));
+        document.add(table);
+    }
+
+    public static void createTable17(Document document, AnketaEntity anketa, Font font) throws DocumentException {
+        PdfPTable table = new PdfPTable(2);
+        table.setHorizontalAlignment(Element.ALIGN_LEFT);
+        table.setWidthPercentage(100);
+        table.addCell(new Paragraph("Дополнительная информация о себе:", font));
+        table.addCell(new Paragraph(anketa.getAdditionalInfo(), font));
+        table.addCell(new Paragraph("Есть ли у Вас дополнительный доход (работа, дистрибьютерство/представительство в торговых компаниях)", font));
+        table.addCell(new Paragraph(getBoolAsYesOrNo(anketa.isExtraIncome()), font));
+        document.add(table);
+    }
+
+    public static String getBoolAsYesOrNo(boolean bool){
+        if (bool) return "ДА";
+        else return "НЕТ";
     }
 }
