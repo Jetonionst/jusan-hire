@@ -53,3 +53,6 @@
   background-color: #edf2f7;
   height: 100%;
 }
+.buttons {
+  display: flex;
+}

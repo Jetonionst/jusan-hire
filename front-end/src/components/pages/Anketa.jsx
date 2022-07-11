@@ -1,5 +1,6 @@
 import { useFormik } from "formik";
 import { InfoIcon } from "@chakra-ui/icons";
+import { Tooltip } from "@chakra-ui/react";
 import {
   Box,
   Button,
@@ -11,10 +12,11 @@ import {
   Input,
   Select,
   Textarea,
-  Tooltip,
   VStack,
 } from "@chakra-ui/react";
 import { useState } from "react";
+import AlertMsg from "../alert/alert";
+import Service from "../service/service";
 
 export default function Anketa() {
   const [page, setPage] = useState(1);
@@ -207,24 +209,40 @@ export default function Anketa() {
       isExtraIncome: "",
     },
     onSubmit: async (values) => {
+      // try {
+      //   alert(JSON.stringify(values, null, 2));
+      //   const req = await fetch("http://localhost:8081/api/v1/anketa/submit", {
+      //     method: "POST",
+      //     body: JSON.stringify(values, null, 2),
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //       Accept: "*/*",
+      //       "Access-Control-Allow-Origin": "*",
+      //     },
+      //   });
+      //   console.log(req);
+      //   console.log(values);
+      // } catch (err) {
+      //   console.log(err);
+      // }
       try {
-        alert(JSON.stringify(values, null, 2));
-        const req = await fetch("http://localhost:8081/api/v1/anketa/submit", {
-          method: "POST",
-          body: JSON.stringify(values, null, 2),
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "*/*",
-            "Access-Control-Allow-Origin": "*",
-          },
-        });
-        console.log(req);
-        console.log(values);
+        const requestToUpload = await Service("uploadForm", values);
+        console.log("step1");
+        if (requestToUpload) {
+          console.log("step2");
+          const requestToDownload = await Service("downloadForm", values);
+          if (requestToDownload) {
+            console.log("step3");
+            AlertMsg("download");
+          }
+        }
       } catch (err) {
         console.log(err);
       }
     },
   });
+
+  const [isFormdownloaded, setIsFormDownloaded] = useState(false);
   const [eduListlength, setEduListlength] = useState(0);
   const [eduList] = useState([
     <div className="fieldsContex">
@@ -2993,7 +3011,7 @@ export default function Anketa() {
                       </option>
                     </Select>
                   </div>
-                  <FormLabel htmlFor="text" fontSize={fSize}>
+                  <FormLabel htmlFor="text">
                     Внимательно прочитайте и ответьте, пожалуйста, на следующие
                     вопросы
                   </FormLabel>
@@ -3264,7 +3282,7 @@ export default function Anketa() {
                   <div className="buttons">
                     <Button
                       colorScheme="orange"
-                      width="30%"
+                      width="25%"
                       marginLeft="50px"
                       onClick={() => {
                         setPage(5);
@@ -3273,16 +3291,46 @@ export default function Anketa() {
                       Назад
                     </Button>
                     <Button
-                      colorScheme="orange"
-                      width="30%"
+                      colorScheme="blue"
                       marginLeft="50px"
-                      // type="submit"
-                      onClick={() => {
-                        setPage(7);
-                      }}
+                      width="50%"
+                      // onClick={() => {
+
+                      // }}
+                      type="submit"
                     >
-                      Далее
+                      Скачать Анкету
                     </Button>
+                    {isFormdownloaded ? (
+                      <>
+                        <Button
+                          colorScheme="green"
+                          width="25%"
+                          marginLeft="50px"
+                          // type="submit"
+                          onClick={() => {
+                            console.log("sex");
+                          }}
+                        >
+                          Далее
+                        </Button>{" "}
+                      </>
+                    ) : (
+                      <>
+                        <Button
+                          opacity={0.5}
+                          colorScheme="red"
+                          width="25%"
+                          marginLeft="50px"
+                          // type="submit"
+                          onClick={() => {
+                            setPage(7);
+                          }}
+                        >
+                          Далее
+                        </Button>
+                      </>
+                    )}
                   </div>
                 </VStack>
               </form>
@@ -3497,7 +3545,11 @@ export default function Anketa() {
                           14 лет)
                         </FormLabel>
                         <div className="field">
-                          <Input type="file" />
+                          <Input
+                            type="file"
+                            name="test.test"
+                            onChange={formik.handleSubmit}
+                          />
                           <Tooltip
                             label="Копию свидетельства о рождении ребенка (детей) (до 14 лет)"
                             fontSize="md"
@@ -3510,16 +3562,16 @@ export default function Anketa() {
                     </div>
                   </div>
                   <div className="buttons">
-                    <Button
-                      colorScheme="orange"
-                      width="30%"
-                      marginLeft="50px"
-                      onClick={() => {
-                        setPage(6);
-                      }}
-                    >
-                      Назад
-                    </Button>
+                    {/* <Button
+                          colorScheme="orange"
+                          width="30%"
+                          marginLeft="50px"
+                          onClick={() => {
+                            setPage(6);
+                          }}
+                        >
+                          Назад
+                        </Button> */}
                     <Button
                       colorScheme="orange"
                       width="30%"
