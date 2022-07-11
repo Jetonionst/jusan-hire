@@ -12,10 +12,11 @@ import {
   Textarea,
   VStack,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Anketa() {
   const [page, setPage] = useState(1);
+  // const [eduListLength, setEduListLength] = useState(0);
 
   const fieldsSize = 200;
   const fSize = "14px";
@@ -56,38 +57,15 @@ export default function Anketa() {
       factualApartment: "",
       educationList: [
         {
-          qualification: "",
-          endDate: "",
-          startDate: "",
-          speciality: "",
-          formOfStudy: "",
-          university: "",
-        },
-        {
-          qualification: "",
-          endDate: "",
-          startDate: "",
-          speciality: "",
-          formOfStudy: "",
-          university: "",
-        },
-        {
-          qualification: "",
-          endDate: "",
-          startDate: "",
-          speciality: "",
-          formOfStudy: "",
-          university: "",
+          qualification: null,
+          endDate: null,
+          startDate: null,
+          speciality: null,
+          formOfStudy: null,
+          university: null,
         },
       ],
       extracurricularList: [
-        {
-          endDate: "",
-          educationTime: "",
-          educationName: "",
-          speciality: "",
-          degree: "",
-        },
         {
           endDate: "",
           educationTime: "",
@@ -279,7 +257,437 @@ export default function Anketa() {
       }
     },
   });
+  const [eduListlength, setEduListlength] = useState(0);
+  const [eduList] = useState([
+    <div className="fieldsContex">
+      <FormControl
+        isRequired
+        display="flex"
+        // justifyContent="space-between"
+        flexWrap="wrap"
+      >
+        <div className="field">
+          <FormLabel htmlFor="text" fontSize={fSize}>
+            Дата начала обучения:
+          </FormLabel>
+          <Input
+            fontSize={fSize}
+            w={fieldsSize}
+            id={`educationList[${eduListlength}].startDate`}
+            name={`educationList[${eduListlength}].startDate`}
+            type="text"
+            variant="filled"
+            placeholder="01.01.2000"
+            onBlur={formik.handleChange}
+            value={formik.values.educationList[eduListlength].startDate}
+          />
+        </div>
+        <div className="field">
+          <FormLabel htmlFor="text" fontSize={fSize}>
+            Дата окончания обучения:
+          </FormLabel>
+          <Input
+            fontSize={fSize}
+            w={fieldsSize}
+            id={`educationList[${eduListlength}].endDate`}
+            name={`educationList[${eduListlength}].endDate`}
+            type="text"
+            variant="filled"
+            onBlur={formik.handleChange}
+            value={formik.values.educationList[eduListlength].endDate}
+          />
+        </div>
+        <div className="field">
+          <FormLabel htmlFor="text" fontSize={fSize}>
+            Полное название учебного заведения:
+          </FormLabel>
+          <Input
+            fontSize={fSize}
+            w={fieldsSize}
+            id={`educationList[${eduListlength}].university`}
+            name={`educationList[${eduListlength}].university`}
+            type="text"
+            variant="filled"
+            onBlur={formik.handleChange}
+            value={formik.values.educationList[eduListlength].university}
+          />
+        </div>
+        <div className="field">
+          <FormLabel htmlFor="text" fontSize={fSize}>
+            Специальность:
+          </FormLabel>
+          <Input
+            fontSize={fSize}
+            w={fieldsSize}
+            id={`educationList[${eduListlength}].speciality`}
+            name={`educationList[${eduListlength}].speciality`}
+            type="text"
+            variant="filled"
+            onBlur={formik.handleChange}
+            value={formik.values.educationList[eduListlength].speciality}
+          />
+        </div>
 
+        <div className="field">
+          <FormLabel htmlFor="text" fontSize={fSize}>
+            Форма обучения:
+          </FormLabel>
+          <Input
+            fontSize={fSize}
+            w={fieldsSize}
+            id={`educationList[${eduListlength}].formOfStudy`}
+            name={`educationList[${eduListlength}].formOfStudy`}
+            type="text"
+            variant="filled"
+            onBlur={formik.handleChange}
+            value={formik.values.educationList[eduListlength].formOfStudy}
+          />
+        </div>
+        <div className="field">
+          <FormLabel htmlFor="text" fontSize={fSize}>
+            Квалификация:
+          </FormLabel>
+          <Input
+            fontSize={fSize}
+            w={fieldsSize}
+            id={`educationList[${eduListlength}].qualification`}
+            name={`educationList[${eduListlength}].qualification`}
+            type="text"
+            variant="filled"
+            onBlur={formik.handleChange}
+            value={formik.values.educationList[eduListlength].qualification}
+          />
+        </div>
+      </FormControl>
+    </div>,
+  ]);
+  const [specialCoursesLength, setSpecialCoursesLength] = useState(0);
+  const [specialCourses] = useState([
+    <div className="fieldsContex">
+      <FormControl
+        display="flex"
+        // justifyContent="space-between"
+        flexWrap="wrap"
+      >
+        <div className="field">
+          <FormLabel htmlFor="text" fontSize={fSize}>
+            Год окончания:
+          </FormLabel>
+          <Input
+            fontSize={fSize}
+            w={fieldsSize}
+            id={`extracurricularList[${specialCoursesLength}].endDate`}
+            name={`extracurricularList[${specialCoursesLength}].endDate`}
+            type="text"
+            variant="filled"
+            placeholder="01.01.2000"
+            onChange={formik.handleChange}
+            value={
+              formik.values.extracurricularList[specialCoursesLength].endDate
+            }
+          />
+        </div>
+        <div className="field">
+          <FormLabel htmlFor="text" fontSize={fSize}>
+            Длительность обучения:
+          </FormLabel>
+          <Input
+            fontSize={fSize}
+            w={fieldsSize}
+            id={`extracurricularList[${specialCoursesLength}].educationTime`}
+            name={`extracurricularList[${specialCoursesLength}].educationTime`}
+            type="text"
+            variant="filled"
+            onChange={formik.handleChange}
+            value={
+              formik.values.extracurricularList[specialCoursesLength]
+                .educationTime
+            }
+          />
+        </div>
+        <div className="field">
+          <FormLabel htmlFor="text" fontSize={fSize}>
+            Полное наименование курсов:
+          </FormLabel>
+          <Input
+            fontSize={fSize}
+            w={fieldsSize}
+            id={`extracurricularList[${specialCoursesLength}].educationName`}
+            name={`extracurricularList[${specialCoursesLength}].educationName`}
+            type="text"
+            variant="filled"
+            onChange={formik.handleChange}
+            value={
+              formik.values.educationList[specialCoursesLength].educationName
+            }
+          />
+        </div>
+        <div className="field">
+          <FormLabel htmlFor="text" fontSize={fSize}>
+            Специальность:
+          </FormLabel>
+          <Input
+            fontSize={fSize}
+            w={fieldsSize}
+            id={`extracurricularList[${specialCoursesLength}].speciality`}
+            name={`extracurricularList[${specialCoursesLength}].speciality`}
+            type="text"
+            variant="filled"
+            onChange={formik.handleChange}
+            value={
+              formik.values.extracurricularList[specialCoursesLength].speciality
+            }
+          />
+        </div>
+        <div className="field">
+          <FormLabel htmlFor="text" fontSize={fSize}>
+            Учёная степень, сертификаты:
+          </FormLabel>
+          <Input
+            fontSize={fSize}
+            w={fieldsSize}
+            id={`extracurricularList[${specialCoursesLength}].degree`}
+            name={`extracurricularList[${specialCoursesLength}].degree`}
+            type="text"
+            variant="filled"
+            onChange={formik.handleChange}
+            value={
+              formik.values.extracurricularList[specialCoursesLength].degree
+            }
+          />
+        </div>
+      </FormControl>
+    </div>,
+  ]);
+  console.log(formik.values);
+  function addBtn(formLabel) {
+    if (formLabel === "specCourses") {
+      formik.values.extracurricularList.push({
+        endDate: "",
+        educationTime: "",
+        educationName: "",
+        speciality: "",
+        degree: "",
+      });
+      setSpecialCoursesLength(specialCoursesLength + 1);
+
+      specialCourses.push(
+        <div className="fieldsContex">
+          <FormControl
+            display="flex"
+            // justifyContent="space-between"
+            flexWrap="wrap"
+          >
+            <div className="field">
+              <FormLabel htmlFor="text" fontSize={fSize}>
+                Год окончания:
+              </FormLabel>
+              <Input
+                fontSize={fSize}
+                w={fieldsSize}
+                id={`extracurricularList[${specialCoursesLength}].endDate`}
+                name={`extracurricularList[${specialCoursesLength}].endDate`}
+                type="text"
+                variant="filled"
+                placeholder="01.01.2000"
+                onChange={formik.handleChange}
+                value={
+                  formik.values.extracurricularList[specialCoursesLength]
+                    .endDate
+                }
+              />
+            </div>
+            <div className="field">
+              <FormLabel htmlFor="text" fontSize={fSize}>
+                Длительность обучения:
+              </FormLabel>
+              <Input
+                fontSize={fSize}
+                w={fieldsSize}
+                id={`extracurricularList[${specialCoursesLength}].educationTime`}
+                name={`extracurricularList[${specialCoursesLength}].educationTime`}
+                type="text"
+                variant="filled"
+                onChange={formik.handleChange}
+                value={
+                  formik.values.extracurricularList[specialCoursesLength]
+                    .educationTime
+                }
+              />
+            </div>
+            <div className="field">
+              <FormLabel htmlFor="text" fontSize={fSize}>
+                Полное наименование курсов:
+              </FormLabel>
+              <Input
+                fontSize={fSize}
+                w={fieldsSize}
+                id={`extracurricularList[${specialCoursesLength}].educationName`}
+                name={`extracurricularList[${specialCoursesLength}].educationName`}
+                type="text"
+                variant="filled"
+                onChange={formik.handleChange}
+                value={
+                  formik.values.educationList[specialCoursesLength]
+                    .educationName
+                }
+              />
+            </div>
+            <div className="field">
+              <FormLabel htmlFor="text" fontSize={fSize}>
+                Специальность:
+              </FormLabel>
+              <Input
+                fontSize={fSize}
+                w={fieldsSize}
+                id={`extracurricularList[${specialCoursesLength}].speciality`}
+                name={`extracurricularList[${specialCoursesLength}].speciality`}
+                type="text"
+                variant="filled"
+                onChange={formik.handleChange}
+                value={
+                  formik.values.extracurricularList[specialCoursesLength]
+                    .speciality
+                }
+              />
+            </div>
+            <div className="field">
+              <FormLabel htmlFor="text" fontSize={fSize}>
+                Учёная степень, сертификаты:
+              </FormLabel>
+              <Input
+                fontSize={fSize}
+                w={fieldsSize}
+                id={`extracurricularList[${specialCoursesLength}].degree`}
+                name={`extracurricularList[${specialCoursesLength}].degree`}
+                type="text"
+                variant="filled"
+                onChange={formik.handleChange}
+                value={
+                  formik.values.extracurricularList[specialCoursesLength].degree
+                }
+              />
+            </div>
+          </FormControl>
+        </div>
+      );
+    }
+    if (formLabel === "education") {
+      formik.values.educationList.push({
+        startDate: null,
+        endDate: null,
+        university: null,
+        speciality: null,
+        qualification: null,
+        formOfStudy: null,
+      });
+      const tempEdu = eduListlength + 1;
+      setEduListlength(tempEdu);
+      eduList.push(
+        <div className="fieldsContex">
+          <FormControl
+            isRequired
+            display="flex"
+            // justifyContent="space-between"
+            flexWrap="wrap"
+          >
+            <div className="field">
+              <FormLabel htmlFor="text" fontSize={fSize}>
+                Дата начала обучения:
+              </FormLabel>
+              <Input
+                fontSize={fSize}
+                w={fieldsSize}
+                id={`educationList[${tempEdu}].startDate`}
+                name={`educationList[${tempEdu}].startDate`}
+                type="text"
+                variant="filled"
+                placeholder="01.01.2000"
+                onChange={formik.handleChange}
+                value={formik.values.educationList[tempEdu].startDate}
+              />
+            </div>
+            <div className="field">
+              <FormLabel htmlFor="text" fontSize={fSize}>
+                Дата окончания обучения:
+              </FormLabel>
+              <Input
+                fontSize={fSize}
+                w={fieldsSize}
+                id={`educationList[${tempEdu}].endDate`}
+                name={`educationList[${tempEdu}].endDate`}
+                type="text"
+                variant="filled"
+                onChange={formik.handleChange}
+                value={formik.values.educationList[tempEdu].endDate}
+              />
+            </div>
+            <div className="field">
+              <FormLabel htmlFor="text" fontSize={fSize}>
+                Полное название учебного заведения:
+              </FormLabel>
+              <Input
+                fontSize={fSize}
+                w={fieldsSize}
+                id={`educationList[${tempEdu}].university`}
+                name={`educationList[${tempEdu}].university`}
+                type="text"
+                variant="filled"
+                onChange={formik.handleChange}
+                value={formik.values.educationList[tempEdu].university}
+              />
+            </div>
+            <div className="field">
+              <FormLabel htmlFor="text" fontSize={fSize}>
+                Специальность:
+              </FormLabel>
+              <Input
+                fontSize={fSize}
+                w={fieldsSize}
+                id={`educationList[${tempEdu}].speciality`}
+                name={`educationList[${tempEdu}].speciality`}
+                type="text"
+                variant="filled"
+                onChange={formik.handleChange}
+                value={formik.values.educationList[tempEdu].speciality}
+              />
+            </div>
+            <div className="field">
+              <FormLabel htmlFor="text" fontSize={fSize}>
+                Форма обучения:
+              </FormLabel>
+              <Input
+                fontSize={fSize}
+                w={fieldsSize}
+                id={`educationList[${tempEdu}].formOfStudy`}
+                name={`educationList[${tempEdu}].formOfStudy`}
+                type="text"
+                variant="filled"
+                onChange={formik.handleChange}
+                value={formik.values.educationList[tempEdu].formOfStudy}
+              />
+            </div>
+            <div className="field">
+              <FormLabel htmlFor="text" fontSize={fSize}>
+                Квалификация:
+              </FormLabel>
+              <Input
+                fontSize={fSize}
+                w={fieldsSize}
+                id={`educationList[${tempEdu}].qualification`}
+                name={`educationList[${tempEdu}].qualification`}
+                type="text"
+                variant="filled"
+                onChange={formik.handleChange}
+                value={formik.values.educationList[tempEdu].qualification}
+              />
+            </div>
+          </FormControl>
+        </div>
+      );
+    }
+  }
+  console.log(formik.values.educationList);
   if (page === 1) {
     return (
       <ChakraProvider>
@@ -726,7 +1134,7 @@ export default function Anketa() {
                       name="isAddressMatches"
                       onChange={formik.handleChange}
                       isChecked={formik.values.isAddressMatches}
-                      colorScheme="purple"
+                      colorScheme="orange"
                     >
                       Cовпадает с адресом постоянной регистрации
                     </Checkbox>
@@ -851,7 +1259,7 @@ export default function Anketa() {
                 name="rememberMe"
                 onChange={formik.handleChange}
                 isChecked={formik.values.rememberMe}
-                colorScheme="purple"
+                colorScheme="orange"
               >
                 Remember me?
               </Checkbox> */}
@@ -891,302 +1299,17 @@ export default function Anketa() {
                 </FormLabel>
                 <div className="fieldsContainer">
                   <div className="fieldsContex">
-                    <FormControl
-                      isRequired
-                      display="flex"
-                      // justifyContent="space-between"
-                      flexWrap="wrap"
+                    {eduList.map((elem) => {
+                      return elem;
+                    })}
+                    <Button
+                      colorScheme="orange"
+                      onClick={() => {
+                        addBtn("education");
+                      }}
                     >
-                      <div className="field">
-                        <FormLabel htmlFor="text" fontSize={fSize}>
-                          Дата начала обучения:
-                        </FormLabel>
-                        <Input
-                          fontSize={fSize}
-                          w={fieldsSize}
-                          id={`educationList[0].startDate`}
-                          name={`educationList[0].startDate`}
-                          type="text"
-                          variant="filled"
-                          placeholder="01.01.2000"
-                          onChange={formik.handleChange}
-                          value={formik.values.educationList[0].startDate}
-                        />
-                      </div>
-                      <div className="field">
-                        <FormLabel htmlFor="text" fontSize={fSize}>
-                          Дата окончания обучения:
-                        </FormLabel>
-                        <Input
-                          fontSize={fSize}
-                          w={fieldsSize}
-                          id={`educationList[0]].endDate`}
-                          name={`educationList[0].endDate`}
-                          type="text"
-                          variant="filled"
-                          onChange={formik.handleChange}
-                          value={formik.values.educationList[0].endDate}
-                        />
-                      </div>
-                      <div className="field">
-                        <FormLabel htmlFor="text" fontSize={fSize}>
-                          Полное название учебного заведения:
-                        </FormLabel>
-                        <Input
-                          fontSize={fSize}
-                          w={fieldsSize}
-                          id="educationList[0].university"
-                          name="educationList[0].university"
-                          type="text"
-                          variant="filled"
-                          onChange={formik.handleChange}
-                          value={formik.values.educationList[0].university}
-                        />
-                      </div>
-                      <div className="field">
-                        <FormLabel htmlFor="text" fontSize={fSize}>
-                          Специальность:
-                        </FormLabel>
-                        <Input
-                          fontSize={fSize}
-                          w={fieldsSize}
-                          id="educationList[0].speciality"
-                          name="educationList[0].speciality"
-                          type="text"
-                          variant="filled"
-                          onChange={formik.handleChange}
-                          value={formik.values.educationList[0].speciality}
-                        />
-                      </div>
-                      <div className="field">
-                        <FormLabel htmlFor="text" fontSize={fSize}>
-                          Форма обучения:
-                        </FormLabel>
-                        <Input
-                          fontSize={fSize}
-                          w={fieldsSize}
-                          id="educationList[0].formOfStudy"
-                          name="educationList[0].formOfStudy"
-                          type="text"
-                          variant="filled"
-                          onChange={formik.handleChange}
-                          value={formik.values.educationList[0].formOfStudy}
-                        />
-                      </div>
-                      <div className="field">
-                        <FormLabel htmlFor="text" fontSize={fSize}>
-                          Квалификация:
-                        </FormLabel>
-                        <Input
-                          fontSize={fSize}
-                          w={fieldsSize}
-                          id="educationList[0].qualification"
-                          name="educationList[0].qualification"
-                          type="text"
-                          variant="filled"
-                          onChange={formik.handleChange}
-                          value={formik.values.educationList[0].qualification}
-                        />
-                      </div>
-                    </FormControl>
-                  </div>
-                  <div className="fieldsContex">
-                    <FormControl
-                      display="flex"
-                      // justifyContent="space-between"
-                      flexWrap="wrap"
-                    >
-                      <div className="field">
-                        <FormLabel htmlFor="text" fontSize={fSize}>
-                          Дата начала обучения:
-                        </FormLabel>
-                        <Input
-                          fontSize={fSize}
-                          w={fieldsSize}
-                          id={`educationList[1].startDate`}
-                          name={`educationList[1].startDate`}
-                          type="text"
-                          variant="filled"
-                          placeholder="01.01.2000"
-                          onChange={formik.handleChange}
-                          value={formik.values.educationList[1].startDate}
-                        />
-                      </div>
-                      <div className="field">
-                        <FormLabel htmlFor="text" fontSize={fSize}>
-                          Дата окончания обучения:
-                        </FormLabel>
-                        <Input
-                          fontSize={fSize}
-                          w={fieldsSize}
-                          id={`educationList[1]].endDate`}
-                          name={`educationList[1].endDate`}
-                          type="text"
-                          variant="filled"
-                          onChange={formik.handleChange}
-                          value={formik.values.educationList[1].endDate}
-                        />
-                      </div>
-                      <div className="field">
-                        <FormLabel htmlFor="text" fontSize={fSize}>
-                          Полное название учебного заведения:
-                        </FormLabel>
-                        <Input
-                          fontSize={fSize}
-                          w={fieldsSize}
-                          id="educationList[1].university"
-                          name="educationList[1].university"
-                          type="text"
-                          variant="filled"
-                          onChange={formik.handleChange}
-                          value={formik.values.educationList[1].university}
-                        />
-                      </div>
-                      <div className="field">
-                        <FormLabel htmlFor="text" fontSize={fSize}>
-                          Специальность:
-                        </FormLabel>
-                        <Input
-                          fontSize={fSize}
-                          w={fieldsSize}
-                          id="educationList[1].speciality"
-                          name="educationList[1].speciality"
-                          type="text"
-                          variant="filled"
-                          onChange={formik.handleChange}
-                          value={formik.values.educationList[1].speciality}
-                        />
-                      </div>
-                      <div className="field">
-                        <FormLabel htmlFor="text" fontSize={fSize}>
-                          Форма обучения:
-                        </FormLabel>
-                        <Input
-                          fontSize={fSize}
-                          w={fieldsSize}
-                          id="educationList[1].formOfStudy"
-                          name="educationList[1].formOfStudy"
-                          type="text"
-                          variant="filled"
-                          onChange={formik.handleChange}
-                          value={formik.values.educationList[1].formOfStudy}
-                        />
-                      </div>
-                      <div className="field">
-                        <FormLabel htmlFor="text" fontSize={fSize}>
-                          Квалификация:
-                        </FormLabel>
-                        <Input
-                          fontSize={fSize}
-                          w={fieldsSize}
-                          id="educationList[1].qualification"
-                          name="educationList[1].qualification"
-                          type="text"
-                          variant="filled"
-                          onChange={formik.handleChange}
-                          value={formik.values.educationList[1].qualification}
-                        />
-                      </div>
-                    </FormControl>
-                  </div>
-                  <div className="fieldsContex">
-                    <FormControl
-                      display="flex"
-                      // justifyContent="space-between"
-                      flexWrap="wrap"
-                    >
-                      <div className="field">
-                        <FormLabel htmlFor="text" fontSize={fSize}>
-                          Дата начала обучения:
-                        </FormLabel>
-                        <Input
-                          fontSize={fSize}
-                          w={fieldsSize}
-                          id={`educationList[2].startDate`}
-                          name={`educationList[2].startDate`}
-                          type="text"
-                          variant="filled"
-                          placeholder="01.01.2000"
-                          onChange={formik.handleChange}
-                          value={formik.values.educationList[2].startDate}
-                        />
-                      </div>
-                      <div className="field">
-                        <FormLabel htmlFor="text" fontSize={fSize}>
-                          Дата окончания обучения:
-                        </FormLabel>
-                        <Input
-                          fontSize={fSize}
-                          w={fieldsSize}
-                          id={`educationList[2]].endDate`}
-                          name={`educationList[2].endDate`}
-                          type="text"
-                          variant="filled"
-                          onChange={formik.handleChange}
-                          value={formik.values.educationList[2].endDate}
-                        />
-                      </div>
-                      <div className="field">
-                        <FormLabel htmlFor="text" fontSize={fSize}>
-                          Полное название учебного заведения:
-                        </FormLabel>
-                        <Input
-                          fontSize={fSize}
-                          w={fieldsSize}
-                          id="educationList[2].university"
-                          name="educationList[2].university"
-                          type="text"
-                          variant="filled"
-                          onChange={formik.handleChange}
-                          value={formik.values.educationList[2].university}
-                        />
-                      </div>
-                      <div className="field">
-                        <FormLabel htmlFor="text" fontSize={fSize}>
-                          Специальность:
-                        </FormLabel>
-                        <Input
-                          fontSize={fSize}
-                          w={fieldsSize}
-                          id="educationList[2].speciality"
-                          name="educationList[2].speciality"
-                          type="text"
-                          variant="filled"
-                          onChange={formik.handleChange}
-                          value={formik.values.educationList[2].speciality}
-                        />
-                      </div>
-                      <div className="field">
-                        <FormLabel htmlFor="text" fontSize={fSize}>
-                          Форма обучения:
-                        </FormLabel>
-                        <Input
-                          fontSize={fSize}
-                          w={fieldsSize}
-                          id="educationList[2].formOfStudy"
-                          name="educationList[2].formOfStudy"
-                          type="text"
-                          variant="filled"
-                          onChange={formik.handleChange}
-                          value={formik.values.educationList[2].formOfStudy}
-                        />
-                      </div>
-                      <div className="field">
-                        <FormLabel htmlFor="text" fontSize={fSize}>
-                          Квалификация:
-                        </FormLabel>
-                        <Input
-                          fontSize={fSize}
-                          w={fieldsSize}
-                          id="educationList[2].qualification"
-                          name="educationList[2].qualification"
-                          type="text"
-                          variant="filled"
-                          onChange={formik.handleChange}
-                          value={formik.values.educationList[2].qualification}
-                        />
-                      </div>
-                    </FormControl>
+                      +
+                    </Button>
                   </div>
                 </div>
                 <FormLabel htmlFor="text">
@@ -1194,181 +1317,18 @@ export default function Anketa() {
                 </FormLabel>
                 <div className="fieldsContainer">
                   <div className="fieldsContex">
-                    <FormControl
-                      display="flex"
-                      // justifyContent="space-between"
-                      flexWrap="wrap"
-                    >
-                      <div className="field">
-                        <FormLabel htmlFor="text" fontSize={fSize}>
-                          Год окончания:
-                        </FormLabel>
-                        <Input
-                          fontSize={fSize}
-                          w={fieldsSize}
-                          id={`extracurricularList[0].endDate`}
-                          name={`extracurricularList[0].endDate`}
-                          type="text"
-                          variant="filled"
-                          placeholder="01.01.2000"
-                          onChange={formik.handleChange}
-                          value={formik.values.extracurricularList[0].endDate}
-                        />
-                      </div>
-                      <div className="field">
-                        <FormLabel htmlFor="text" fontSize={fSize}>
-                          Длительность обучения:
-                        </FormLabel>
-                        <Input
-                          fontSize={fSize}
-                          w={fieldsSize}
-                          id={`extracurricularList[0]].educationTime`}
-                          name={`extracurricularList[0].educationTime`}
-                          type="text"
-                          variant="filled"
-                          onChange={formik.handleChange}
-                          value={
-                            formik.values.extracurricularList[0].educationTime
-                          }
-                        />
-                      </div>
-                      <div className="field">
-                        <FormLabel htmlFor="text" fontSize={fSize}>
-                          Полное наименование курсов:
-                        </FormLabel>
-                        <Input
-                          fontSize={fSize}
-                          w={fieldsSize}
-                          id="extracurricularList[0].educationName"
-                          name="extracurricularList[0].educationName"
-                          type="text"
-                          variant="filled"
-                          onChange={formik.handleChange}
-                          value={formik.values.educationList[0].educationName}
-                        />
-                      </div>
-                      <div className="field">
-                        <FormLabel htmlFor="text" fontSize={fSize}>
-                          Специальность:
-                        </FormLabel>
-                        <Input
-                          fontSize={fSize}
-                          w={fieldsSize}
-                          id="extracurricularList[0].speciality"
-                          name="extracurricularList[0].speciality"
-                          type="text"
-                          variant="filled"
-                          onChange={formik.handleChange}
-                          value={
-                            formik.values.extracurricularList[0].speciality
-                          }
-                        />
-                      </div>
-                      <div className="field">
-                        <FormLabel htmlFor="text" fontSize={fSize}>
-                          Учёная степень, сертификаты:
-                        </FormLabel>
-                        <Input
-                          fontSize={fSize}
-                          w={fieldsSize}
-                          id="extracurricularList[0].degree"
-                          name="extracurricularList[0].degree"
-                          type="text"
-                          variant="filled"
-                          onChange={formik.handleChange}
-                          value={formik.values.extracurricularList[0].degree}
-                        />
-                      </div>
-                    </FormControl>
+                    {specialCourses.map((elem) => {
+                      return elem;
+                    })}
                   </div>
-                  <div className="fieldsContex">
-                    <FormControl
-                      display="flex"
-                      // justifyContent="space-between"
-                      flexWrap="wrap"
-                    >
-                      <div className="field">
-                        <FormLabel htmlFor="text" fontSize={fSize}>
-                          Год окончания:
-                        </FormLabel>
-                        <Input
-                          fontSize={fSize}
-                          w={fieldsSize}
-                          id={`extracurricularList[1].endDate`}
-                          name={`extracurricularList[1].endDate`}
-                          type="text"
-                          variant="filled"
-                          placeholder="01.01.2000"
-                          onChange={formik.handleChange}
-                          value={formik.values.extracurricularList[1].endDate}
-                        />
-                      </div>
-                      <div className="field">
-                        <FormLabel htmlFor="text" fontSize={fSize}>
-                          Длительность обучения:
-                        </FormLabel>
-                        <Input
-                          fontSize={fSize}
-                          w={fieldsSize}
-                          id={`extracurricularList[1]].educationTime`}
-                          name={`extracurricularList[1].educationTime`}
-                          type="text"
-                          variant="filled"
-                          onChange={formik.handleChange}
-                          value={
-                            formik.values.extracurricularList[1].educationTime
-                          }
-                        />
-                      </div>
-                      <div className="field">
-                        <FormLabel htmlFor="text" fontSize={fSize}>
-                          Полное наименование курсов:
-                        </FormLabel>
-                        <Input
-                          fontSize={fSize}
-                          w={fieldsSize}
-                          id="extracurricularList[1].educationName"
-                          name="extracurricularList[1].educationName"
-                          type="text"
-                          variant="filled"
-                          onChange={formik.handleChange}
-                          value={formik.values.educationList[1].educationName}
-                        />
-                      </div>
-                      <div className="field">
-                        <FormLabel htmlFor="text" fontSize={fSize}>
-                          Специальность:
-                        </FormLabel>
-                        <Input
-                          fontSize={fSize}
-                          w={fieldsSize}
-                          id="extracurricularList[1].speciality"
-                          name="extracurricularList[1].speciality"
-                          type="text"
-                          variant="filled"
-                          onChange={formik.handleChange}
-                          value={
-                            formik.values.extracurricularList[1].speciality
-                          }
-                        />
-                      </div>
-                      <div className="field">
-                        <FormLabel htmlFor="text" fontSize={fSize}>
-                          Учёная степень, сертификаты:
-                        </FormLabel>
-                        <Input
-                          fontSize={fSize}
-                          w={fieldsSize}
-                          id="extracurricularList[1].degree"
-                          name="extracurricularList[1].degree"
-                          type="text"
-                          variant="filled"
-                          onChange={formik.handleChange}
-                          value={formik.values.extracurricularList[1].degree}
-                        />
-                      </div>
-                    </FormControl>
-                  </div>
+                  <Button
+                    colorScheme="orange"
+                    onClick={() => {
+                      addBtn("specCourses");
+                    }}
+                  >
+                    +
+                  </Button>
                 </div>
 
                 <div className="buttons">
@@ -2020,123 +1980,128 @@ export default function Anketa() {
                     <option value="Вдова(ец)">Вдова(ец)</option>
                   </Select>
                 </div>
-                <FormLabel htmlFor="text">Супруг(а):</FormLabel>
-                <div className="fieldsContainer">
-                  <div className="filedsContex">
-                    <FormControl
-                      display="flex"
-                      // justifyContent="space-between"
-                      flexWrap="wrap"
-                    >
-                      <div className="field">
-                        <FormLabel htmlFor="text" fontSize={fSize}>
-                          ФИО (полностью):
-                        </FormLabel>
-                        <Input
-                          fontSize={fSize}
-                          w={fieldsSize}
-                          id={`lifeCompanion[0].fio`}
-                          name={`lifeCompanion[0].fio`}
-                          type="text"
-                          variant="filled"
-                          onChange={formik.handleChange}
-                          value={formik.values.lifeCompanion[0].fio}
-                        />
+                {formik.values.marriageStatus !== "Не состою в браке" && (
+                  <>
+                    <FormLabel htmlFor="text">Супруг(а):</FormLabel>
+                    <div className="fieldsContainer">
+                      <div className="filedsContex">
+                        <FormControl
+                          isRequired
+                          display="flex"
+                          // justifyContent="space-between"
+                          flexWrap="wrap"
+                        >
+                          <div className="field">
+                            <FormLabel htmlFor="text" fontSize={fSize}>
+                              ФИО (полностью):
+                            </FormLabel>
+                            <Input
+                              fontSize={fSize}
+                              w={fieldsSize}
+                              id={`lifeCompanion[0].fio`}
+                              name={`lifeCompanion[0].fio`}
+                              type="text"
+                              variant="filled"
+                              onChange={formik.handleChange}
+                              value={formik.values.lifeCompanion[0].fio}
+                            />
+                          </div>
+                          <div className="field">
+                            <FormLabel htmlFor="text" fontSize={fSize}>
+                              Дата Рождения:
+                            </FormLabel>
+                            <Input
+                              fontSize={fSize}
+                              w={fieldsSize}
+                              id={`lifeCompanion[0].birthDate`}
+                              name={`lifeCompanion[0].birthDate`}
+                              type="text"
+                              variant="filled"
+                              onChange={formik.handleChange}
+                              placeholder="01.01.1999"
+                              value={formik.values.lifeCompanion[0].birthDate}
+                            />
+                          </div>
+                          <div className="field">
+                            <FormLabel htmlFor="text" fontSize={fSize}>
+                              Место Работы:
+                            </FormLabel>
+                            <Input
+                              fontSize={fSize}
+                              w={fieldsSize}
+                              id={`lifeCompanion[0].workPlace`}
+                              name={`lifeCompanion[0].workPlace`}
+                              type="text"
+                              variant="filled"
+                              onChange={formik.handleChange}
+                              value={formik.values.lifeCompanion[0].workPlace}
+                            />
+                          </div>
+                          <div className="field">
+                            <FormLabel htmlFor="text" fontSize={fSize}>
+                              Должность:
+                            </FormLabel>
+                            <Input
+                              fontSize={fSize}
+                              w={fieldsSize}
+                              id={`lifeCompanion[0].major`}
+                              name={`lifeCompanion[0].major`}
+                              type="text"
+                              variant="filled"
+                              onChange={formik.handleChange}
+                              value={formik.values.lifeCompanion[0].major}
+                            />
+                          </div>
+                          <div className="field">
+                            <FormLabel htmlFor="text" fontSize={fSize}>
+                              Адрес:
+                            </FormLabel>
+                            <Input
+                              fontSize={fSize}
+                              w={fieldsSize}
+                              id={`lifeCompanion[0].address`}
+                              name={`lifeCompanion[0].address`}
+                              type="text"
+                              variant="filled"
+                              onChange={formik.handleChange}
+                              value={formik.values.lifeCompanion[0].address}
+                            />
+                          </div>
+                          <div className="field">
+                            <FormLabel htmlFor="text" fontSize={fSize}>
+                              Гражданство:
+                            </FormLabel>
+                            <Input
+                              fontSize={fSize}
+                              w={fieldsSize}
+                              id={`lifeCompanion[0].citizenship`}
+                              name={`lifeCompanion[0].citizenship`}
+                              type="text"
+                              variant="filled"
+                              onChange={formik.handleChange}
+                              value={formik.values.lifeCompanion[0].citizenship}
+                            />
+                          </div>
+                          <div className="field">
+                            <FormLabel htmlFor="text" fontSize={fSize}>
+                              Телефон:
+                            </FormLabel>
+                            <Input
+                              fontSize={fSize}
+                              w={fieldsSize}
+                              id={`lifeCompanion[0].phone`}
+                              name={`lifeCompanion[0].phone`}
+                              type="text"
+                              variant="filled"
+                              onChange={formik.handleChange}
+                              value={formik.values.lifeCompanion[0].phone}
+                            />
+                          </div>
+                        </FormControl>
                       </div>
-                      <div className="field">
-                        <FormLabel htmlFor="text" fontSize={fSize}>
-                          Дата Рождения:
-                        </FormLabel>
-                        <Input
-                          fontSize={fSize}
-                          w={fieldsSize}
-                          id={`lifeCompanion[0].birthDate`}
-                          name={`lifeCompanion[0].birthDate`}
-                          type="text"
-                          variant="filled"
-                          onChange={formik.handleChange}
-                          placeholder="01.01.1999"
-                          value={formik.values.lifeCompanion[0].birthDate}
-                        />
-                      </div>
-                      <div className="field">
-                        <FormLabel htmlFor="text" fontSize={fSize}>
-                          Место Работы:
-                        </FormLabel>
-                        <Input
-                          fontSize={fSize}
-                          w={fieldsSize}
-                          id={`lifeCompanion[0].workPlace`}
-                          name={`lifeCompanion[0].workPlace`}
-                          type="text"
-                          variant="filled"
-                          onChange={formik.handleChange}
-                          value={formik.values.lifeCompanion[0].workPlace}
-                        />
-                      </div>
-                      <div className="field">
-                        <FormLabel htmlFor="text" fontSize={fSize}>
-                          Должность:
-                        </FormLabel>
-                        <Input
-                          fontSize={fSize}
-                          w={fieldsSize}
-                          id={`lifeCompanion[0].major`}
-                          name={`lifeCompanion[0].major`}
-                          type="text"
-                          variant="filled"
-                          onChange={formik.handleChange}
-                          value={formik.values.lifeCompanion[0].major}
-                        />
-                      </div>
-                      <div className="field">
-                        <FormLabel htmlFor="text" fontSize={fSize}>
-                          Адрес:
-                        </FormLabel>
-                        <Input
-                          fontSize={fSize}
-                          w={fieldsSize}
-                          id={`lifeCompanion[0].address`}
-                          name={`lifeCompanion[0].address`}
-                          type="text"
-                          variant="filled"
-                          onChange={formik.handleChange}
-                          value={formik.values.lifeCompanion[0].address}
-                        />
-                      </div>
-                      <div className="field">
-                        <FormLabel htmlFor="text" fontSize={fSize}>
-                          Гражданство:
-                        </FormLabel>
-                        <Input
-                          fontSize={fSize}
-                          w={fieldsSize}
-                          id={`lifeCompanion[0].citizenship`}
-                          name={`lifeCompanion[0].citizenship`}
-                          type="text"
-                          variant="filled"
-                          onChange={formik.handleChange}
-                          value={formik.values.lifeCompanion[0].citizenship}
-                        />
-                      </div>
-                      <div className="field">
-                        <FormLabel htmlFor="text" fontSize={fSize}>
-                          Телефон:
-                        </FormLabel>
-                        <Input
-                          fontSize={fSize}
-                          w={fieldsSize}
-                          id={`lifeCompanion[0].phone`}
-                          name={`lifeCompanion[0].phone`}
-                          type="text"
-                          variant="filled"
-                          onChange={formik.handleChange}
-                          value={formik.values.lifeCompanion[0].phone}
-                        />
-                      </div>
-                    </FormControl>
-                  </div>
-                </div>
+                    </div>
+                  </>
+                )}
                 <FormLabel htmlFor="text">Дети:</FormLabel>
                 <div className="fieldsContainer">
                   <div className="filedsContex">
@@ -2815,7 +2780,7 @@ export default function Anketa() {
                       name="isRelativeJusanEmployee"
                       onChange={formik.handleChange}
                       isChecked={formik.values.isRelativeJusanEmployee}
-                      colorScheme="purple"
+                      colorScheme="orange"
                     >
                       Да
                     </Checkbox>
@@ -3015,7 +2980,7 @@ export default function Anketa() {
                   name="isCarOwner"
                   onChange={formik.handleChange}
                   isChecked={formik.values.isCarOwner}
-                  colorScheme="purple"
+                  colorScheme="orange"
                 >
                   Да
                 </Checkbox>
