@@ -51,4 +51,9 @@ public class AttachmentController {
     public List<Attachment> getAllAttachments() {
         return attachmentService.findAllAttachments();
     }
+
+    @GetMapping("/attachments/{iin}")
+    public List<Attachment> getAllAttachments(@PathVariable("iin") String iin) {
+        return attachmentService.findAttachmentsByIin(iin);
+    }
 }
