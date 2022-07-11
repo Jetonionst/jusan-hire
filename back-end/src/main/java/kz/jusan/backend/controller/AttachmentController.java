@@ -38,6 +38,21 @@ public class AttachmentController {
                 file.getSize());
     }
 
+    @PostMapping(value = "/upload/file/{iin}")
+    public ResponseDto uploadDocument(@PathVariable("iin") String iin, @RequestParam("file") MultipartFile file) throws Exception {
+        Attachment attachment = attachmentService.createAttachment(file, iin);
+        String downloadURI = "";
+        downloadURI = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path("/api/v1/download/")
+                .path(attachment.getId())
+                .toUriString();
+
+        return new ResponseDto(attachment.getFileName(),
+                downloadURI,
+                file.getContentType(),
+                file.getSize());
+    }
+
     @GetMapping("/download/{fileId}")
     public ResponseEntity<Resource> downloadFile(@PathVariable("fileId") String fileId) throws Exception {
         Attachment attachment = attachmentService.getAttachment(fileId);
