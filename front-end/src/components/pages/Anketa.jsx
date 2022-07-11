@@ -172,16 +172,10 @@ export default function Anketa() {
       isRelativeJusanEmployee: "",
       relativeJusanEmployeeList: [
         {
-          level: "",
-          fio: "",
-          division: "",
-          major: "",
-        },
-        {
-          level: "",
-          fio: "",
-          division: "",
-          major: "",
+          level: null,
+          fio: null,
+          division: null,
+          major: null,
         },
       ],
       isCarOwner: "",
@@ -610,6 +604,80 @@ export default function Anketa() {
       </FormControl>
     </div>,
   ]);
+  const [jusanRelativeListLength, setJusanRelativeListLength] = useState(0);
+  const [jusanRelative] = useState([
+    <div className="fieldsContainer">
+      <div className="fieldsContex">
+        <FormControl
+          isRequired
+          display="flex"
+          // justifyContent="space-between"
+          flexWrap="wrap"
+        >
+          <div className="field">
+            <FormLabel htmlFor="text" fontSize={fSize}>
+              Степень родства:
+            </FormLabel>
+            <Input
+              fontSize={fSize}
+              w={fieldsSize}
+              id="relativeJusanEmployeeList[0].level"
+              name="relativeJusanEmployeeList[0].level"
+              type="text"
+              variant="filled"
+              onChange={formik.handleChange}
+              value={formik.values.relativeJusanEmployeeList[0].level}
+            />
+          </div>
+          <div className="field">
+            <FormLabel htmlFor="text" fontSize={fSize}>
+              ФИО:
+            </FormLabel>
+            <Input
+              fontSize={fSize}
+              w={fieldsSize}
+              id="relativeJusanEmployeeList[0].fio"
+              name="relativeJusanEmployeeList[0].fio"
+              type="text"
+              variant="filled"
+              onChange={formik.handleChange}
+              value={formik.values.relativeJusanEmployeeList[0].fio}
+            />
+          </div>
+          <div className="field">
+            <FormLabel htmlFor="text" fontSize={fSize}>
+              Подразделение:
+            </FormLabel>
+            <Input
+              fontSize={fSize}
+              w={fieldsSize}
+              id="relativeJusanEmployeeList[0].division"
+              name="relativeJusanEmployeeList[0].division"
+              type="text"
+              variant="filled"
+              onChange={formik.handleChange}
+              value={formik.values.relativeJusanEmployeeList[0].division}
+            />
+          </div>
+          <div className="field">
+            <FormLabel htmlFor="text" fontSize={fSize}>
+              Должность:
+            </FormLabel>
+            <Input
+              fontSize={fSize}
+              w={fieldsSize}
+              id="relativeJusanEmployeeList[0].major"
+              name="relativeJusanEmployeeList[0].major"
+              type="text"
+              variant="filled"
+              onChange={formik.handleChange}
+              value={formik.values.relativeJusanEmployeeList[0].major}
+            />
+          </div>
+        </FormControl>
+      </div>
+    </div>,
+  ]);
   console.log(formik.values.relativeList);
   function addBtn(formLabel) {
     if (formLabel === "specCourses") {
@@ -1033,6 +1101,89 @@ export default function Anketa() {
               />
             </div>
           </FormControl>
+        </div>
+      );
+    }
+    if (formLabel === "jusanRelative") {
+      const temp = jusanRelativeListLength + 1;
+      setJusanRelativeListLength(temp);
+      formik.values.relativeJusanEmployeeList.push({
+        level: null,
+        fio: null,
+        division: null,
+        major: null,
+      });
+      jusanRelative.push(
+        <div className="fieldsContainer">
+          <div className="fieldsContex">
+            <FormControl
+              isRequired
+              display="flex"
+              // justifyContent="space-between"
+              flexWrap="wrap"
+            >
+              <div className="field">
+                <FormLabel htmlFor="text" fontSize={fSize}>
+                  Степень родства:
+                </FormLabel>
+                <Input
+                  fontSize={fSize}
+                  w={fieldsSize}
+                  id={`relativeJusanEmployeeList[${temp}].level`}
+                  name={`relativeJusanEmployeeList[${temp}].level`}
+                  type="text"
+                  variant="filled"
+                  onChange={formik.handleChange}
+                  value={formik.values.relativeJusanEmployeeList[temp].level}
+                />
+              </div>
+              <div className="field">
+                <FormLabel htmlFor="text" fontSize={fSize}>
+                  ФИО:
+                </FormLabel>
+                <Input
+                  fontSize={fSize}
+                  w={fieldsSize}
+                  id={`relativeJusanEmployeeList[${temp}].fio`}
+                  name={`relativeJusanEmployeeList[${temp}].fio`}
+                  type="text"
+                  variant="filled"
+                  onChange={formik.handleChange}
+                  value={formik.values.relativeJusanEmployeeList[temp].fio}
+                />
+              </div>
+              <div className="field">
+                <FormLabel htmlFor="text" fontSize={fSize}>
+                  Подразделение:
+                </FormLabel>
+                <Input
+                  fontSize={fSize}
+                  w={fieldsSize}
+                  id={`relativeJusanEmployeeList[${temp}].division`}
+                  name={`relativeJusanEmployeeList[${temp}].division`}
+                  type="text"
+                  variant="filled"
+                  onChange={formik.handleChange}
+                  value={formik.values.relativeJusanEmployeeList[temp].division}
+                />
+              </div>
+              <div className="field">
+                <FormLabel htmlFor="text" fontSize={fSize}>
+                  Должность:
+                </FormLabel>
+                <Input
+                  fontSize={fSize}
+                  w={fieldsSize}
+                  id={`relativeJusanEmployeeList[${temp}].major`}
+                  name={`relativeJusanEmployeeList[${temp}].major`}
+                  type="text"
+                  variant="filled"
+                  onChange={formik.handleChange}
+                  value={formik.values.relativeJusanEmployeeList[temp].major}
+                />
+              </div>
+            </FormControl>
+          </div>
         </div>
       );
     }
@@ -2655,88 +2806,19 @@ export default function Anketa() {
                     </Checkbox>
 
                     {formik.values.isRelativeJusanEmployee && (
-                      <div className="fieldsContainer">
-                        <div className="fieldsContex">
-                          <FormControl
-                            isRequired
-                            display="flex"
-                            // justifyContent="space-between"
-                            flexWrap="wrap"
-                          >
-                            <div className="field">
-                              <FormLabel htmlFor="text" fontSize={fSize}>
-                                Степень родства:
-                              </FormLabel>
-                              <Input
-                                fontSize={fSize}
-                                w={fieldsSize}
-                                id="relativeJusanEmployeeList[0].level"
-                                name="relativeJusanEmployeeList[0].level"
-                                type="text"
-                                variant="filled"
-                                onChange={formik.handleChange}
-                                value={
-                                  formik.values.relativeJusanEmployeeList[0]
-                                    .level
-                                }
-                              />
-                            </div>
-                            <div className="field">
-                              <FormLabel htmlFor="text" fontSize={fSize}>
-                                ФИО:
-                              </FormLabel>
-                              <Input
-                                fontSize={fSize}
-                                w={fieldsSize}
-                                id="relativeJusanEmployeeList[0].fio"
-                                name="relativeJusanEmployeeList[0].fio"
-                                type="text"
-                                variant="filled"
-                                onChange={formik.handleChange}
-                                value={
-                                  formik.values.relativeJusanEmployeeList[0].fio
-                                }
-                              />
-                            </div>
-                            <div className="field">
-                              <FormLabel htmlFor="text" fontSize={fSize}>
-                                Подразделение:
-                              </FormLabel>
-                              <Input
-                                fontSize={fSize}
-                                w={fieldsSize}
-                                id="relativeJusanEmployeeList[0].division"
-                                name="relativeJusanEmployeeList[0].division"
-                                type="text"
-                                variant="filled"
-                                onChange={formik.handleChange}
-                                value={
-                                  formik.values.relativeJusanEmployeeList[0]
-                                    .division
-                                }
-                              />
-                            </div>
-                            <div className="field">
-                              <FormLabel htmlFor="text" fontSize={fSize}>
-                                Должность:
-                              </FormLabel>
-                              <Input
-                                fontSize={fSize}
-                                w={fieldsSize}
-                                id="relativeJusanEmployeeList[0].major"
-                                name="relativeJusanEmployeeList[0].major"
-                                type="text"
-                                variant="filled"
-                                onChange={formik.handleChange}
-                                value={
-                                  formik.values.relativeJusanEmployeeList[0]
-                                    .major
-                                }
-                              />
-                            </div>
-                          </FormControl>
-                        </div>
-                      </div>
+                      <>
+                        {jusanRelative.map((elem) => {
+                          return elem;
+                        })}
+                        <Button
+                          colorScheme="orange"
+                          onClick={() => {
+                            addBtn("jusanRelative");
+                          }}
+                        >
+                          +
+                        </Button>
+                      </>
                     )}
                   </div>
                 </div>
