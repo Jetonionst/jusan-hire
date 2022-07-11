@@ -26,7 +26,6 @@ public class AttachmentController {
     public ResponseDto uploadImage(@PathVariable("iin") String iin, @RequestParam("image") MultipartFile file) throws Exception {
         Attachment attachment = attachmentService.createAttachment(file, iin);
         String downloadURI = "";
-        String imgPath = "/tmp";
         downloadURI = ServletUriComponentsBuilder.fromCurrentContextPath()
                         .path("/api/v1/download/")
                         .path(attachment.getId())
