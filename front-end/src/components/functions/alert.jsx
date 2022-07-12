@@ -10,7 +10,7 @@ export default function AlertMessage(message, status) {
       }
     );
   } else {
-    Swal.fire("Succes!", `${message}`, `${status}`).then((result) => {
+    Swal.fire("Успешно!", `${message}`, `${status}`).then((result) => {
       if (result.isConfirmed) {
         window.location.reload();
       }

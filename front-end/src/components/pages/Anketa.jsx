@@ -1,7 +1,5 @@
 import { useFormik } from "formik";
-import { InfoIcon } from "@chakra-ui/icons";
 import ReactLoading from "react-loading";
-import { Tooltip } from "@chakra-ui/react";
 import {
   Box,
   Button,
@@ -16,7 +14,6 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { useState } from "react";
-import AlertMsg from "../alert/alert";
 import Service from "../service/service";
 
 export default function Anketa() {

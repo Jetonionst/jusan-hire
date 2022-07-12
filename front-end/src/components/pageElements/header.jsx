@@ -1,8 +1,6 @@
 import doWeHaveToken from "../functions/checkIfAutorized";
 
 export default function Header() {
-  const isAdmin =
-    sessionStorage.getItem("role") === "ROLE_ADMIN" ? true : false;
   if (doWeHaveToken()) {
     return (
       <nav className="autorizationNavElemes">
@@ -14,23 +12,18 @@ export default function Header() {
         </a>
 
         <div className="headerUserNav">
-          {isAdmin && (
-            <a href="/admin" className="double-border-button">
-              Admin
-            </a>
-          )}
-          <a href="/profile" className="double-border-button">
-            Profile
+          <a href="/profile" className="button-5 ">
+            Профиль
           </a>
 
           <a
             href="/"
-            className="double-border-button-blue "
+            className="button-5"
             onClick={() => {
               sessionStorage.clear();
             }}
           >
-            Log out
+            Выйти
           </a>
         </div>
       </nav>
@@ -45,7 +38,7 @@ export default function Header() {
         />
       </a>
       <div className="headerUserNav">
-        <a className="double-border-button" href="/login">
+        <a className="button-5 " href="/login">
           Войти
         </a>
       </div>

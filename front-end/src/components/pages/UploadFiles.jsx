@@ -1,4 +1,5 @@
-import { useFormik, Field } from "formik";
+import { useFormik } from "formik";
+import ReactLoading from "react-loading";
 import { useParams } from "react-router-dom";
 import { InfoIcon } from "@chakra-ui/icons";
 import {
@@ -12,7 +13,11 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import Service from "../service/service";
+import AlertMessage from "../functions/alert";
+import { useState } from "react";
+
 export default function UploadFiles() {
+  const [showLoader, setShowLoader] = useState(false);
   const { iin } = useParams();
   const formik = useFormik({
     initialValues: {
@@ -30,23 +35,25 @@ export default function UploadFiles() {
       childDoc: "",
     },
     onSubmit: async (values) => {
-      // const files = new FormData();
-      // files.append("file", values.residentCard);
-      // for (const obj of files) {
-      //   console.log(obj);
-      // }
-      Service("uploadFiles", { files: values, iin: iin });
+      setShowLoader(true);
+      const requesToUploadFiles = await Service("uploadFiles", {
+        files: values,
+        iin: iin,
+      });
+
+      if (requesToUploadFiles) {
+        setShowLoader(false);
+        AlertMessage(
+          "Документы были успешно отправлены!\nМы свяжемся с вами в ближайшее время!",
+          "success"
+        );
+      }
     },
   });
 
-  function OnSubmit(event) {
-    event.preventDefault();
-    const file = new FormData(event.target);
-    Service("uploadFiles", { file: file, iin: iin });
-    // console.log(file);
-  }
   return (
     <ChakraProvider>
+      {showLoader && <ReactLoading color="orange" className="loader" />}
       <div className="bg">
         <Flex bg="gray.100" align="center" justify="center" p="25px">
           <Box bg="white" p={6} rounded="md" w={"80%"}>
@@ -62,7 +69,7 @@ export default function UploadFiles() {
                 </FormLabel>
                 {/* <FormControl></FormControl> */}
                 <div className="fieldsContainer">
-                  <div className="fieldsContex">
+                  <div className="fieldsForUpload">
                     <FormLabel w="100%">
                       1.Вид на жительство
                       <span style={{ color: "red" }}>*</span>
@@ -89,7 +96,7 @@ export default function UploadFiles() {
                       </Tooltip>
                     </div>
                   </div>
-                  <div className="fieldsContex">
+                  <div className="fieldsForUpload">
                     <FormLabel w="100%">
                       2.Документ об образовании (с приложением)
                       <span style={{ color: "red" }}>*</span>
@@ -116,7 +123,7 @@ export default function UploadFiles() {
                       </Tooltip>
                     </div>
                   </div>
-                  <div className="fieldsContex">
+                  <div className="fieldsForUpload">
                     <FormLabel w="100%">
                       3. Документ, подтверждающий трудовую деятельность (для
                       лиц, имеющих трудовой стаж)
@@ -144,7 +151,7 @@ export default function UploadFiles() {
                       </Tooltip>
                     </div>
                   </div>
-                  <div className="fieldsContex">
+                  <div className="fieldsForUpload">
                     <FormLabel w="100%">
                       4. Документ о прохождении предварительного медицинского
                       освидетельствования (форма 075/у, для водителей 083/у)
@@ -172,7 +179,7 @@ export default function UploadFiles() {
                       </Tooltip>
                     </div>
                   </div>
-                  <div className="fieldsContex">
+                  <div className="fieldsForUpload">
                     <FormLabel w="100%">
                       5. Военный билет/приписное свидетельство (для
                       военнообязанных)<span style={{ color: "red" }}>*</span>
@@ -199,7 +206,7 @@ export default function UploadFiles() {
                       </Tooltip>
                     </div>
                   </div>
-                  <div className="fieldsContex">
+                  <div className="fieldsForUpload">
                     <FormLabel w="100%">
                       6. Анкета (оригинал)
                       <span style={{ color: "red" }}>*</span>
@@ -226,7 +233,7 @@ export default function UploadFiles() {
                       </Tooltip>
                     </div>
                   </div>
-                  <div className="fieldsContex">
+                  <div className="fieldsForUpload">
                     <FormLabel w="100%">
                       7. Фото 3*4<span style={{ color: "red" }}>*</span>
                     </FormLabel>
@@ -256,7 +263,7 @@ export default function UploadFiles() {
 
                 <FormLabel htmlFor="text">При наличий предоставить</FormLabel>
                 <div className="fieldsContainer">
-                  <div className="fieldsContex">
+                  <div className="fieldsForUpload">
                     <FormLabel w="100%">
                       1. Копия документа, подтверждающего статус инвалида, с
                       указанием группы инвалидности, срока действия (при
@@ -282,7 +289,7 @@ export default function UploadFiles() {
                         <InfoIcon />
                       </Tooltip>
                     </div>
-                    <div className="fieldsContex">
+                    <div className="fieldsForUpload">
                       <FormLabel w="100%">
                         2. Копия удостоверения, подтверждающего статус
                         пенсионера
@@ -308,7 +315,7 @@ export default function UploadFiles() {
                         </Tooltip>
                       </div>
                     </div>
-                    <div className="fieldsContex">
+                    <div className="fieldsForUpload">
                       <FormLabel w="100%">
                         3. Копия документа, подтверждающего право на льготы для
                         лиц, проживающих в экологически неблагополучных регионах
@@ -335,7 +342,7 @@ export default function UploadFiles() {
                         </Tooltip>
                       </div>
                     </div>
-                    <div className="fieldsContex">
+                    <div className="fieldsForUpload">
                       <FormLabel w="100%">
                         4. Копия свидетельства о заключении/о расторжении брака
                       </FormLabel>
@@ -360,7 +367,7 @@ export default function UploadFiles() {
                         </Tooltip>
                       </div>
                     </div>
-                    <div className="fieldsContex">
+                    <div className="fieldsForUpload">
                       <FormLabel w="100%">
                         5. Копию свидетельства о рождении ребенка (детей) (до 14
                         лет)
