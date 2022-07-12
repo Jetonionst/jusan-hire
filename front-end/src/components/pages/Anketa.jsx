@@ -1,5 +1,6 @@
 import { useFormik } from "formik";
 import { InfoIcon } from "@chakra-ui/icons";
+import ReactLoading from "react-loading";
 import { Tooltip } from "@chakra-ui/react";
 import {
   Box,
@@ -19,6 +20,9 @@ import AlertMsg from "../alert/alert";
 import Service from "../service/service";
 
 export default function Anketa() {
+  const [isFormdownloaded, setIsFormDownloaded] = useState(false);
+  const [isFormUploaded, setIsFormUploaded] = useState(false);
+  const [showLoader, setShowLoader] = useState(false);
   const [page, setPage] = useState(1);
   // const [eduListLength, setEduListLength] = useState(0);
 
@@ -226,23 +230,26 @@ export default function Anketa() {
       //   console.log(err);
       // }
       try {
+        setShowLoader(true);
         const requestToUpload = await Service("uploadForm", values);
-        console.log("step1");
+
         if (requestToUpload) {
-          console.log("step2");
-          const requestToDownload = await Service("downloadForm", values);
-          if (requestToDownload) {
-            console.log("step3");
-            AlertMsg("download");
-          }
+          setIsFormUploaded(true);
+          setShowLoader(false);
+
+          // const requestToDownload = await Service("downloadForm", values);
+          // if (requestToDownload) {
+          //   console.log("step3");
+          //   AlertMsg("download");
+          // }
         }
       } catch (err) {
+        // console.log("step1");
         console.log(err);
       }
     },
   });
 
-  const [isFormdownloaded, setIsFormDownloaded] = useState(false);
   const [eduListlength, setEduListlength] = useState(0);
   const [eduList] = useState([
     <div className="fieldsContex">
@@ -2915,6 +2922,7 @@ export default function Anketa() {
   if (page === 6) {
     return (
       <ChakraProvider>
+        {showLoader && <ReactLoading color="orange" className="loader" />}
         <div className="bg">
           <Flex
             bg="gray.100"
@@ -3299,8 +3307,38 @@ export default function Anketa() {
                       // }}
                       type="submit"
                     >
-                      Скачать Анкету
+                      Отправить Анкету
                     </Button>
+                    {isFormUploaded ? (
+                      <Button
+                        colorScheme="green"
+                        width="40%"
+                        marginLeft="10px"
+                        onClick={async () => {
+                          setShowLoader(true);
+                          const requestToDownload = await Service(
+                            "downloadForm",
+                            formik.values
+                          );
+                          if (requestToDownload) {
+                            setIsFormDownloaded(true);
+                            setShowLoader(false);
+                          }
+                        }}
+                      >
+                        Скачать Анкету
+                      </Button>
+                    ) : (
+                      <Button
+                        opacity={0.5}
+                        colorScheme="red"
+                        width="40%"
+                        marginLeft="10px"
+                        onClick={() => {}}
+                      >
+                        Скачать Анкету
+                      </Button>
+                    )}
                     {isFormdownloaded ? (
                       <>
                         <Button
@@ -3308,9 +3346,7 @@ export default function Anketa() {
                           width="25%"
                           marginLeft="50px"
                           // type="submit"
-                          onClick={() => {
-                            console.log("sex");
-                          }}
+                          onClick={() => {}}
                         >
                           Далее
                         </Button>{" "}

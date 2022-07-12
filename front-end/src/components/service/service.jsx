@@ -14,6 +14,7 @@ export default async function Service(request, content) {
     }
     if (request === "downloadForm") {
       const req = await fetch(
+        // `https://e77c-45-8-119-241.eu.ngrok.io/api/v1/anketa/download-pdf/${content.iin}`,
         `http://localhost:8081/api/v1/anketa/download-pdf/${content.iin}`,
         {
           method: "GET",
@@ -25,8 +26,8 @@ export default async function Service(request, content) {
       );
 
       if (req.ok) {
-        const res = await req.json();
-        // console.log("res", res);
+        window.open(req.url);
+        console.log("test");
         return true;
       }
     }

@@ -56,3 +56,9 @@
 .buttons {
   display: flex;
 }
+
+.loader {
+  position: absolute;
+  left: 45%;
+  top: 55%;
+}
