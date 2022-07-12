@@ -6,7 +6,6 @@ import {
   Button,
   ChakraProvider,
   Flex,
-  FormControl,
   FormLabel,
   Input,
   Tooltip,

@@ -213,39 +213,34 @@ export default function Anketa() {
       isExtraIncome: "",
     },
     onSubmit: async (values) => {
-      // try {
-      //   alert(JSON.stringify(values, null, 2));
-      //   const req = await fetch("http://localhost:8081/api/v1/anketa/submit", {
-      //     method: "POST",
-      //     body: JSON.stringify(values, null, 2),
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //       Accept: "*/*",
-      //       "Access-Control-Allow-Origin": "*",
-      //     },
-      //   });
-      //   console.log(req);
-      //   console.log(values);
-      // } catch (err) {
-      //   console.log(err);
-      // }
-      try {
-        setShowLoader(true);
-        const requestToUpload = await Service("uploadForm", values);
+      if (page === 1) {
+        setPage(2);
+      }
+      if (page === 2) {
+        setPage(3);
+      }
+      if (page === 3) {
+        setPage(4);
+      }
+      if (page === 4) {
+        setPage(5);
+      }
+      if (page === 5) {
+        setPage(6);
+      }
+      if (page === 6) {
+        try {
+          setShowLoader(true);
+          const requestToUpload = await Service("uploadForm", values);
 
-        if (requestToUpload) {
-          setIsFormUploaded(true);
-          setShowLoader(false);
-
-          // const requestToDownload = await Service("downloadForm", values);
-          // if (requestToDownload) {
-          //   console.log("step3");
-          //   AlertMsg("download");
-          // }
+          if (requestToUpload) {
+            setIsFormUploaded(true);
+            setShowLoader(false);
+          }
+        } catch (err) {
+          // console.log("step1");
+          console.log(err);
         }
-      } catch (err) {
-        // console.log("step1");
-        console.log(err);
       }
     },
   });
@@ -268,10 +263,10 @@ export default function Anketa() {
             w={fieldsSize}
             id={`educationList[${eduListlength}].startDate`}
             name={`educationList[${eduListlength}].startDate`}
-            type="datetime-local"
+            type="date"
             variant="filled"
             placeholder="01.01.2000"
-            onBlur={formik.handleChange}
+            onChange={formik.handleChange}
             value={formik.values.educationList[eduListlength].startDate}
           />
         </div>
@@ -284,9 +279,9 @@ export default function Anketa() {
             w={fieldsSize}
             id={`educationList[${eduListlength}].endDate`}
             name={`educationList[${eduListlength}].endDate`}
-            type="datetime-local"
+            type="date"
             variant="filled"
-            onBlur={formik.handleChange}
+            onChange={formik.handleChange}
             value={formik.values.educationList[eduListlength].endDate}
           />
         </div>
@@ -301,7 +296,7 @@ export default function Anketa() {
             name={`educationList[${eduListlength}].university`}
             type="text"
             variant="filled"
-            onBlur={formik.handleChange}
+            onChange={formik.handleChange}
             value={formik.values.educationList[eduListlength].university}
           />
         </div>
@@ -316,7 +311,7 @@ export default function Anketa() {
             name={`educationList[${eduListlength}].speciality`}
             type="text"
             variant="filled"
-            onBlur={formik.handleChange}
+            onChange={formik.handleChange}
             value={formik.values.educationList[eduListlength].speciality}
           />
         </div>
@@ -332,7 +327,7 @@ export default function Anketa() {
             name={`educationList[${eduListlength}].formOfStudy`}
             type="text"
             variant="filled"
-            onBlur={formik.handleChange}
+            onChange={formik.handleChange}
             value={formik.values.educationList[eduListlength].formOfStudy}
           />
         </div>
@@ -347,7 +342,7 @@ export default function Anketa() {
             name={`educationList[${eduListlength}].qualification`}
             type="text"
             variant="filled"
-            onBlur={formik.handleChange}
+            onChange={formik.handleChange}
             value={formik.values.educationList[eduListlength].qualification}
           />
         </div>
@@ -372,7 +367,7 @@ export default function Anketa() {
             w={fieldsSize}
             id={`extracurricularList[${specialCoursesLength}].endDate`}
             name={`extracurricularList[${specialCoursesLength}].endDate`}
-            type="datetime-local"
+            type="date"
             variant="filled"
             placeholder="01.01.2000"
             onChange={formik.handleChange}
@@ -390,7 +385,7 @@ export default function Anketa() {
             w={fieldsSize}
             id={`extracurricularList[${specialCoursesLength}].educationTime`}
             name={`extracurricularList[${specialCoursesLength}].educationTime`}
-            type="datetime-local"
+            type="date"
             variant="filled"
             onChange={formik.handleChange}
             value={
@@ -486,7 +481,7 @@ export default function Anketa() {
             w={fieldsSize}
             id={`chilrenList[${childrenListLength}].birthDate`}
             name={`chilrenList[${childrenListLength}].birthDate`}
-            type="datetime-local"
+            type="date"
             variant="filled"
             onChange={formik.handleChange}
             placeholder="01.01.1999"
@@ -575,7 +570,7 @@ export default function Anketa() {
             w={fieldsSize}
             id={`relativeList[${relativeListLength}].birthDate`}
             name={`relativeList[${relativeListLength}].birthDate`}
-            type="datetime-local"
+            type="date"
             variant="filled"
             onChange={formik.handleChange}
             placeholder="01.01.1999"
@@ -735,7 +730,7 @@ export default function Anketa() {
                 w={fieldsSize}
                 id={`extracurricularList[${tempExtraCourse}].endDate`}
                 name={`extracurricularList[${tempExtraCourse}].endDate`}
-                type="datetime-local"
+                type="date"
                 variant="filled"
                 placeholder="01.01.2000"
                 onChange={formik.handleChange}
@@ -753,7 +748,7 @@ export default function Anketa() {
                 w={fieldsSize}
                 id={`extracurricularList[${tempExtraCourse}].educationTime`}
                 name={`extracurricularList[${tempExtraCourse}].educationTime`}
-                type="datetime-local"
+                type="date"
                 variant="filled"
                 onChange={formik.handleChange}
                 value={
@@ -846,7 +841,7 @@ export default function Anketa() {
                 w={fieldsSize}
                 id={`educationList[${tempEdu}].startDate`}
                 name={`educationList[${tempEdu}].startDate`}
-                type="datetime-local"
+                type="date"
                 variant="filled"
                 placeholder="01.01.2000"
                 onChange={formik.handleChange}
@@ -862,7 +857,7 @@ export default function Anketa() {
                 w={fieldsSize}
                 id={`educationList[${tempEdu}].endDate`}
                 name={`educationList[${tempEdu}].endDate`}
-                type="datetime-local"
+                type="date"
                 variant="filled"
                 onChange={formik.handleChange}
                 value={formik.values.educationList[tempEdu].endDate}
@@ -973,7 +968,7 @@ export default function Anketa() {
                 w={fieldsSize}
                 id={`chilrenList[${tempChildren}].birthDate`}
                 name={`chilrenList[${tempChildren}].birthDate`}
-                type="datetime-local"
+                type="date"
                 variant="filled"
                 onChange={formik.handleChange}
                 placeholder="01.01.1999"
@@ -1073,7 +1068,7 @@ export default function Anketa() {
                 w={fieldsSize}
                 id={`relativeList[${tempRelative}].birthDate`}
                 name={`relativeList[${tempRelative}].birthDate`}
-                type="datetime-local"
+                type="date"
                 variant="filled"
                 onChange={formik.handleChange}
                 placeholder="01.01.1999"
@@ -1281,7 +1276,7 @@ export default function Anketa() {
                         placeholder="Пример: 01.01.1990"
                         onChange={formik.handleChange}
                         value={formik.values.birthDate}
-                        type="datetime-local"
+                        type="date"
                       />
                     </div>
                     <div className="field">
@@ -1413,7 +1408,7 @@ export default function Anketa() {
                         w={150}
                         id="passportIssuedAt"
                         name="passportIssuedAt"
-                        type="text"
+                        type="date"
                         variant="filled"
                         onChange={formik.handleChange}
                         value={formik.values.passportIssuedAt}
@@ -1804,9 +1799,7 @@ export default function Anketa() {
                     width="30%"
                     // type="submit"
                     marginLeft="50px"
-                    onClick={() => {
-                      setPage(2);
-                    }}
+                    type="submit"
                   >
                     Далее
                   </Button>
@@ -1887,9 +1880,10 @@ export default function Anketa() {
                       colorScheme="orange"
                       width="30%"
                       marginLeft="50px"
-                      onClick={() => {
-                        setPage(3);
-                      }}
+                      type="submit"
+                      // onClick={() => {
+                      //   setPage(3);
+                      // }}
                     >
                       Далее
                     </Button>
@@ -1936,7 +1930,7 @@ export default function Anketa() {
                             w={fieldsSize}
                             id={`lastThreeWorkplaces[0].workPeriod`}
                             name={`lastThreeWorkplaces[0].workPeriod`}
-                            type="datetime-local"
+                            type="date"
                             variant="filled"
                             placeholder="01.01.2000"
                             onChange={formik.handleChange}
@@ -2035,7 +2029,7 @@ export default function Anketa() {
                             w={fieldsSize}
                             id={`lastThreeWorkplaces[1].workPeriod`}
                             name={`lastThreeWorkplaces[1].workPeriod`}
-                            type="datetime-local"
+                            type="date"
                             variant="filled"
                             placeholder="01.01.2000"
                             onChange={formik.handleChange}
@@ -2134,7 +2128,7 @@ export default function Anketa() {
                             w={fieldsSize}
                             id={`lastThreeWorkplaces[2].workPeriod`}
                             name={`lastThreeWorkplaces[2].workPeriod`}
-                            type="datetime-local"
+                            type="date"
                             variant="filled"
                             placeholder="01.01.2000"
                             onChange={formik.handleChange}
@@ -2483,9 +2477,10 @@ export default function Anketa() {
                       colorScheme="orange"
                       width="30%"
                       marginLeft="50px"
-                      onClick={() => {
-                        setPage(4);
-                      }}
+                      type="submit"
+                      // onClick={() => {
+                      //   setPage(4);
+                      // }}
                     >
                       Далее
                     </Button>
@@ -2570,7 +2565,7 @@ export default function Anketa() {
                                   w={fieldsSize}
                                   id={`lifeCompanion[0].birthDate`}
                                   name={`lifeCompanion[0].birthDate`}
-                                  type="datetime-local"
+                                  type="date"
                                   variant="filled"
                                   onChange={formik.handleChange}
                                   placeholder="01.01.1999"
@@ -2711,9 +2706,10 @@ export default function Anketa() {
                       colorScheme="orange"
                       width="30%"
                       marginLeft="50px"
-                      onClick={() => {
-                        setPage(5);
-                      }}
+                      type="submit"
+                      // onClick={() => {
+                      //   setPage(5);
+                      // }}
                     >
                       Далее
                     </Button>
@@ -2904,9 +2900,10 @@ export default function Anketa() {
                       colorScheme="orange"
                       width="30%"
                       marginLeft="50px"
-                      onClick={() => {
-                        setPage(6);
-                      }}
+                      type="submit"
+                      // onClick={() => {
+                      //   setPage(6);
+                      // }}
                     >
                       Далее
                     </Button>
