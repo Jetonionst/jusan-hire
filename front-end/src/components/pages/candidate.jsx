@@ -1,5 +1,6 @@
 import ReactLoading from "react-loading";
 import {
+  Button,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -9,29 +10,11 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { ChakraProvider } from "@chakra-ui/react";
-import { useCallback, useEffect, useState } from "react";
 import Service from "../service/service";
 
 export default function Candidate(props) {
   const candidate = props.candidate;
-  const [candidateInfo, setCandidateInfo] = useState();
-
-  //   const requestToCandidateInfo = useCallback(async () => {
-  //     try {
-  //       const requestCandidate = await Service("candidateInfo", candidate.iin);
-  //       setCandidateInfo(requestCandidate);
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   }, []);
-
-  //   useEffect(() => {
-  //     try {
-  //       requestToCandidateInfo();
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   }, [requestToCandidateInfo]);
+  //   console.log(candidate);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -47,9 +30,38 @@ export default function Candidate(props) {
       <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader></ModalHeader>
+          <ModalHeader>{candidate.fio}</ModalHeader>
           <ModalCloseButton />
-          <ModalBody></ModalBody>
+          <ModalBody>
+            <div className="candidateBody">
+              <div className="candidateName">{candidate.fio}</div>
+              <div className="candidateIIN">{candidate.iin}</div>
+              <div className="candidatePhone">{candidate.mobilePhone}</div>
+              <div className="candidateEmail">{candidate.email}</div>
+              <div className="candidateCity">
+                {candidate.permanentRegion}, {candidate.permanentCity},{" "}
+                {candidate.permanentStreet},{candidate.permanentHouse},
+                {candidate.permanentApartment}
+              </div>
+              <div className="candidateCitizenship">
+                {candidate.citizenship}
+              </div>
+              <div className="candidateBtns">
+                <Button
+                  bg="orange"
+                  onClick={() => Service("HR", candidate.iin)}
+                >
+                  Документы для HR
+                </Button>
+                <Button
+                  bg="#4169e1"
+                  onClick={() => Service("SB", candidate.iin)}
+                >
+                  Документы для СБ
+                </Button>
+              </div>
+            </div>
+          </ModalBody>
         </ModalContent>
       </Modal>
     </ChakraProvider>

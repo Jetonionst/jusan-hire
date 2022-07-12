@@ -215,6 +215,7 @@ a {
 .adminPage {
   background-color: #edf2f7;
   padding: 10px;
+  /* height: 70vh; */
 }
 .adminPanel {
   margin: 0 auto;
@@ -244,4 +245,26 @@ a {
 }
 .candidateIIN::before {
   content: "ИИН: ";
+}
+
+.candidateCity::before {
+  content: "Адрес прописки: ";
+}
+
+.candidateEmail::before {
+  content: "email: ";
+}
+
+.candidateCitizenship::before {
+  content: "Гражданство: ";
+}
+
+.candidatePhone::before {
+  content: "Телефон: ";
+}
+.candidateBtns {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }

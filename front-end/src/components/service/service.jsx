@@ -46,6 +46,7 @@ export default async function Service(request, content) {
               body: formData,
             }
           );
+
           // console.log(req);
         }
       }
@@ -99,19 +100,51 @@ export default async function Service(request, content) {
         return res;
       }
     }
-    if (request === "candidateInfo") {
+    if (request === "HR") {
+      // const fetchList = [
+      //   "residentCard",
+      //   "educationDoc",
+      //   "laborActivity",
+      //   "medDoc",
+      //   "militaryDoc",
+      //   "form",
+      //   "image",
+      //   "invalidDoc",
+      //   "pensionerDoc",
+      //   "lgotiDoc",
+      //   "marriageDoc",
+      //   "childDoc",
+      // ];
       const req = await fetch(
-        `http://localhost:8081/api/v1/anketa/${content.iin}`,
+        `http://localhost:8081/api/v1/attachments/${content}`,
         {
           method: "GET",
           headers: {
-            "Content-Type": "application/json",
             Accept: "application/json",
           },
         }
       );
-      const res = await req.json();
-      return res;
+      if (req.ok) {
+        const documentList = await req.json();
+        documentList.map(async (doc) => {
+          const req = await fetch(
+            `http://localhost:8081/api/v1/download/${doc.id}`,
+            {
+              method: "GET",
+              headers: {
+                Accept: "application/json",
+              },
+            }
+          );
+          if (req.ok) {
+            window.open(req.url);
+          }
+        });
+
+        // fetchList.map((elem) => {
+        //   console.log(elem);
+        // });
+      }
     }
   } catch (err) {
     console.log(err);
