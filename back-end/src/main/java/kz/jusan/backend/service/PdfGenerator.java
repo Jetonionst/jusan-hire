@@ -9,22 +9,43 @@ import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfPTable;
 import kz.jusan.backend.dto.*;
 import kz.jusan.backend.entity.AnketaEntity;
+import org.springframework.security.core.parameters.P;
 
 
 public class PdfGenerator {
     public static String FILE = "src/main/resources/templates/output.pdf";
-    private static Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 18,
-            Font.BOLD);
-    private static Font redFont = new Font(Font.FontFamily.TIMES_ROMAN, 12,
-            Font.NORMAL, BaseColor.RED);
-    private static Font subFont = new Font(Font.FontFamily.TIMES_ROMAN, 16,
-            Font.BOLD);
-    private static Font smallBold = new Font(Font.FontFamily.TIMES_ROMAN, 12,
-            Font.BOLD);
+    public static final String TIMES_NEW_ROMAN = "static/fonts/kztimesnewroman.ttf";
     public static final String TIMES_BOLD = "/static/fonts/TIMCYRB.ttf";
-    public static final String TIMES_BOLD_ITALIC = "/static/fonts/TIMCYRBI.ttf";
     public static final String TIMES_ITALIC = "/static/fonts/TIMCYRI.ttf";
-
+    public static final String TIMES_BOLD_ITALIC = "/static/fonts/TIMCYRBI.ttf";
+    static Font normal10;
+    static Font normal11;
+    static Font normal12;
+    static Font bold10;
+    static Font bold12;
+    static Font italic10;
+    static Font italic12;
+    static Font boldItalic12;
+    static {
+        try {
+            BaseFont bfNormal = BaseFont.createFont(TIMES_NEW_ROMAN, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+            BaseFont bfBold = BaseFont.createFont(TIMES_BOLD, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+            BaseFont bfItalic = BaseFont.createFont(TIMES_ITALIC, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+            BaseFont bfBoldItalic = BaseFont.createFont(TIMES_BOLD_ITALIC, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+            normal10 = new Font(bfNormal,10, Font.NORMAL);
+            normal11 = new Font(bfNormal,11, Font.NORMAL);
+            normal12 = new Font(bfNormal,12, Font.NORMAL);
+            bold10 = new Font(bfBold,10, Font.NORMAL);
+            bold12 = new Font(bfBold,12, Font.NORMAL);
+            italic10 = new Font(bfItalic,10, Font.NORMAL);
+            italic12 = new Font(bfItalic,12, Font.NORMAL);
+            boldItalic12 = new Font(bfBoldItalic,12, Font.NORMAL);
+        } catch (DocumentException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
     public static void addMetaData(Document document, AnketaEntity anketa) {
         document.addTitle(anketa.getIin());
         document.addSubject("Using iText");
@@ -34,50 +55,64 @@ public class PdfGenerator {
     }
 
     public static void addContent(Document document, AnketaEntity anketa) throws DocumentException, IOException {
-        BaseFont bf= BaseFont.createFont(TIMES_BOLD, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
-        Font smallBold = new Font(bf,12,Font.NORMAL);
-        document.add(new Paragraph("АНКЕТА КАНДИДАТА      "+anketa.getIin(), smallBold));
+        Paragraph header1 = new Paragraph("Приложение  2\n", bold12);
+        header1.setAlignment(Element.ALIGN_RIGHT);
+        document.add(header1);
+        Paragraph header2 = new Paragraph(
+                "к Правилам оформления приема на работу \n" +
+                        "и прекращения трудового договора \n" +
+                        "в АО «First Heartland Jýsan Bank» \n\n", italic10);
+        header2.setAlignment(Element.ALIGN_RIGHT);
+        document.add(header2);
+        document.add(new Paragraph("АНКЕТА КАНДИДАТА      "+anketa.getIin(), bold12));
         document.add(new Paragraph("\n"));
-        createTable1(document, anketa, smallBold);
-        document.add(new Paragraph("Укажите, пожалуйста, номера телефонов, по которым с Вами можно связаться:", smallBold));
-        createTable2(document, anketa, smallBold);
-        document.add(new Paragraph("Местожительство:", smallBold));
-        createTable3(document, anketa, smallBold);
-        document.add(new Paragraph("Образование (в том числе неоконченное):", smallBold));
-        createTable4(document, anketa, smallBold);
-        document.add(new Paragraph("Специальные курсы, школы, стажировки, семинары:", smallBold));
+        createTable1(document, anketa);
+        document.add(new Paragraph("Укажите, пожалуйста, номера телефонов, по которым с Вами можно связаться:", normal12));
+        document.add(new Paragraph("\n"));
+        createTable2(document, anketa, normal10);
+        document.add(new Paragraph("Местожительство:", normal12));
+        document.add(new Paragraph("\n"));
+        createTable3(document, anketa);
+        document.add(new Paragraph("Образование (в том числе неоконченное):", bold12));
+
+        document.add(new Paragraph("\n"));createTable4(document, anketa, normal10);
+        document.add(new Paragraph("Специальные курсы, школы, стажировки, семинары:", bold12));
         List<String> headers = new ArrayList<String>(Arrays.asList(
                 "Год окончания",
                 "Длительность обучения",
                 "Полное наименование курсовя",
                 "Специальность",
                 "Учёная степень, сертификаты"));
-        createTable5(document, anketa, smallBold, headers);
+        document.add(new Paragraph("\n"));
+        createTable5(document, anketa, normal10, headers);
         document.add(new Paragraph("Укажите предшествующие 3 (три) места работы в обратном хронологическом " +
-                "порядке, начиная с последнего или действующего места работы:", smallBold));
+                "порядке, начиная с последнего или действующего места работы:", bold12));
+        document.add(new Paragraph("\n"));
         headers = new ArrayList<>(Arrays.asList(
                 "Период работы (месяц, год)",
                 "Полное название организации, вид деятельности, адрес, телефон",
                 "Наименование должности",
                 "ФИО руководителя, телефон",
                 "Причина увольнения"));
-        createTable6(document, anketa, smallBold, headers);
+        createTable6(document, anketa, normal10, headers);
         document.add(new Paragraph("Укажите не менее 3 (трёх) лиц, которые могут дать Вам профессиональную " +
-                "рекомендацию (бывшие и/или настоящие руководители, коллеги):", smallBold));
+                "рекомендацию (бывшие и/или настоящие руководители, коллеги):", bold12));
+        document.add(new Paragraph("\n"));
         headers = new ArrayList<>(Arrays.asList(
                 "ФИО",
                 "Место работы, должность",
                 "Телефон"
         ));
-        createTable7(document, anketa, smallBold, headers);
+        createTable7(document, anketa, normal10, headers);
         document.add(new Paragraph("\n"));
         PdfPTable table = new PdfPTable(2);
         table.setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
         table.setWidthPercentage(100);
-        table.addCell(new Paragraph("Семейное положение: ", smallBold));
-        table.addCell(new Paragraph(anketa.getMarriageStatus(), smallBold));
+        table.addCell(new Paragraph("Семейное положение: ", bold12));
+        table.addCell(new Paragraph(anketa.getMarriageStatus(), normal10));
         document.add(table);
-        document.add(new Paragraph("Супруг (-а)", smallBold));
+        document.add(new Paragraph("Супруг (-а)", normal12));
+        document.add(new Paragraph("\n"));
         headers = new ArrayList<>(Arrays.asList(
                 "ФИО (полностью), дата рождения",
                 "Место работы",
@@ -85,56 +120,59 @@ public class PdfGenerator {
                 "Адрес места жительства",
                 "Гражданство",
                 "Контакты"));
-        createTable8(document, anketa, smallBold, headers);
-        document.add(new Paragraph("Дети:", smallBold));
+        createTable8(document, anketa, normal10, headers);
+        document.add(new Paragraph("Дети:", normal12));
+        document.add(new Paragraph("\n"));
         headers = new ArrayList<>(Arrays.asList(
                 "ФИО (полностью)",
                 "Дата рождения",
                 "Телефон",
                 "Место учебы, работы"));
-        createTable9(document, anketa, smallBold, headers);
-        document.add(new Paragraph("Ближайшие родственники:", smallBold));
+        createTable9(document, anketa, normal10, headers);
+        document.add(new Paragraph("Ближайшие родственники:", normal12));
+        document.add(new Paragraph("\n"));
         headers = new ArrayList<>(Arrays.asList(
                 "Степень родства",
                 "ФИО",
                 "Дата рождения",
                 "Место работы, должность",
                 "Домашний адрес, номер телефона / сотового"));
-        createTable10(document, anketa, smallBold, headers);
-        document.add(new Paragraph("Дополнительная информация:", smallBold));
+        createTable10(document, anketa, normal10, headers);
+        document.add(new Paragraph("Дополнительная информация:", normal12));
+        document.add(new Paragraph("\n"));
         headers = new ArrayList<>(Arrays.asList(
                 "Являетесь ли Вы руководителем/учредителем (соучредителем), членом совета директоров и/или правления коммерческих организаций (ИП/ТОО)",
                 "Наименование, ИНН, адрес, вид деятельности, телефон"));
-        createTable11(document, anketa, smallBold, headers);
+        createTable11(document, anketa, normal10, headers);
         document.add(new Paragraph("\n"));
         PdfPTable isRelativeTable = new PdfPTable(2);
         isRelativeTable.setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
         isRelativeTable.setWidthPercentage(100);
         isRelativeTable.addCell(new Paragraph("Имеете ли Вы родственников, членов семьи, работающих в АО \" Jusan Bank\" " +
-                "или связанных с деятельностью  АО \"Jusan Bank\"", smallBold));
+                "или связанных с деятельностью  АО \"Jusan Bank\"", normal10));
         String isRelativeJusan = getBoolAsYesOrNo(anketa.isRelativeJusanEmployee());
-        isRelativeTable.addCell(new Paragraph(isRelativeJusan, smallBold));
+        isRelativeTable.addCell(new Paragraph(isRelativeJusan, bold10));
         document.add(isRelativeTable);
         headers = new ArrayList<>(Arrays.asList(
                 "Степень родства",
                 "ФИО",
                 "Подразделение, должность"));
-        createTable12(document, anketa, smallBold, headers);
+        createTable12(document, anketa, normal10, headers);
         document.add(new Paragraph("\n"));
-        createTable13(document, anketa, smallBold);
+        createTable13(document, anketa);
         document.add(new Paragraph("\n"));
-        createTable14(document, anketa, smallBold);
+        createTable14(document, anketa, normal10);
         document.add(new Paragraph("\n"));
-        createTable15(document, anketa, smallBold);
+        createTable15(document, anketa);
         document.add(new Paragraph("\n"));
         headers = new ArrayList<>(Arrays.asList(
                 "Внимательно прочитайте и ответьте, пожалуйста, на следующие вопросы",
                 "ДА",
                 "НЕТ",
                 "Раскрыть"));
-        createTable16(document, anketa, smallBold, headers);
+        createTable16(document, anketa, headers);
         document.add(new Paragraph("\n"));
-        createTable17(document, anketa, smallBold);
+        createTable17(document, anketa, normal10);
         document.add(new Paragraph("\nВ соответствии с требованиями Закона Республики Казахстан «О персональных " +
                 "данных и их защите» даю  АО \" Jusan Bank\" (далее – «Банк») безусловное согласие на сбор, " +
                 "обработку, хранение и распространение Банком информации обо мне [и представляемом мной лице]," +
@@ -145,32 +183,32 @@ public class PdfGenerator {
                 "При этом мои персональные данные [и персональные данные представляемого мной лица] должны " +
                 "распространяться Банком с учетом ограничений, установленных законодательством Республики Казахстан," +
                 " в том числе, ст. 50 Закона Республики Казахстан «О банках и банковской деятельности в Республике" +
-                " Казахстан».", smallBold));
+                " Казахстан».", normal11));
         document.add(new Paragraph("\n" +
                 "ФИО___________________________   Подпись _________________________\n" +
                 "\n" +
-                "Дата  ____ /____________ / 20 __ г.\t", smallBold));
+                "Дата  ____ /____________ / 20 __ г.\t", normal12));
     }
 
-    private static void createTable1(Document document, AnketaEntity anketa, Font font)
+    private static void createTable1(Document document, AnketaEntity anketa)
             throws DocumentException {
         PdfPTable table = new PdfPTable(2);
         table.setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
         table.setWidthPercentage(100);
-        table.addCell(new Paragraph("ФИО", font));
-        table.addCell(new Paragraph(anketa.getFio()+" ", font));
-        table.addCell(new Paragraph("Если Вы сменили фамилию, укажите, пожалуйста, прежнюю", font));
-        table.addCell(new Paragraph(anketa.getPreviousName()+" ", font));
-        table.addCell(new Paragraph("Число, месяц и год рождения, место рождения", font));
-        table.addCell(new Paragraph(anketa.getBirthDate() + ", " + anketa.getBirthPlace(), font));
-        table.addCell(new Paragraph("Национальность", font));
-        table.addCell(new Paragraph(anketa.getNationality()+" ", font));
-        table.addCell(new Paragraph("Гражданство", font));
-        table.addCell(new Paragraph(anketa.getCitizenship()+" ", font));
-        table.addCell(new Paragraph("Паспорт, удостоверение личности", font));
+        table.addCell(new Paragraph("ФИО", bold12));
+        table.addCell(new Paragraph(anketa.getFio()+" ", normal12));
+        table.addCell(new Paragraph("Если Вы сменили фамилию, укажите, пожалуйста, прежнюю", italic10));
+        table.addCell(new Paragraph(anketa.getPreviousName()+" ", normal12));
+        table.addCell(new Paragraph("Число, месяц и год рождения, место рождения", bold12));
+        table.addCell(new Paragraph(anketa.getBirthDate() + ", " + anketa.getBirthPlace(), normal12));
+        table.addCell(new Paragraph("Национальность", bold12));
+        table.addCell(new Paragraph(anketa.getNationality()+" ", normal12));
+        table.addCell(new Paragraph("Гражданство", bold12));
+        table.addCell(new Paragraph(anketa.getCitizenship()+" ", normal12));
+        table.addCell(new Paragraph("Паспорт, удостоверение личности", bold12));
         PdfPTable passportDetails = new PdfPTable(2);
-        passportDetails.addCell(new Paragraph("Серия: "+ anketa.getPassportSerie() + ", " + "Номер: " + anketa.getPassportNumber(), font));
-        passportDetails.addCell(new Paragraph("Кем и когда выдан: " + anketa.getPassportIssuedBy() + ", "+ anketa.getPassportIssuedAt(), font));
+        passportDetails.addCell(new Paragraph("Серия: "+ anketa.getPassportSerie() + ", " + "Номер: " + anketa.getPassportNumber(), normal12));
+        passportDetails.addCell(new Paragraph("Кем и когда выдан: " + anketa.getPassportIssuedBy() + ", "+ anketa.getPassportIssuedAt(), normal12));
         table.addCell(passportDetails);
         document.add(table);
     }
@@ -195,24 +233,24 @@ public class PdfGenerator {
         document.add(table);
     }
 
-    private static void createTable3(Document document, AnketaEntity anketa, Font font) throws DocumentException {
+    private static void createTable3(Document document, AnketaEntity anketa) throws DocumentException {
         PdfPTable table = new PdfPTable(2);
         table.setHorizontalAlignment(Element.ALIGN_LEFT);
         table.setWidthPercentage(100);
-        table.addCell(new Paragraph("Адрес постоянной регистрации:", font));
-        table.addCell(new Paragraph("Адрес фактического проживания:", font));
-        table.addCell(new Paragraph("Город: "+anketa.getPermanentCity(), font));
-        table.addCell(new Paragraph("Город: "+anketa.getFactualCity(), font));
-        table.addCell(new Paragraph("Область: "+anketa.getPermanentRegion(), font));
-        table.addCell(new Paragraph("Область: "+anketa.getFactualRegion(), font));
-        table.addCell(new Paragraph("Район: "+anketa.getPermanentDistrict(), font));
-        table.addCell(new Paragraph("Район: "+anketa.getFactualDistrict(), font));
-        table.addCell(new Paragraph("Улица: "+anketa.getPermanentStreet(), font));
-        table.addCell(new Paragraph("Улица: "+anketa.getFactualStreet(), font));
+        table.addCell(new Paragraph("Адрес постоянной регистрации:", bold10));
+        table.addCell(new Paragraph("Адрес фактического проживания:", bold10));
+        table.addCell(new Paragraph("Город: "+anketa.getPermanentCity(), normal10));
+        table.addCell(new Paragraph("Город: "+anketa.getFactualCity(), normal10));
+        table.addCell(new Paragraph("Область: "+anketa.getPermanentRegion(), normal10));
+        table.addCell(new Paragraph("Область: "+anketa.getFactualRegion(), normal10));
+        table.addCell(new Paragraph("Район: "+anketa.getPermanentDistrict(), normal10));
+        table.addCell(new Paragraph("Район: "+anketa.getFactualDistrict(), normal10));
+        table.addCell(new Paragraph("Улица: "+anketa.getPermanentStreet(), normal10));
+        table.addCell(new Paragraph("Улица: "+anketa.getFactualStreet(), normal10));
         table.addCell(new Paragraph(String.format("Дом: %s, Корпус: %s, Квартира: %s",
-                anketa.getPermanentHouse(), anketa.getPermanentCorpus(), anketa.getPermanentApartment()), font));
+                anketa.getPermanentHouse(), anketa.getPermanentCorpus(), anketa.getPermanentApartment()), normal10));
         table.addCell(new Paragraph(String.format("Дом: %s, Корпус: %s, Квартира: %s",
-                anketa.getFactualHouse(), anketa.getFactualCorpus(), anketa.getFactualApartment()), font));
+                anketa.getFactualHouse(), anketa.getFactualCorpus(), anketa.getFactualApartment()), normal10));
         document.add(table);
     }
 
@@ -367,20 +405,20 @@ public class PdfGenerator {
         document.add(table);
     }
 
-    public static void createTable13(Document document, AnketaEntity anketa, Font font) throws DocumentException {
+    public static void createTable13(Document document, AnketaEntity anketa) throws DocumentException {
         PdfPTable table = new PdfPTable(3);
         table.setHorizontalAlignment(Element.ALIGN_LEFT);
         table.setWidthPercentage(100);
-        table.addCell(new Paragraph("Наличие автомобиля", font));
-        table.addCell(new Paragraph(getBoolAsYesOrNo(anketa.isCarOwner()), font));
+        table.addCell(new Paragraph("Наличие автомобиля", normal10));
+        table.addCell(new Paragraph(getBoolAsYesOrNo(anketa.isCarOwner()), bold10));
         PdfPTable tableInner = new PdfPTable(3);
-        tableInner.addCell(new Paragraph("Модель", font));
-        tableInner.addCell(new Paragraph("Год выпуска", font));
-        tableInner.addCell(new Paragraph("Гос. номер", font));
+        tableInner.addCell(new Paragraph("Модель", normal10));
+        tableInner.addCell(new Paragraph("Год выпуска", normal10));
+        tableInner.addCell(new Paragraph("Гос. номер", normal10));
         for (CarDto car: anketa.getCarList()) {
-            table.addCell(new Paragraph(car.getModel(), font));
-            table.addCell(new Paragraph(car.getYear(), font));
-            table.addCell(new Paragraph(car.getGovNumber(), font));
+            table.addCell(new Paragraph(car.getModel(), normal10));
+            table.addCell(new Paragraph(car.getYear(), normal10));
+            table.addCell(new Paragraph(car.getGovNumber(), normal10));
         }
         document.add(table);
     }
@@ -398,76 +436,76 @@ public class PdfGenerator {
         document.add(table);
     }
 
-    public static void createTable15(Document document, AnketaEntity anketa, Font font) throws DocumentException {
+    public static void createTable15(Document document, AnketaEntity anketa) throws DocumentException {
         PdfPTable table = new PdfPTable(2);
         table.setHorizontalAlignment(Element.ALIGN_LEFT);
         table.setWidthPercentage(100);
-        table.addCell(new Paragraph("Имеете ли Вы право на льготы согласно действующему законодательству?", font));
-        table.addCell(new Paragraph(getBoolAsYesOrNo(anketa.isSVC()), font));
+        table.addCell(new Paragraph("Имеете ли Вы право на льготы согласно действующему законодательству?", normal10));
+        table.addCell(new Paragraph(getBoolAsYesOrNo(anketa.isSVC()), bold10));
         document.add(table);
     }
 
-    public static void createTable16(Document document, AnketaEntity anketa, Font font, List<String> headers) throws DocumentException {
+    public static void createTable16(Document document, AnketaEntity anketa, List<String> headers) throws DocumentException {
         PdfPTable table = new PdfPTable(headers.size());
         table.setHorizontalAlignment(Element.ALIGN_LEFT);
         table.setWidthPercentage(100);
         for (String header: headers) {
-            table.addCell(new Paragraph(header, font));
+            table.addCell(new Paragraph(header, bold10));
         }
-        table.addCell(new Paragraph("Имеете ли Вы просроченный заем?", font));
+        table.addCell(new Paragraph("Имеете ли Вы просроченный заем?", normal10));
         if (anketa.isExpiredLoan()){
-            table.addCell(new Paragraph("ДА", font));
-            table.addCell(new Paragraph("", font));
+            table.addCell(new Paragraph("ДА", normal10));
+            table.addCell(new Paragraph("", normal10));
         } else {
-            table.addCell(new Paragraph("", font));
-            table.addCell(new Paragraph("НЕТ", font));
+            table.addCell(new Paragraph("", normal10));
+            table.addCell(new Paragraph("НЕТ", normal10));
         }
-        table.addCell(new Paragraph(anketa.getIsExpiredLoanAnswer(), font));
-        table.addCell(new Paragraph("Привлекались ли Вы к уголовной ответственности?", font));
+        table.addCell(new Paragraph(anketa.getIsExpiredLoanAnswer(), normal10));
+        table.addCell(new Paragraph("Привлекались ли Вы к уголовной ответственности?", normal10));
         if (anketa.isCriminal()){
-            table.addCell(new Paragraph("ДА", font));
-            table.addCell(new Paragraph("", font));
+            table.addCell(new Paragraph("ДА", normal10));
+            table.addCell(new Paragraph("", normal10));
         } else {
-            table.addCell(new Paragraph("", font));
-            table.addCell(new Paragraph("НЕТ", font));
+            table.addCell(new Paragraph("", normal10));
+            table.addCell(new Paragraph("НЕТ", normal10));
         }
-        table.addCell(new Paragraph(anketa.getIsCriminalAnswer(), font));
-        table.addCell(new Paragraph("Привлекались ли Ваши близкие родственники, члены семьи  к уголовной ответственности?", font));
+        table.addCell(new Paragraph(anketa.getIsCriminalAnswer(), normal10));
+        table.addCell(new Paragraph("Привлекались ли Ваши близкие родственники, члены семьи  к уголовной ответственности?", normal10));
         if (anketa.isRelativeCriminal()){
-            table.addCell(new Paragraph("ДА", font));
-            table.addCell(new Paragraph("", font));
+            table.addCell(new Paragraph("ДА", normal10));
+            table.addCell(new Paragraph("", normal10));
         } else {
-            table.addCell(new Paragraph("", font));
-            table.addCell(new Paragraph("НЕТ", font));
+            table.addCell(new Paragraph("", normal10));
+            table.addCell(new Paragraph("НЕТ", normal10));
         }
-        table.addCell(new Paragraph(anketa.getIsRelativeCriminalAnswer(), font));
-        table.addCell(new Paragraph("Против Вас когда-либо возбуждалось уголовное дело?", font));
+        table.addCell(new Paragraph(anketa.getIsRelativeCriminalAnswer(), normal10));
+        table.addCell(new Paragraph("Против Вас когда-либо возбуждалось уголовное дело?", normal10));
         if (anketa.isCriminalDelo()){
-            table.addCell(new Paragraph("ДА", font));
-            table.addCell(new Paragraph("", font));
+            table.addCell(new Paragraph("ДА", normal10));
+            table.addCell(new Paragraph("", normal10));
         } else {
-            table.addCell(new Paragraph("", font));
-            table.addCell(new Paragraph("НЕТ", font));
+            table.addCell(new Paragraph("", normal10));
+            table.addCell(new Paragraph("НЕТ", normal10));
         }
-        table.addCell(new Paragraph(anketa.getIsCriminalDeloAnswer(), font));
-        table.addCell(new Paragraph("Выплачиваете ли Вы алименты?", font));
+        table.addCell(new Paragraph(anketa.getIsCriminalDeloAnswer(), normal10));
+        table.addCell(new Paragraph("Выплачиваете ли Вы алименты?", normal10));
         if (anketa.isAlimentPayer()){
-            table.addCell(new Paragraph("ДА", font));
-            table.addCell(new Paragraph("", font));
+            table.addCell(new Paragraph("ДА", normal10));
+            table.addCell(new Paragraph("", normal10));
         } else {
-            table.addCell(new Paragraph("", font));
-            table.addCell(new Paragraph("НЕТ", font));
+            table.addCell(new Paragraph("", normal10));
+            table.addCell(new Paragraph("НЕТ", normal10));
         }
-        table.addCell(new Paragraph(anketa.getIsAlimentPayerAnswer(), font));
-        table.addCell(new Paragraph("Привлекались ли Вы к административной ответственности?", font));
+        table.addCell(new Paragraph(anketa.getIsAlimentPayerAnswer(), normal10));
+        table.addCell(new Paragraph("Привлекались ли Вы к административной ответственности?", normal10));
         if (anketa.isHooligan()){
-            table.addCell(new Paragraph("ДА", font));
-            table.addCell(new Paragraph("", font));
+            table.addCell(new Paragraph("ДА", normal10));
+            table.addCell(new Paragraph("", normal10));
         } else {
-            table.addCell(new Paragraph("", font));
-            table.addCell(new Paragraph("НЕТ", font));
+            table.addCell(new Paragraph("", normal10));
+            table.addCell(new Paragraph("НЕТ", normal10));
         }
-        table.addCell(new Paragraph(anketa.getIsHooliganAnswer(), font));
+        table.addCell(new Paragraph(anketa.getIsHooliganAnswer(), normal10));
         document.add(table);
     }
 
