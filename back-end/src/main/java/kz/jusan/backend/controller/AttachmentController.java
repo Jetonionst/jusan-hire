@@ -4,6 +4,7 @@ import kz.jusan.backend.dto.ResponseDto;
 import kz.jusan.backend.entity.Attachment;
 import kz.jusan.backend.service.AttachmentService;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.engine.jdbc.StreamUtils;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -13,7 +14,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 @RestController
 @RequestMapping(path="/api/v1")
@@ -56,6 +61,29 @@ public class AttachmentController {
                 file.getContentType(),
                 file.getSize(),
                 type);
+    }
+
+    @GetMapping("/download/zip/{iin}")
+    public void downloadAllFiles(@PathVariable("iin") String iin, HttpServletResponse response) {
+        List<Attachment> attachments = attachmentService.findAttachmentsByIin(iin);
+        response.setContentType("application/zip");
+        response.setHeader("Content-Disposition", "attachment; filename=download.zip");
+        try(ZipOutputStream zipOutputStream = new ZipOutputStream(response.getOutputStream())) {
+            for(Attachment attachment: attachments) {
+                FileSystemResource fileSystemResource = new FileSystemResource(attachment.getFilePath());
+                ZipEntry zipEntry = new ZipEntry(fileSystemResource.getFilename());
+                zipEntry.setSize(fileSystemResource.contentLength());
+                zipEntry.setTime(System.currentTimeMillis());
+
+                zipOutputStream.putNextEntry(zipEntry);
+
+                StreamUtils.copy(fileSystemResource.getInputStream(), zipOutputStream);
+                zipOutputStream.closeEntry();
+            }
+            zipOutputStream.finish();
+        } catch (IOException e) {
+            System.out.println(e);
+        }
     }
 
     @GetMapping("/download/{fileId}")
