@@ -3508,7 +3508,7 @@ export default function Anketa() {
                       // }}
                       type="submit"
                     >
-                      Отправить Анкету
+                      Подписать Анкету
                     </Button>
                     {isFormUploaded ? (
                       <Button
