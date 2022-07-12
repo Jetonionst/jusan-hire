@@ -1,5 +1,5 @@
 export default async function Service(request, content) {
-  console.log(content.files);
+  console.log(content);
   try {
     if (request === "uploadForm") {
       const req = await fetch("http://localhost:8081/api/v1/anketa/submit", {
@@ -52,7 +52,45 @@ export default async function Service(request, content) {
       }
       return true;
     }
+    if (request === "registration") {
+      const req = await fetch("http://localhost:8081/api/v1/register", {
+        method: "POST",
+        body: JSON.stringify(content, null, 2),
+        headers: {
+          Accept: "*/*",
+          // "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json",
+        },
+      });
+      const res = await req.json();
+      if (!req.ok) {
+        alert(res.Error);
+      } else {
+        window.location = "/login";
+      }
+    }
+
+    if (request === "login") {
+      const req = await fetch("http://localhost:8081/api/v1/auth", {
+        method: "POST",
+        body: JSON.stringify(content, null, 2),
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          // "Access-Control-Allow-Origin": "*",
+        },
+      });
+
+      const reqJ = await req.json();
+      if (!req.ok) {
+        alert(reqJ.Error);
+      }
+      if (reqJ.token) {
+        sessionStorage.setItem("token", reqJ.token);
+        window.location = "/admin";
+      }
+    }
   } catch (err) {
-    console.log(err);
+    alert(err);
   }
 }

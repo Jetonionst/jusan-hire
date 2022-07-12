@@ -12,8 +12,8 @@ export default function Header() {
         </a>
 
         <div className="headerUserNav">
-          <a href="/profile" className="button-5 ">
-            Профиль
+          <a href="/admin" className="button-5 ">
+            Список заявок
           </a>
 
           <a

@@ -11,6 +11,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import AlertMessage from "../functions/alert";
+import Service from "../service/service";
 
 export default function Login() {
   return (
@@ -30,37 +31,8 @@ export default function Login() {
             }}
             onSubmit={async (values) => {
               try {
-                const req = await fetch("http://localhost:8081/api/v1/auth", {
-                  method: "POST",
-                  body: JSON.stringify(values, null, 2),
-                  headers: {
-                    "Content-Type": "application/json",
-                    Accept: "application/json",
-                    // "Access-Control-Allow-Origin": "*",
-                  },
-                });
-                console.log(req);
-                const reqJ = await req.json();
-
-                console.log(reqJ);
-
-                if (reqJ.token) {
-                  sessionStorage.setItem("token", `${reqJ.token}`);
-
-                  // const userRes = await userReq.json();
-                  // sessionStorage.setItem(
-                  //   'user',
-                  //   `${userRes.firstName} ${userRes.lastName}`
-                  // );
-                  // sessionStorage.setItem('login', `${userRes.login}`);
-                  // window.location.pathname = "/";
-                  alert("succses");
-                } else {
-                  AlertMessage(reqJ.message, "error");
-                }
-                //
+                const requestToLogin = await Service("login", values);
               } catch (error) {
-                // window.location.pathname = "/500";
                 console.log(error);
               }
             }}
@@ -68,7 +40,6 @@ export default function Login() {
             {({ handleSubmit, errors, touched }) => (
               <form onSubmit={handleSubmit}>
                 <VStack spacing={4} align="flex-start">
-                  {/* <FormControl isInvalid={!!errors.name && touched.name}> */}
                   <FormControl>
                     <FormLabel color="white" htmlFor="text">
                       Логин

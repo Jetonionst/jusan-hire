@@ -12,6 +12,7 @@ import {
 } from "@chakra-ui/react";
 // import * as yup from "yup";
 import AlertMessage from "../functions/alert";
+import Service from "../service/service";
 
 // const validationSchema = yup.object().shape({
 //   password: yup
@@ -38,38 +39,17 @@ export default function Registration() {
           <Formik
             initialValues={{
               login: "",
-              name: "",
-              surname: "",
 
               password: "",
               validatePassword: "",
             }}
-            // validationSchema={validationSchema}
             onSubmit={async (values) => {
               try {
-                const req = await fetch(
-                  "http://localhost:8189/api/v1/app/register",
-                  {
-                    method: "POST",
-                    body: JSON.stringify(values, null, 2),
-                    headers: {
-                      "Content-Type": "application/json",
-                      Accept: "application/json",
-                      "Access-Control-Allow-Origin": "*",
-                    },
-                  }
-                );
-                const res = await req.json();
-
-                if (res.statusCode === "OK") {
-                  window.location.pathname = "/login";
-                }
-                AlertMessage(res.message, "success");
-                // alert(res.message);
-              } catch (error) {
-                window.location.pathname = "/500";
-                console.log(error);
-              }
+                const requestToRegistration = await Service("registration", {
+                  username: values.login,
+                  password: values.password,
+                });
+              } catch (error) {}
             }}
           >
             {({ values, handleSubmit, errors, touched }) => (
@@ -97,52 +77,6 @@ export default function Registration() {
                       // variant="filled"
                     />
                     <FormErrorMessage>{errors.login}</FormErrorMessage>
-                  </FormControl>
-                  <FormControl isInvalid={!!errors.name && touched.name}>
-                    <FormLabel color="white" htmlFor="text">
-                      Имя
-                    </FormLabel>
-                    <Field
-                      as={Input}
-                      id="name"
-                      name="name"
-                      type="text"
-                      bg="white"
-                      // variant="filled"
-                      validate={(value) => {
-                        let error;
-
-                        if (value.length < 1) {
-                          error = "Must be filed";
-                        }
-
-                        return error;
-                      }}
-                    />
-                    <FormErrorMessage>{errors.name}</FormErrorMessage>
-                  </FormControl>
-                  <FormControl isInvalid={!!errors.surname && touched.surname}>
-                    <FormLabel color="white" htmlFor="surname">
-                      Фамилия
-                    </FormLabel>
-                    <Field
-                      as={Input}
-                      id="surname"
-                      name="surname"
-                      type="text"
-                      bg="white"
-                      // variant="filled"
-                      validate={(value) => {
-                        let error;
-
-                        if (value.length < 1) {
-                          error = "Must be filed";
-                        }
-
-                        return error;
-                      }}
-                    />
-                    <FormErrorMessage>{errors.surname}</FormErrorMessage>
                   </FormControl>
 
                   <FormControl
