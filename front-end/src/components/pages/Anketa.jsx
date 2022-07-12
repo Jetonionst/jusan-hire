@@ -375,7 +375,7 @@ export default function Anketa() {
         </div>
         <div className="field">
           <FormLabel htmlFor="text" fontSize={fSize}>
-            Длительность обучения:
+            Начало обучения:
           </FormLabel>
           <Input
             fontSize={fSize}
@@ -1956,7 +1956,7 @@ export default function Anketa() {
                         </div>
                         <div className="field">
                           <FormLabel htmlFor="text" fontSize={fSize}>
-                            Вид деятельности:
+                            Вид деятельности организации:
                           </FormLabel>
                           <Input
                             fontSize={fSize}
@@ -2008,6 +2008,75 @@ export default function Anketa() {
                             }
                           />
                         </div>
+                        <div className="field">
+                          <FormLabel htmlFor="text" fontSize={fSize}>
+                            Наименование Должности:
+                          </FormLabel>
+                          <Input
+                            fontSize={fSize}
+                            w={fieldsSize}
+                            id={`lastThreeWorkplaces[0].speciality`}
+                            name={`lastThreeWorkplaces[0].speciality`}
+                            type="text"
+                            variant="filled"
+                            onChange={formik.handleChange}
+                            value={
+                              formik.values.lastThreeWorkplaces[0].speciality
+                            }
+                          />
+                        </div>
+                        <div className="field">
+                          <FormLabel htmlFor="text" fontSize={fSize}>
+                            ФИО руководителя:
+                          </FormLabel>
+                          <Input
+                            fontSize={fSize}
+                            w={fieldsSize}
+                            id={`lastThreeWorkplaces[0].employerFio`}
+                            name={`lastThreeWorkplaces[0].employerFio`}
+                            type="text"
+                            variant="filled"
+                            onChange={formik.handleChange}
+                            value={
+                              formik.values.lastThreeWorkplaces[0].employerFio
+                            }
+                          />
+                        </div>
+                        <div className="field">
+                          <FormLabel htmlFor="text" fontSize={fSize}>
+                            Телефон руководителя:
+                          </FormLabel>
+                          <Input
+                            fontSize={fSize}
+                            w={fieldsSize}
+                            id={`lastThreeWorkplaces[0].employerNumber`}
+                            name={`lastThreeWorkplaces[0].employerNumber`}
+                            type="text"
+                            variant="filled"
+                            onChange={formik.handleChange}
+                            value={
+                              formik.values.lastThreeWorkplaces[0]
+                                .employerNumber
+                            }
+                          />
+                        </div>
+                        <div className="field">
+                          <FormLabel htmlFor="text" fontSize={fSize}>
+                            Причина увольнения:
+                          </FormLabel>
+                          <Input
+                            fontSize={fSize}
+                            w={fieldsSize}
+                            id={`lastThreeWorkplaces[0].leavingReazon`}
+                            name={`lastThreeWorkplaces[0].leavingReazon`}
+                            type="text"
+                            variant="filled"
+                            onChange={formik.handleChange}
+                            value={
+                              formik.values.lastThreeWorkplaces[0].leavingReazon
+                            }
+                          />
+                        </div>
                       </FormControl>
                     </div>
                     <div className="filedsContex">
@@ -2055,7 +2124,7 @@ export default function Anketa() {
                         </div>
                         <div className="field">
                           <FormLabel htmlFor="text" fontSize={fSize}>
-                            Вид деятельности:
+                            Вид деятельности организации:
                           </FormLabel>
                           <Input
                             fontSize={fSize}
@@ -2107,6 +2176,75 @@ export default function Anketa() {
                             }
                           />
                         </div>
+                        <div className="field">
+                          <FormLabel htmlFor="text" fontSize={fSize}>
+                            Наименование Должности:
+                          </FormLabel>
+                          <Input
+                            fontSize={fSize}
+                            w={fieldsSize}
+                            id={`lastThreeWorkplaces[1].speciality`}
+                            name={`lastThreeWorkplaces[1].speciality`}
+                            type="text"
+                            variant="filled"
+                            onChange={formik.handleChange}
+                            value={
+                              formik.values.lastThreeWorkplaces[1].speciality
+                            }
+                          />
+                        </div>
+                        <div className="field">
+                          <FormLabel htmlFor="text" fontSize={fSize}>
+                            ФИО руководителя:
+                          </FormLabel>
+                          <Input
+                            fontSize={fSize}
+                            w={fieldsSize}
+                            id={`lastThreeWorkplaces[1].employerFio`}
+                            name={`lastThreeWorkplaces[1].employerFio`}
+                            type="text"
+                            variant="filled"
+                            onChange={formik.handleChange}
+                            value={
+                              formik.values.lastThreeWorkplaces[1].employerFio
+                            }
+                          />
+                        </div>
+                        <div className="field">
+                          <FormLabel htmlFor="text" fontSize={fSize}>
+                            Телефон руководителя:
+                          </FormLabel>
+                          <Input
+                            fontSize={fSize}
+                            w={fieldsSize}
+                            id={`lastThreeWorkplaces[1].employerNumber`}
+                            name={`lastThreeWorkplaces[1].employerNumber`}
+                            type="text"
+                            variant="filled"
+                            onChange={formik.handleChange}
+                            value={
+                              formik.values.lastThreeWorkplaces[1]
+                                .employerNumber
+                            }
+                          />
+                        </div>
+                        <div className="field">
+                          <FormLabel htmlFor="text" fontSize={fSize}>
+                            Причина увольнения:
+                          </FormLabel>
+                          <Input
+                            fontSize={fSize}
+                            w={fieldsSize}
+                            id={`lastThreeWorkplaces[1].leavingReazon`}
+                            name={`lastThreeWorkplaces[1].leavingReazon`}
+                            type="text"
+                            variant="filled"
+                            onChange={formik.handleChange}
+                            value={
+                              formik.values.lastThreeWorkplaces[1].leavingReazon
+                            }
+                          />
+                        </div>
                       </FormControl>
                     </div>
                     <div className="filedsContex">
@@ -2154,7 +2292,7 @@ export default function Anketa() {
                         </div>
                         <div className="field">
                           <FormLabel htmlFor="text" fontSize={fSize}>
-                            Вид деятельности:
+                            Вид деятельности организации:
                           </FormLabel>
                           <Input
                             fontSize={fSize}
@@ -2203,6 +2341,75 @@ export default function Anketa() {
                             value={
                               formik.values.lastThreeWorkplaces[2]
                                 .organizationPhone
+                            }
+                          />
+                        </div>
+                        <div className="field">
+                          <FormLabel htmlFor="text" fontSize={fSize}>
+                            Наименование Должности:
+                          </FormLabel>
+                          <Input
+                            fontSize={fSize}
+                            w={fieldsSize}
+                            id={`lastThreeWorkplaces[2].speciality`}
+                            name={`lastThreeWorkplaces[2].speciality`}
+                            type="text"
+                            variant="filled"
+                            onChange={formik.handleChange}
+                            value={
+                              formik.values.lastThreeWorkplaces[2].speciality
+                            }
+                          />
+                        </div>
+                        <div className="field">
+                          <FormLabel htmlFor="text" fontSize={fSize}>
+                            ФИО руководителя:
+                          </FormLabel>
+                          <Input
+                            fontSize={fSize}
+                            w={fieldsSize}
+                            id={`lastThreeWorkplaces[2].employerFio`}
+                            name={`lastThreeWorkplaces[2].employerFio`}
+                            type="text"
+                            variant="filled"
+                            onChange={formik.handleChange}
+                            value={
+                              formik.values.lastThreeWorkplaces[2].employerFio
+                            }
+                          />
+                        </div>
+                        <div className="field">
+                          <FormLabel htmlFor="text" fontSize={fSize}>
+                            Телефон руководителя:
+                          </FormLabel>
+                          <Input
+                            fontSize={fSize}
+                            w={fieldsSize}
+                            id={`lastThreeWorkplaces[2].employerNumber`}
+                            name={`lastThreeWorkplaces[2].employerNumber`}
+                            type="text"
+                            variant="filled"
+                            onChange={formik.handleChange}
+                            value={
+                              formik.values.lastThreeWorkplaces[2]
+                                .employerNumber
+                            }
+                          />
+                        </div>
+                        <div className="field">
+                          <FormLabel htmlFor="text" fontSize={fSize}>
+                            Причина увольнения:
+                          </FormLabel>
+                          <Input
+                            fontSize={fSize}
+                            w={fieldsSize}
+                            id={`lastThreeWorkplaces[2].leavingReazon`}
+                            name={`lastThreeWorkplaces[2].leavingReazon`}
+                            type="text"
+                            variant="filled"
+                            onChange={formik.handleChange}
+                            value={
+                              formik.values.lastThreeWorkplaces[2].leavingReazon
                             }
                           />
                         </div>
