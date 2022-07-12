@@ -1,5 +1,4 @@
 export default async function Service(request, content) {
-  console.log(content);
   try {
     if (request === "uploadForm") {
       const req = await fetch("http://localhost:8081/api/v1/anketa/submit", {
@@ -90,7 +89,31 @@ export default async function Service(request, content) {
         window.location = "/admin";
       }
     }
+    if (request === "applicationList") {
+      const req = await fetch("http://localhost:8081/api/v1/anketa/all", {
+        method: "GET",
+        Accept: "application/json",
+      });
+      if (req.ok) {
+        const res = await req.json();
+        return res;
+      }
+    }
+    if (request === "candidateInfo") {
+      const req = await fetch(
+        `http://localhost:8081/api/v1/anketa/${content.iin}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        }
+      );
+      const res = await req.json();
+      return res;
+    }
   } catch (err) {
-    alert(err);
+    console.log(err);
   }
 }
