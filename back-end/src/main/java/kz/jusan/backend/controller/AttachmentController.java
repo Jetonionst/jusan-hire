@@ -23,8 +23,9 @@ public class AttachmentController {
     private final AttachmentService attachmentService;
 
     @PostMapping(value = "/upload/image/{iin}")
-    public ResponseDto uploadImage(@PathVariable("iin") String iin, @RequestParam("image") MultipartFile file) throws Exception {
-        Attachment attachment = attachmentService.createAttachment(file, iin);
+    public ResponseDto uploadImage(@PathVariable("iin") String iin,
+                                   @RequestParam("image") MultipartFile file, @RequestParam String type) throws Exception {
+        Attachment attachment = attachmentService.createAttachment(file, iin, type);
         String downloadURI = "";
         downloadURI = ServletUriComponentsBuilder.fromCurrentContextPath()
                         .path("/api/v1/download/")
@@ -34,12 +35,16 @@ public class AttachmentController {
         return new ResponseDto(attachment.getFileName(),
                 downloadURI,
                 file.getContentType(),
-                file.getSize());
+                file.getSize(),
+                type);
     }
 
     @PostMapping(value = "/upload/file/{iin}")
-    public ResponseDto uploadDocument(@PathVariable("iin") String iin, @RequestParam("file") MultipartFile file) throws Exception {
-        Attachment attachment = attachmentService.createAttachment(file, iin);
+    public ResponseDto uploadDocument(@PathVariable("iin") String iin,
+                                      @RequestBody() MultipartFile file,
+                                      @RequestParam String type) throws Exception {
+        System.out.println(type);
+        Attachment attachment = attachmentService.createAttachment(file, iin, type);
         String downloadURI = "";
         downloadURI = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/api/v1/download/")
@@ -49,7 +54,8 @@ public class AttachmentController {
         return new ResponseDto(attachment.getFileName(),
                 downloadURI,
                 file.getContentType(),
-                file.getSize());
+                file.getSize(),
+                type);
     }
 
     @GetMapping("/download/{fileId}")
