@@ -24,7 +24,7 @@ public class AttachmentService {
 
     private final AttachmentRepository attachmentRepository;
     private final AnketaService anketaService;
-    public Attachment createAttachment(MultipartFile file, String iin) throws Exception {
+    public Attachment createAttachment(MultipartFile file, String iin, String type) throws Exception {
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
         String imgPath = "/tmp/"+iin;
         File directory = new File(imgPath);
@@ -40,6 +40,7 @@ public class AttachmentService {
                 .iin(iin)
                 .fileType(file.getContentType())
                 .filePath(targetPath.toString())
+                .type(type)
                 .build();
         return attachmentRepository.save(attachment);
     }
