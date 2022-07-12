@@ -8,6 +8,7 @@ import Login from "./components/pages/login";
 import Registration from "./components/pages/registration";
 import NotFoundPage from "./components/pages/NotFoundPage";
 import Anketa from "./components/pages/Anketa";
+import UploadFiles from "./components/pages/UploadFiles";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -19,6 +20,7 @@ root.render(
         <Route path="/login" element={<Login />} />
         <Route path="/registration" element={<Registration />} />
         <Route path="/form" element={<Anketa />} />
+        <Route path="/upload/:iin" element={<UploadFiles />} />
       </Routes>
     </Router>
   </React.StrictMode>

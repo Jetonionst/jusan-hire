@@ -1,4 +1,5 @@
 export default async function Service(request, content) {
+  console.log(content.files);
   try {
     if (request === "uploadForm") {
       const req = await fetch("http://localhost:8081/api/v1/anketa/submit", {
@@ -33,5 +34,26 @@ export default async function Service(request, content) {
     }
   } catch (err) {
     console.log(err);
+  }
+  if (request === "uploadFiles") {
+    for (const [_, file] of Object.entries(content.files)) {
+      // console.log(file);
+      if (file) {
+        const formData = new FormData();
+        formData.append("file", file);
+        const req = await fetch(
+          `http://localhost:8081/api/v1/upload/file/${content.iin}`,
+          {
+            method: "POST",
+            headers: {
+              Accept: "*/*",
+              "Access-Control-Allow-Origin": "*",
+            },
+            body: formData,
+          }
+        );
+        console.log(req);
+      }
+    }
   }
 }
