@@ -82,7 +82,7 @@ public class AttachmentService {
             document.close();
 
             attachment = Attachment.builder()
-                    .fileName(file.getAbsolutePath())
+                    .fileName(file.getName())
                     .iin(iin)
                     .filePath(file.getPath())
                     .build();
