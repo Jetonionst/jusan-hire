@@ -28,8 +28,8 @@ export default function Admin() {
             </div>
             <div className="adminPanelBody">
               {ApplicationList ? (
-                ApplicationList.map((elem) => {
-                  return <Candidate candidate={elem} />;
+                ApplicationList.map((elem, index) => {
+                  return <Candidate candidate={elem} key={(elem = index)} />;
                 })
               ) : (
                 <ReactLoading color="orange" className="loader" />

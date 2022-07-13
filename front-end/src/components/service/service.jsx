@@ -101,6 +101,47 @@ export default async function Service(request, content) {
       }
     }
     if (request === "HR") {
+      const req = await fetch(
+        `http://localhost:8081/api/v1/download/zip/${content}`,
+        {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+          },
+        }
+      );
+      if (req.ok) {
+        window.open(req.url);
+      }
+    }
+    // const documentList = await req.json();
+    // documentList.map(async (doc) => {
+    //   const req = await fetch(
+    //     `http://localhost:8081/api/v1/download/${doc.id}`,
+    //     {
+    //       method: "GET",
+    //       headers: {
+    //         Accept: "application/json",
+    //       },
+    //     }
+    //   );
+    //   if (req.ok) {
+    //     window.open(req.url);
+    //   }
+    // });
+    if (request === "SB") {
+      const req = await fetch(
+        `http://localhost:8081/api/v1/download/zip/${content}`,
+        {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+          },
+        }
+      );
+      if (req.ok) {
+        window.open(req.url);
+      }
       // const fetchList = [
       //   "residentCard",
       //   "educationDoc",
@@ -115,75 +156,34 @@ export default async function Service(request, content) {
       //   "marriageDoc",
       //   "childDoc",
       // ];
-      const req = await fetch(
-        `http://localhost:8081/api/v1/attachments/${content}`,
-        {
-          method: "GET",
-          headers: {
-            Accept: "application/json",
-          },
-        }
-      );
-      if (req.ok) {
-        const documentList = await req.json();
-        documentList.map(async (doc) => {
-          const req = await fetch(
-            `http://localhost:8081/api/v1/download/${doc.id}`,
-            {
-              method: "GET",
-              headers: {
-                Accept: "application/json",
-              },
-            }
-          );
-          if (req.ok) {
-            window.open(req.url);
-          }
-        });
-        if (request === "SB") {
-          const fetchList = [
-            "residentCard",
-            "educationDoc",
-            "laborActivity",
-            "medDoc",
-            "militaryDoc",
-            "form",
-            "image",
-            "invalidDoc",
-            "pensionerDoc",
-            "lgotiDoc",
-            "marriageDoc",
-            "childDoc",
-          ];
 
-          const req = await fetch(
-            `http://localhost:8081/api/v1/attachments/${content}`,
-            {
-              method: "GET",
-              headers: {
-                Accept: "application/json",
-              },
-            }
-          );
-          if (req.ok) {
-            const documentList = await req.json();
-            documentList.map(async (doc) => {
-              const req = await fetch(
-                `http://localhost:8081/api/v1/download/${doc.id}`,
-                {
-                  method: "GET",
-                  headers: {
-                    Accept: "application/json",
-                  },
-                }
-              );
-              if (req.ok) {
-                window.open(req.url);
-              }
-            });
-          }
-        }
-      }
+      // const req = await fetch(
+      //   `http://localhost:8081/api/v1/attachments/${content}`,
+      //   {
+      //     method: "GET",
+      //     headers: {
+      //       Accept: "application/json",
+      //     },
+      //   }
+      // );
+      // if (req.ok) {
+      //   const documentList = await req.json();
+      //   documentList.map(async (doc) => {
+      //     // const req = await fetch(
+      //     //   `http://localhost:8081/api/v1/download/${doc.id}`,
+      //     //   {
+      //     //     method: "GET",
+      //     //     headers: {
+      //     //       Accept: "application/json",
+      //     //     },
+      //     //   }
+      //     // );
+      //     if (doc.type)
+      //       if (req.ok) {
+      //         window.open(req.url);
+      //       }
+      //   });
+      // }
     }
   } catch (err) {
     console.log(err);
