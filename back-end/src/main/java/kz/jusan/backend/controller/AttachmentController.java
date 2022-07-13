@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.List;
 import java.util.zip.ZipEntry;
@@ -104,4 +105,12 @@ public class AttachmentController {
     public List<Attachment> getAllAttachments(@PathVariable("iin") String iin) {
         return attachmentService.findAttachmentsByIin(iin);
     }
+
+    @DeleteMapping("/attachments/delete/{iin}")
+    @Transactional
+    public String deleteAttachmentsByIin(@PathVariable("iin") String iin) {
+        attachmentService.deleteAttachmentsByIin(iin);
+        return "Success";
+    }
+
 }
