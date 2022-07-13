@@ -29,6 +29,7 @@ export default function Admin() {
     getApplications();
   }, [getApplications]);
   if (doWeHaveToken()) {
+    console.log(ApplicationList);
     return (
       <>
         <Header />
@@ -51,8 +52,8 @@ export default function Admin() {
                 <>
                   {ApplicationList.map((elem, index) => {
                     if (
-                      index > page * rowsPerPage &&
-                      index < rowsPerPage * (page + 1)
+                      index >= page * rowsPerPage &&
+                      index <= rowsPerPage * (page + 1)
                     ) {
                       return (
                         <Candidate candidate={elem} key={(elem = index)} />

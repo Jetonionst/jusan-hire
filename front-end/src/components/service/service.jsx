@@ -1,7 +1,8 @@
 export default async function Service(request, content) {
+  const url = "https://jusanhireserver.azurewebsites.net";
   try {
     if (request === "uploadForm") {
-      const req = await fetch("http://localhost:8081/api/v1/anketa/submit", {
+      const req = await fetch(`${url}/api/v1/anketa/submit`, {
         method: "POST",
         body: JSON.stringify(content, null, 2),
         headers: {
@@ -15,7 +16,7 @@ export default async function Service(request, content) {
     }
     if (request === "downloadForm") {
       const req = await fetch(
-        `http://localhost:8081/api/v1/anketa/download-pdf/${content.iin}`,
+        `${url}/api/v1/anketa/download-pdf/${content.iin}`,
         {
           method: "GET",
           headers: {
@@ -37,7 +38,7 @@ export default async function Service(request, content) {
           const formData = new FormData();
           formData.append("file", file);
           const req = await fetch(
-            `http://localhost:8081/api/v1/upload/file/${content.iin}/?type=${fileName}`,
+            `${url}/api/v1/upload/file/${content.iin}/?type=${fileName}`,
             {
               method: "POST",
               headers: {
@@ -54,7 +55,7 @@ export default async function Service(request, content) {
       return true;
     }
     if (request === "registration") {
-      const req = await fetch("http://localhost:8081/api/v1/register", {
+      const req = await fetch(`${url}/api/v1/register`, {
         method: "POST",
         body: JSON.stringify(content, null, 2),
         headers: {
@@ -72,7 +73,7 @@ export default async function Service(request, content) {
     }
 
     if (request === "login") {
-      const req = await fetch("http://localhost:8081/api/v1/auth", {
+      const req = await fetch(`${url}/api/v1/auth`, {
         method: "POST",
         body: JSON.stringify(content, null, 2),
         headers: {
@@ -92,7 +93,7 @@ export default async function Service(request, content) {
       }
     }
     if (request === "applicationList") {
-      const req = await fetch("http://localhost:8081/api/v1/anketa/all", {
+      const req = await fetch(`${url}/api/v1/anketa/all`, {
         method: "GET",
         Accept: "application/json",
       });
@@ -102,15 +103,12 @@ export default async function Service(request, content) {
       }
     }
     if (request === "HR") {
-      const req = await fetch(
-        `http://localhost:8081/api/v1/download/zip/${content}`,
-        {
-          method: "GET",
-          headers: {
-            Accept: "application/json",
-          },
-        }
-      );
+      const req = await fetch(`${url}/api/v1/download/zip/${content}`, {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+        },
+      });
       if (req.ok) {
         window.open(req.url);
       }
@@ -131,15 +129,12 @@ export default async function Service(request, content) {
     //   }
     // });
     if (request === "SB") {
-      const req = await fetch(
-        `http://localhost:8081/api/v1/download/zip/${content}`,
-        {
-          method: "GET",
-          headers: {
-            Accept: "application/json",
-          },
-        }
-      );
+      const req = await fetch(`${url}/api/v1/download/zip/${content}`, {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+        },
+      });
       if (req.ok) {
         window.open(req.url);
       }
@@ -187,17 +182,14 @@ export default async function Service(request, content) {
       // }
     }
     if (request === "deleteUser") {
-      const req = await fetch(
-        `http://localhost:8081/api/v1/anketa/delete/${content}`,
-        {
-          method: "DELETE",
-          headers: {
-            Accept: "*/*",
+      const req = await fetch(`${url}/api/v1/anketa/delete/${content}`, {
+        method: "DELETE",
+        headers: {
+          Accept: "*/*",
 
-            "Access-Control-Allow-Origin": "*",
-          },
-        }
-      );
+          "Access-Control-Allow-Origin": "*",
+        },
+      });
     }
   } catch (err) {
     console.log(err);
