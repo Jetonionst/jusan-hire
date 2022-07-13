@@ -23,7 +23,7 @@ export default function Anketa() {
   const [page, setPage] = useState(1);
   // const [eduListLength, setEduListLength] = useState(0);
 
-  const fieldsSize = 200;
+  const fieldsSize = 175;
   const fSize = "14px";
   const formik = useFormik({
     initialValues: {
@@ -1267,7 +1267,7 @@ export default function Anketa() {
                       </FormLabel>
                       <Input
                         fontSize={fSize}
-                        w={250}
+                        w={175}
                         id="birthDate"
                         name="birthDate"
                         variant="filled"
@@ -1283,7 +1283,7 @@ export default function Anketa() {
                       </FormLabel>
                       <Input
                         fontSize={fSize}
-                        w={250}
+                        w={175}
                         id="birthPlace"
                         name="birthPlace"
                         type="text"
@@ -1429,12 +1429,13 @@ export default function Anketa() {
                           <FormLabel htmlFor="text" fontSize={fSize}>
                             Домашний телефон:
                           </FormLabel>
+
                           <Input
                             fontSize={fSize}
                             w={150}
                             id="homePhone"
                             name="homePhone"
-                            type="text"
+                            type="tel"
                             variant="filled"
                             onChange={formik.handleChange}
                             value={formik.values.homePhone}
@@ -3580,7 +3581,7 @@ export default function Anketa() {
                           marginLeft="50px"
                           // type="submit"
                           onClick={() => {
-                            console.log(formik.values);
+                            // console.log(formik.values);
                           }}
                         >
                           Далее

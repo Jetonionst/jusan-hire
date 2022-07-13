@@ -57,6 +57,8 @@ a {
 }
 .buttons {
   display: flex;
+  /* flex-wrap: wrap; */
+  /* justify-content: space-between; */
 }
 
 .loader {
@@ -80,7 +82,7 @@ a {
 
 .mainContainer {
   background-color: #edf2f7;
-  height: 80vh;
+  height: 100vh;
   display: flex;
   flex-wrap: wrap;
 }
@@ -300,4 +302,36 @@ a {
   padding: 5px;
   border: 1px solid rgba(0, 0, 0, 0.3);
   border-radius: 5px;
+}
+
+.candidateBtns > button {
+  margin: 10px;
+}
+@media (max-width: 767px) {
+  .headerUserNav {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .button-5 {
+    margin: 5px;
+  }
+  .motivText {
+    padding: 30px;
+    font-size: 24px;
+  }
+  .buttons {
+    flex-wrap: wrap;
+  }
+  .buttons > button {
+    margin: 10px;
+    width: 100%;
+  }
+  .candidateBtns {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .candidateBtns > button {
+    margin: 10px;
+    width: 100%;
+  }
 }
