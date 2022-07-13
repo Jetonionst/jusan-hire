@@ -1,15 +1,22 @@
 package kz.jusan.backend.service;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
+
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.TextField;
 import kz.jusan.backend.dto.*;
 import kz.jusan.backend.entity.AnketaEntity;
 import org.springframework.security.core.parameters.P;
+import org.w3c.dom.Text;
 
 
 public class PdfGenerator {
@@ -18,6 +25,7 @@ public class PdfGenerator {
     public static final String TIMES_BOLD = "/static/fonts/TIMCYRB.ttf";
     public static final String TIMES_ITALIC = "/static/fonts/TIMCYRI.ttf";
     public static final String TIMES_BOLD_ITALIC = "/static/fonts/TIMCYRBI.ttf";
+    public static final String PODPIS_FONT = "/static/fonts/cassandra.ttf";
     static Font normal10;
     static Font normal11;
     static Font normal12;
@@ -26,12 +34,14 @@ public class PdfGenerator {
     static Font italic10;
     static Font italic12;
     static Font boldItalic12;
+    static Font podpisFont;
     static {
         try {
             BaseFont bfNormal = BaseFont.createFont(TIMES_NEW_ROMAN, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
             BaseFont bfBold = BaseFont.createFont(TIMES_BOLD, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
             BaseFont bfItalic = BaseFont.createFont(TIMES_ITALIC, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
             BaseFont bfBoldItalic = BaseFont.createFont(TIMES_BOLD_ITALIC, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+            BaseFont bfPodpisFont = BaseFont.createFont(PODPIS_FONT, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
             normal10 = new Font(bfNormal,10, Font.NORMAL);
             normal11 = new Font(bfNormal,11, Font.NORMAL);
             normal12 = new Font(bfNormal,12, Font.NORMAL);
@@ -40,6 +50,7 @@ public class PdfGenerator {
             italic10 = new Font(bfItalic,10, Font.NORMAL);
             italic12 = new Font(bfItalic,12, Font.NORMAL);
             boldItalic12 = new Font(bfBoldItalic,12, Font.NORMAL);
+            podpisFont = new Font(bfPodpisFont, 15, Font.NORMAL);
         } catch (DocumentException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
@@ -184,10 +195,21 @@ public class PdfGenerator {
                 "распространяться Банком с учетом ограничений, установленных законодательством Республики Казахстан," +
                 " в том числе, ст. 50 Закона Республики Казахстан «О банках и банковской деятельности в Республике" +
                 " Казахстан».", normal11));
-        document.add(new Paragraph("\n" +
-                "ФИО___________________________   Подпись _________________________\n" +
-                "\n" +
-                "Дата  ____ /____________ / 20 __ г.\t", normal12));
+        String date = DateTimeFormatter.ofPattern("Дата  dd / MMMM / yyyy г.")
+                .withLocale(new Locale("ru")).format(LocalDate.now());
+        String podpis = "";
+        if (anketa.getFio().length()>=8){
+            podpis += anketa.getFio().substring(0,8);
+        } else {
+            podpis += anketa.getFio();
+        }
+        Paragraph paragraph = new Paragraph();
+        Chunk chunk1 = new Chunk("\n" + "ФИО " + anketa.getFio() + "   Подпись _________", normal12);
+        Chunk chunk2 = new Chunk(podpis + "_________\n", podpisFont);
+        paragraph.add(chunk1);
+        paragraph.add(chunk2);
+        document.add(paragraph);
+        document.add(new Paragraph("\n" + date+"\t", normal12));
     }
 
     private static void createTable1(Document document, AnketaEntity anketa)
