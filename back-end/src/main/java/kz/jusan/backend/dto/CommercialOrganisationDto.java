@@ -7,7 +7,7 @@ import javax.persistence.Embeddable;
 @Data
 @Embeddable
 public class CommercialOrganisationDto {
-    private String answer;
+    private String ipOrToo;
     private String organizationName;
     private String iin;
     private String address;

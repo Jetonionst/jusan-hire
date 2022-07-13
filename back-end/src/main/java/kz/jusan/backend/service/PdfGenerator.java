@@ -383,7 +383,7 @@ public class PdfGenerator {
             table.addCell(new Paragraph(header, font));
         }
         for (CommercialOrganisationDto comm: anketa.getCommercialOrganisationList()) {
-            table.addCell(new Paragraph(comm.getAnswer(), font));
+            table.addCell(new Paragraph(comm.getIpOrToo(), font));
             table.addCell(new Paragraph(comm.getOrganizationName()+", "+comm.getIin()+", "+comm.getAddress()+", "
                     + comm.getType() + ", "+comm.getPhone(), font));
         }
