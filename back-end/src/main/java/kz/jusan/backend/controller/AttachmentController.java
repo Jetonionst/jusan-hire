@@ -87,6 +87,35 @@ public class AttachmentController {
         }
     }
 
+
+    @GetMapping("/download/sb/zip/{iin}")
+    public void downloadAllFilesForSB(@PathVariable("iin") String iin,
+                                      @RequestParam List<String> types,
+                                      HttpServletResponse response) {
+        List<Attachment> attachments = attachmentService.findAttachmentsByIin(iin);
+        response.setContentType("application/zip");
+        response.setHeader("Content-Disposition", "attachment; filename="+iin+"_SB_docs.zip");
+        try(ZipOutputStream zipOutputStream = new ZipOutputStream(response.getOutputStream())) {
+            for(Attachment attachment: attachments) {
+                if(types.contains(attachment.getType())) {
+                    FileSystemResource fileSystemResource = new FileSystemResource(attachment.getFilePath());
+                    ZipEntry zipEntry = new ZipEntry(fileSystemResource.getFilename());
+                    zipEntry.setSize(fileSystemResource.contentLength());
+                    zipEntry.setTime(System.currentTimeMillis());
+
+                    zipOutputStream.putNextEntry(zipEntry);
+
+                    StreamUtils.copy(fileSystemResource.getInputStream(), zipOutputStream);
+                    zipOutputStream.closeEntry();
+                }
+            }
+            zipOutputStream.finish();
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+    }
+
+
     @GetMapping("/download/{fileId}")
     public ResponseEntity<Resource> downloadFile(@PathVariable("fileId") String fileId) throws Exception {
         Attachment attachment = attachmentService.getAttachment(fileId);
