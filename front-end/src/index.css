@@ -307,6 +307,41 @@ a {
 .candidateBtns > button {
   margin: 10px;
 }
+
+.developersInfo {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+.teamLogo {
+  width: 250px;
+  margin: 0 auto;
+  margin-bottom: 50px;
+}
+.teamLogo > img {
+  width: 250px;
+}
+.developerPic > img {
+  border: 3px solid #1b63af;
+  height: 350px;
+  width: 250px;
+}
+.developers {
+  text-align: center;
+  color: black;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+.developerInfo {
+  font-size: 16px;
+}
+.developer {
+  margin-bottom: 15px;
+}
+.developersPage {
+  background-color: #edf2f7;
+}
+
 @media (max-width: 767px) {
   .headerUserNav {
     display: flex;
