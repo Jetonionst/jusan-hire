@@ -186,6 +186,19 @@ export default async function Service(request, content) {
       //   });
       // }
     }
+    if (request === "deleteUser") {
+      const req = await fetch(
+        `http://localhost:8081/api/v1/anketa/delete/${content}`,
+        {
+          method: "DELETE",
+          headers: {
+            Accept: "*/*",
+
+            "Access-Control-Allow-Origin": "*",
+          },
+        }
+      );
+    }
   } catch (err) {
     console.log(err);
   }

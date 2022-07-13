@@ -229,6 +229,7 @@ a {
 }
 
 .candidate {
+  position: relative;
   margin-top: 10px;
   margin-bottom: 10px;
   /* box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.3); */
@@ -267,4 +268,10 @@ a {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+}
+
+.deleteBtn {
+  position: absolute;
+  right: 0;
+  top: 0;
 }

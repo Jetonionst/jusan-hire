@@ -25,6 +25,12 @@ export default function Candidate(props) {
           <div className="candidateName">{candidate.fio}</div>
           <div className="candidateIIN">{candidate.iin}</div>
         </button>
+        {/* <button
+          className="deleteBtn"
+          onClick={() => Service("deleteUser", candidate.iin)}
+        >
+          ❌
+        </button> */}
       </div>
 
       <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>

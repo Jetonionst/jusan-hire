@@ -1931,9 +1931,9 @@ export default function Anketa() {
                             w={fieldsSize}
                             id={`lastThreeWorkplaces[0].workPeriod`}
                             name={`lastThreeWorkplaces[0].workPeriod`}
-                            type="date"
+                            type="text"
                             variant="filled"
-                            placeholder="01.01.2000"
+                            placeholder="1 год 2 месяца"
                             onChange={formik.handleChange}
                             value={
                               formik.values.lastThreeWorkplaces[0].workPeriod
@@ -2099,9 +2099,9 @@ export default function Anketa() {
                             w={fieldsSize}
                             id={`lastThreeWorkplaces[1].workPeriod`}
                             name={`lastThreeWorkplaces[1].workPeriod`}
-                            type="date"
+                            type="text"
                             variant="filled"
-                            placeholder="01.01.2000"
+                            placeholder="1 год 2 месяца"
                             onChange={formik.handleChange}
                             value={
                               formik.values.lastThreeWorkplaces[1].workPeriod
@@ -2267,9 +2267,9 @@ export default function Anketa() {
                             w={fieldsSize}
                             id={`lastThreeWorkplaces[2].workPeriod`}
                             name={`lastThreeWorkplaces[2].workPeriod`}
-                            type="date"
+                            type="text"
                             variant="filled"
-                            placeholder="01.01.2000"
+                            placeholder="1 год 2 месяца"
                             onChange={formik.handleChange}
                             value={
                               formik.values.lastThreeWorkplaces[2].workPeriod
