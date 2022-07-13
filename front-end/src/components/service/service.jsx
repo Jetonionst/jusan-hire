@@ -10,6 +10,7 @@ export default async function Service(request, content) {
           "Access-Control-Allow-Origin": "*",
         },
       });
+      console.log(JSON.stringify(content, null, 2));
       return true;
     }
     if (request === "downloadForm") {

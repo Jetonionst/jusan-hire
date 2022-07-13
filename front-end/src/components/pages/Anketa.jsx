@@ -52,7 +52,7 @@ export default function Anketa() {
       permanentHouse: "",
       permanentCorpus: "",
       permanentApartment: "",
-      isAddressMatches: "",
+      isAddressMatches: false,
       factualCity: "",
       factualRegion: "",
       factualDistrict: "",
@@ -164,9 +164,10 @@ export default function Anketa() {
           phone: null,
         },
       ],
+      iscommercialOrganisation: false,
       commercialOrganisationList: [
         {
-          answer: "",
+          ipOrToo: "",
           organizationName: "",
           iin: "",
           address: "",
@@ -174,7 +175,7 @@ export default function Anketa() {
           phone: "",
         },
       ],
-      isRelativeJusanEmployee: "",
+      relativeJusanEmployee: false,
       relativeJusanEmployeeList: [
         {
           level: null,
@@ -183,7 +184,7 @@ export default function Anketa() {
           major: null,
         },
       ],
-      isCarOwner: "",
+      carOwner: false,
       carList: [
         {
           model: "",
@@ -191,23 +192,23 @@ export default function Anketa() {
           govNumber: "",
         },
       ],
-      isMilitary: "",
-      isSVC: "",
+      military: false,
+      svc: false,
       isSVCAnswer: "",
-      isExpiredLoan: "",
+      expiredLoan: false,
       isExpiredLoanAnswer: "",
-      isCriminal: "",
+      criminal: false,
       isCriminalAnswer: "",
-      isRelativeCriminal: "",
+      relativeCriminal: false,
       isRelativeCriminalAnswer: "",
-      isCriminalDelo: "",
+      criminalDelo: false,
       isCriminalDeloAnswer: "",
-      isAlimentPayer: "",
+      alimentPayer: false,
       isAlimentPayerAnswer: "",
-      isHooligan: "",
+      hooligan: false,
       isHooliganAnswer: "",
       additionalInfo: "",
-      isExtraIncome: "",
+      extraIncome: "",
     },
     onSubmit: async (values) => {
       if (page === 1) {
@@ -246,7 +247,7 @@ export default function Anketa() {
   const [eduList] = useState([
     <div className="fieldsContex">
       <FormControl
-        isRequired
+        //isRequired
         display="flex"
         // justifyContent="space-between"
         flexWrap="wrap"
@@ -350,7 +351,7 @@ export default function Anketa() {
   const [specialCourses] = useState([
     <div className="fieldsContex">
       <FormControl
-        isRequired
+        //isRequired
         display="flex"
         // justifyContent="space-between"
         flexWrap="wrap"
@@ -628,7 +629,7 @@ export default function Anketa() {
     <div className="fieldsContainer">
       <div className="fieldsContex">
         <FormControl
-          isRequired
+          //isRequired
           display="flex"
           // justifyContent="space-between"
           flexWrap="wrap"
@@ -713,7 +714,7 @@ export default function Anketa() {
       specialCourses.push(
         <div className="fieldsContex">
           <FormControl
-            isRequired
+            //isRequired
             display="flex"
             // justifyContent="space-between"
             flexWrap="wrap"
@@ -824,7 +825,7 @@ export default function Anketa() {
       eduList.push(
         <div className="fieldsContex">
           <FormControl
-            isRequired
+            //isRequired
             display="flex"
             // justifyContent="space-between"
             flexWrap="wrap"
@@ -1135,7 +1136,7 @@ export default function Anketa() {
         <div className="fieldsContainer">
           <div className="fieldsContex">
             <FormControl
-              isRequired
+              //isRequired
               display="flex"
               // justifyContent="space-between"
               flexWrap="wrap"
@@ -1225,7 +1226,7 @@ export default function Anketa() {
                     обязательные поля)
                   </FormLabel>
                   <FormControl
-                    isRequired
+                    //isRequired
                     display="flex"
                     // justifyContent="space-between"
                     flexWrap="wrap"
@@ -1342,13 +1343,14 @@ export default function Anketa() {
                     Паспорт, удостоверение личности
                   </FormLabel>
                   <FormControl
-                    isRequired
+                    //isRequired
                     display={"flex"}
                     // justifyContent="space-between"
                     flexWrap="wrap"
                   >
                     <div className="field">
-                      <FormControl isRequired={false}>
+                      <FormControl //isRequired={false}
+                      >
                         <FormLabel htmlFor="text" fontSize={fSize}>
                           Серия
                         </FormLabel>
@@ -1454,7 +1456,8 @@ export default function Anketa() {
                           />
                         </div>
                         <div className="field">
-                          <FormControl isRequired>
+                          <FormControl //isRequired
+                          >
                             <FormLabel htmlFor="text" fontSize={fSize}>
                               Мобильный телефон:
                             </FormLabel>
@@ -1463,7 +1466,7 @@ export default function Anketa() {
                               w={150}
                               id="mobilePhone"
                               name="mobilePhone"
-                              type="text"
+                              type="phone"
                               variant="filled"
                               onChange={formik.handleChange}
                               value={formik.values.mobilePhone}
@@ -1477,7 +1480,7 @@ export default function Anketa() {
                         Контактные данные родственника или знакомого:
                       </FormLabel>
                       <FormControl
-                        isRequired
+                        //isRequired
                         display="flex"
                         flexWrap="wrap"
                         //   justifyContent="space-between"
@@ -1538,7 +1541,7 @@ export default function Anketa() {
                       <FormControl
                         display="flex"
                         flexWrap="wrap"
-                        isRequired
+                        //isRequired
                         //   justifyContent="space-between"
                       >
                         <div className="field">
@@ -1617,7 +1620,8 @@ export default function Anketa() {
                           />
                         </div>
                         <div className="field">
-                          <FormControl isRequired={false}>
+                          <FormControl //isRequired={false}
+                          >
                             <FormLabel htmlFor="text" fontSize={fSize}>
                               Корпус:
                             </FormLabel>
@@ -1913,7 +1917,7 @@ export default function Anketa() {
                   <div className="fieldsContainer">
                     <div className="filedsContex">
                       <FormControl
-                        isRequired
+                        //isRequired
                         display="flex"
                         // justifyContent="space-between"
                         flexWrap="wrap"
@@ -2081,7 +2085,7 @@ export default function Anketa() {
                     </div>
                     <div className="filedsContex">
                       <FormControl
-                        isRequired
+                        //isRequired
                         display="flex"
                         // justifyContent="space-between"
                         flexWrap="wrap"
@@ -2249,7 +2253,7 @@ export default function Anketa() {
                     </div>
                     <div className="filedsContex">
                       <FormControl
-                        isRequired
+                        //isRequired
                         display="flex"
                         // justifyContent="space-between"
                         flexWrap="wrap"
@@ -2424,7 +2428,7 @@ export default function Anketa() {
                   <div className="filedsContainer">
                     <div className="filedsContex">
                       <FormControl
-                        isRequired
+                        //isRequired
                         display="flex"
                         // justifyContent="space-between"
                         flexWrap="wrap"
@@ -2505,7 +2509,7 @@ export default function Anketa() {
                     </div>
                     <div className="filedsContex">
                       <FormControl
-                        isRequired
+                        //isRequired
                         display="flex"
                         // justifyContent="space-between"
                         flexWrap="wrap"
@@ -2586,7 +2590,7 @@ export default function Anketa() {
                     </div>
                     <div className="filedsContex">
                       <FormControl
-                        isRequired
+                        //isRequired
                         display="flex"
                         // justifyContent="space-between"
                         flexWrap="wrap"
@@ -2714,7 +2718,7 @@ export default function Anketa() {
                   </FormLabel>
                   <div className="field">
                     <Select
-                      isRequired
+                      //isRequired
                       id="marriageStatus"
                       name="marriageStatus"
                       onChange={formik.handleChange}
@@ -2740,7 +2744,7 @@ export default function Anketa() {
                         <div className="fieldsContainer">
                           <div className="filedsContex">
                             <FormControl
-                              isRequired
+                              //isRequired
                               display="flex"
                               // justifyContent="space-between"
                               flexWrap="wrap"
@@ -2949,20 +2953,35 @@ export default function Anketa() {
 
                   <div className="checker">
                     <Checkbox
-                      id="commercialOrganisationList[0].answer"
-                      name="commercialOrganisationList[0].answer"
+                      id="iscommercialOrganisation"
+                      name="iscommercialOrganisation"
                       onChange={formik.handleChange}
-                      isChecked={
-                        formik.values.commercialOrganisationList[0].answer
-                      }
+                      isChecked={formik.values.iscommercialOrganisation}
                       colorScheme="orange"
                     >
                       Да
                     </Checkbox>
                   </div>
                   <div className="fieldsContainer">
-                    {formik.values.commercialOrganisationList[0].answer && (
+                    {formik.values.iscommercialOrganisation && (
                       <div className="fieldsContex">
+                        <div className="field">
+                          <FormLabel htmlFor="text" fontSize={fSize}>
+                            Укажите ИП/ТОО:
+                          </FormLabel>
+                          <Input
+                            fontSize={fSize}
+                            w={fieldsSize}
+                            id={`commercialOrganisationList[0].ipOrToo`}
+                            name={`commercialOrganisationList[0].ipOrToo`}
+                            type="text"
+                            variant="filled"
+                            onChange={formik.handleChange}
+                            value={
+                              formik.values.iscommercialOrganisation.ipOrToo
+                            }
+                          />
+                        </div>
                         <div className="field">
                           <FormLabel htmlFor="text" fontSize={fSize}>
                             Наименование:
@@ -2976,7 +2995,7 @@ export default function Anketa() {
                             variant="filled"
                             onChange={formik.handleChange}
                             value={
-                              formik.values.commercialOrganisationList[0]
+                              formik.values.iscommercialOrganisation
                                 .organizationName
                             }
                           />
@@ -3060,17 +3079,17 @@ export default function Anketa() {
                       </FormLabel>
                       <div className="checker">
                         <Checkbox
-                          id="isRelativeJusanEmployee"
-                          name="isRelativeJusanEmployee"
+                          id="relativeJusanEmployee"
+                          name="relativeJusanEmployee"
                           onChange={formik.handleChange}
-                          isChecked={formik.values.isRelativeJusanEmployee}
+                          isChecked={formik.values.relativeJusanEmployee}
                           colorScheme="orange"
                         >
                           Да
                         </Checkbox>
                       </div>
 
-                      {formik.values.isRelativeJusanEmployee && (
+                      {formik.values.relativeJusanEmployee && (
                         <>
                           {jusanRelative.map((elem) => {
                             return elem;
@@ -3145,16 +3164,16 @@ export default function Anketa() {
                   <FormLabel htmlFor="text">Наличие Автомобиля</FormLabel>
                   <div className="checker">
                     <Checkbox
-                      id="isCarOwner"
-                      name="isCarOwner"
+                      id="carOwner"
+                      name="carOwner"
                       onChange={formik.handleChange}
-                      isChecked={formik.values.isCarOwner}
+                      isChecked={formik.values.carOwner}
                       colorScheme="orange"
                     >
                       Да
                     </Checkbox>
                   </div>
-                  {formik.values.isCarOwner && (
+                  {formik.values.carOwner && (
                     <div className="fieldsContainer">
                       <div className="fieldsContex">
                         <div className="field">
@@ -3208,16 +3227,14 @@ export default function Anketa() {
                   <div className="field">
                     <span style={{ color: "red" }}>*</span>
                     <Select
-                      isRequired
-                      id="isMilitary"
-                      name="isMilitary"
+                      //isRequired
+                      id="military"
+                      name="military"
                       onChange={formik.handleChange}
                       placeholder="Отношение к воинской службе"
                     >
-                      <option value="Военнообязанный">Военнообязанный</option>
-                      <option value="невоеннообязанный ">
-                        невоеннообязанный{" "}
-                      </option>
+                      <option value={true}>Военнообязанный</option>
+                      <option value={false}>невоеннообязанный </option>
                     </Select>
                   </div>
                   <FormLabel htmlFor="text">
@@ -3232,16 +3249,16 @@ export default function Anketa() {
                       </FormLabel>
                       <div className="checker">
                         <Checkbox
-                          id="isSVC"
-                          name="isSVC"
+                          id="svc"
+                          name="svc"
                           onChange={formik.handleChange}
-                          isChecked={formik.values.isSVC}
+                          isChecked={formik.values.svc}
                           colorScheme="orange"
                         >
                           Да
                         </Checkbox>
                       </div>
-                      {formik.values.isSVC && (
+                      {formik.values.svc && (
                         <div className="field">
                           <FormLabel htmlFor="text" fontSize={fSize}>
                             Уточните
@@ -3265,16 +3282,16 @@ export default function Anketa() {
                       </FormLabel>
                       <div className="checker">
                         <Checkbox
-                          id="isExpiredLoan"
-                          name="isExpiredLoan"
+                          id="expiredLoan"
+                          name="expiredLoan"
                           onChange={formik.handleChange}
-                          isChecked={formik.values.isExpiredLoan}
+                          isChecked={formik.values.expiredLoan}
                           colorScheme="orange"
                         >
                           Да
                         </Checkbox>
                       </div>
-                      {formik.values.isExpiredLoan && (
+                      {formik.values.expiredLoan && (
                         <div className="field">
                           <FormLabel htmlFor="text" fontSize={fSize}>
                             Уточните
@@ -3298,16 +3315,16 @@ export default function Anketa() {
                       </FormLabel>
                       <div className="checker">
                         <Checkbox
-                          id="isCriminal"
-                          name="isCriminal"
+                          id="criminal"
+                          name="criminal"
                           onChange={formik.handleChange}
-                          isChecked={formik.values.isCriminal}
+                          isChecked={formik.values.criminal}
                           colorScheme="orange"
                         >
                           Да
                         </Checkbox>
                       </div>
-                      {formik.values.isCriminal && (
+                      {formik.values.criminal && (
                         <div className="field">
                           <FormLabel htmlFor="text" fontSize={fSize}>
                             Уточните
@@ -3332,16 +3349,16 @@ export default function Anketa() {
                       </FormLabel>
                       <div className="checker">
                         <Checkbox
-                          id="isRelativeCriminal"
-                          name="isRelativeCriminal"
+                          id="relativeCriminal"
+                          name="relativeCriminal"
                           onChange={formik.handleChange}
-                          isChecked={formik.values.isRelativeCriminal}
+                          isChecked={formik.values.relativeCriminal}
                           colorScheme="orange"
                         >
                           Да
                         </Checkbox>
                       </div>
-                      {formik.values.isRelativeCriminal && (
+                      {formik.values.relativeCriminal && (
                         <div className="field">
                           <FormLabel htmlFor="text" fontSize={fSize}>
                             Уточните
@@ -3365,16 +3382,16 @@ export default function Anketa() {
                       </FormLabel>
                       <div className="checker">
                         <Checkbox
-                          id="isCriminalDelo"
-                          name="isCriminalDelo"
+                          id="criminalDelo"
+                          name="criminalDelo"
                           onChange={formik.handleChange}
-                          isChecked={formik.values.isCriminalDelo}
+                          isChecked={formik.values.criminalDelo}
                           colorScheme="orange"
                         >
                           Да
                         </Checkbox>
                       </div>
-                      {formik.values.isCriminalDelo && (
+                      {formik.values.criminalDelo && (
                         <div className="field">
                           <FormLabel htmlFor="text" fontSize={fSize}>
                             Уточните
@@ -3398,16 +3415,16 @@ export default function Anketa() {
                       </FormLabel>
                       <div className="checker">
                         <Checkbox
-                          id="isAlimentPayer"
-                          name="isAlimentPayer"
+                          id="alimentPayer"
+                          name="alimentPayer"
                           onChange={formik.handleChange}
-                          isChecked={formik.values.isAlimentPayer}
+                          isChecked={formik.values.alimentPayer}
                           colorScheme="orange"
                         >
                           Да
                         </Checkbox>
                       </div>
-                      {formik.values.isAlimentPayer && (
+                      {formik.values.alimentPayer && (
                         <div className="field">
                           <FormLabel htmlFor="text" fontSize={fSize}>
                             Уточните
@@ -3431,16 +3448,16 @@ export default function Anketa() {
                       </FormLabel>
                       <div className="checker">
                         <Checkbox
-                          id="isHooligan"
-                          name="isHooligan"
+                          id="hooligan"
+                          name="hooligan"
                           onChange={formik.handleChange}
-                          isChecked={formik.values.isHooligan}
+                          isChecked={formik.values.hooligan}
                           colorScheme="orange"
                         >
                           Да
                         </Checkbox>
                       </div>
-                      {formik.values.isHooligan && (
+                      {formik.values.hooligan && (
                         <div className="field">
                           <FormLabel htmlFor="text" fontSize={fSize}>
                             Уточните
@@ -3480,12 +3497,12 @@ export default function Anketa() {
                     </FormLabel>
                     <Textarea
                       fontSize={fSize}
-                      id="isExtraIncome"
-                      name="isExtraIncome"
+                      id="extraIncome"
+                      name="extraIncome"
                       type="text"
                       variant="filled"
                       onChange={formik.handleChange}
-                      value={formik.values.isExtraIncome}
+                      value={formik.values.extraIncome}
                     />
                   </div>
                   <div className="buttons">
@@ -3562,7 +3579,9 @@ export default function Anketa() {
                           width="25%"
                           marginLeft="50px"
                           // type="submit"
-                          onClick={() => {}}
+                          onClick={() => {
+                            console.log(formik.values);
+                          }}
                         >
                           Далее
                         </Button>
