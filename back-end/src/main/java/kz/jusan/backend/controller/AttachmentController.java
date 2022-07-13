@@ -68,7 +68,7 @@ public class AttachmentController {
     public void downloadAllFiles(@PathVariable("iin") String iin, HttpServletResponse response) {
         List<Attachment> attachments = attachmentService.findAttachmentsByIin(iin);
         response.setContentType("application/zip");
-        response.setHeader("Content-Disposition", "attachment; filename=download.zip");
+        response.setHeader("Content-Disposition", "attachment; filename="+iin+"_docs.zip");
         try(ZipOutputStream zipOutputStream = new ZipOutputStream(response.getOutputStream())) {
             for(Attachment attachment: attachments) {
                 FileSystemResource fileSystemResource = new FileSystemResource(attachment.getFilePath());
