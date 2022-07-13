@@ -416,10 +416,11 @@ public class PdfGenerator {
         tableInner.addCell(new Paragraph("Год выпуска", normal10));
         tableInner.addCell(new Paragraph("Гос. номер", normal10));
         for (CarDto car: anketa.getCarList()) {
-            table.addCell(new Paragraph(car.getModel(), normal10));
-            table.addCell(new Paragraph(car.getYear(), normal10));
-            table.addCell(new Paragraph(car.getGovNumber(), normal10));
+            tableInner.addCell(new Paragraph(car.getModel(), normal10));
+            tableInner.addCell(new Paragraph(car.getYear(), normal10));
+            tableInner.addCell(new Paragraph(car.getGovNumber(), normal10));
         }
+        table.addCell(tableInner);
         document.add(table);
     }
 
@@ -516,7 +517,7 @@ public class PdfGenerator {
         table.addCell(new Paragraph("Дополнительная информация о себе:", font));
         table.addCell(new Paragraph(anketa.getAdditionalInfo(), font));
         table.addCell(new Paragraph("Есть ли у Вас дополнительный доход (работа, дистрибьютерство/представительство в торговых компаниях)", font));
-        table.addCell(new Paragraph(getBoolAsYesOrNo(anketa.isExtraIncome()), font));
+        table.addCell(new Paragraph(anketa.getExtraIncome(), font));
         document.add(table);
     }
 
