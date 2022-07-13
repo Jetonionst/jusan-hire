@@ -5,14 +5,26 @@ import Header from "../pageElements/header";
 import Service from "../service/service";
 import ReactLoading from "react-loading";
 import Candidate from "./candidate";
+import TablePagination from "@mui/material/TablePagination";
 
 export default function Admin() {
   const [ApplicationList, setApplicationList] = useState();
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
   const getApplications = useCallback(async () => {
     const requestToApplicationList = await Service("applicationList");
+    const reversedApplist = requestToApplicationList.reverse();
 
-    setApplicationList(requestToApplicationList);
+    setApplicationList(reversedApplist);
   }, []);
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
   useEffect(() => {
     getApplications();
   }, [getApplications]);
@@ -27,10 +39,27 @@ export default function Admin() {
               <div>searc</div>
             </div>
             <div className="adminPanelBody">
+              <TablePagination
+                component="div"
+                count={ApplicationList ? ApplicationList.length : null}
+                page={page}
+                onPageChange={handleChangePage}
+                rowsPerPage={rowsPerPage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+              />
               {ApplicationList ? (
-                ApplicationList.map((elem, index) => {
-                  return <Candidate candidate={elem} key={(elem = index)} />;
-                })
+                <>
+                  {ApplicationList.map((elem, index) => {
+                    if (
+                      index > page * rowsPerPage &&
+                      index < rowsPerPage * (page + 1)
+                    ) {
+                      return (
+                        <Candidate candidate={elem} key={(elem = index)} />
+                      );
+                    }
+                  })}
+                </>
               ) : (
                 <ReactLoading color="orange" className="loader" />
               )}
