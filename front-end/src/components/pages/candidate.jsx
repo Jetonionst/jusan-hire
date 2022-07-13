@@ -14,6 +14,7 @@ import Service from "../service/service";
 
 export default function Candidate(props) {
   const candidate = props.candidate;
+
   //   console.log(candidate);
 
   const { isOpen, onOpen, onClose } = useDisclosure();

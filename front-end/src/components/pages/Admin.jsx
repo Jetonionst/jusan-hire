@@ -6,6 +6,7 @@ import Service from "../service/service";
 import ReactLoading from "react-loading";
 import Candidate from "./candidate";
 import TablePagination from "@mui/material/TablePagination";
+import Search from "../pageElements/Search";
 
 export default function Admin() {
   const [ApplicationList, setApplicationList] = useState();
@@ -29,7 +30,7 @@ export default function Admin() {
     getApplications();
   }, [getApplications]);
   if (doWeHaveToken()) {
-    console.log(ApplicationList);
+    // console.log(ApplicationList);
     return (
       <>
         <Header />
@@ -37,7 +38,7 @@ export default function Admin() {
           <div className="adminPanel">
             <div className="adminPanelHeader">
               <h2>Список заявок</h2>
-              <div>searc</div>
+              <Search obj={ApplicationList} />
             </div>
             <div className="adminPanelBody">
               <TablePagination

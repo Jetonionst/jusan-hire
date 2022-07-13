@@ -233,6 +233,8 @@ a {
   margin-top: 10px;
   margin-bottom: 10px;
   /* box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.3); */
+  padding: 10px;
+  /* border-radius: 2px; */
   border-bottom: 1px dashed black;
 }
 .candidateName {
@@ -274,4 +276,28 @@ a {
   position: absolute;
   right: 0;
   top: 0;
+}
+.find {
+  position: relative;
+}
+.findElements {
+  position: absolute;
+  box-shadow: 1px 3px 3px 1px rgba(0, 0, 0, 0.3);
+  background-color: white;
+  z-index: 10;
+  /* padding: 5px; */
+}
+.findElement {
+  margin: 6px;
+  /* border-bottom: 1px dashed black; */
+  background-color: white;
+  /* padding: 50px; */
+}
+.seacrh {
+  margin-top: 10px;
+  /* width: 250px; */
+  color: black;
+  padding: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 5px;
 }
