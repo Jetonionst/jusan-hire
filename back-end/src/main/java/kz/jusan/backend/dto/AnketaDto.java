@@ -13,7 +13,7 @@ public class AnketaDto {
     private String fio;
     private String previousName;
     @NotBlank
-    private Date birthDate;
+    private String birthDate;
     @NotBlank
     private String birthPlace;
     @NotBlank
@@ -27,7 +27,7 @@ public class AnketaDto {
     @NotBlank
     private String passportIssuedBy;
     @NotBlank
-    private Date passportIssuedAt;
+    private String passportIssuedAt;
     private String homePhone;
     private String workPhone;
     @NotBlank
