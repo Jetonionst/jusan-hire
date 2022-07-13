@@ -12,4 +12,5 @@ public class ResponseDto {
     private String downloadURL;
     private String fileType;
     private long fileSize;
+    private String type;
 }

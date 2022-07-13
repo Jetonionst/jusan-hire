@@ -24,4 +24,5 @@ public class Attachment {
     private String fileName;
     private String fileType;
     private String filePath;
+    private String type;
 }
