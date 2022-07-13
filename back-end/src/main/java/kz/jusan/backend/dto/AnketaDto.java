@@ -88,5 +88,5 @@ public class AnketaDto {
     private boolean isHooligan;
     private String isHooliganAnswer;
     private String additionalInfo;
-    private boolean isExtraIncome;
+    private String extraIncome;
 }
