@@ -41,7 +41,7 @@ export default function Admin() {
             <div className="adminPanelBody">
               <TablePagination
                 component="div"
-                count={ApplicationList ? ApplicationList.length : null}
+                count={ApplicationList ? ApplicationList.length : 0}
                 page={page}
                 onPageChange={handleChangePage}
                 rowsPerPage={rowsPerPage}
