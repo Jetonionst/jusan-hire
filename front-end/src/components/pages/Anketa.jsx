@@ -247,7 +247,7 @@ export default function Anketa() {
   const [eduList] = useState([
     <div className="fieldsContex">
       <FormControl
-        //isRequired
+        isRequired
         display="flex"
         // justifyContent="space-between"
         flexWrap="wrap"
@@ -351,7 +351,7 @@ export default function Anketa() {
   const [specialCourses] = useState([
     <div className="fieldsContex">
       <FormControl
-        //isRequired
+        isRequired
         display="flex"
         // justifyContent="space-between"
         flexWrap="wrap"
@@ -629,7 +629,7 @@ export default function Anketa() {
     <div className="fieldsContainer">
       <div className="fieldsContex">
         <FormControl
-          //isRequired
+          isRequired
           display="flex"
           // justifyContent="space-between"
           flexWrap="wrap"
@@ -714,7 +714,7 @@ export default function Anketa() {
       specialCourses.push(
         <div className="fieldsContex">
           <FormControl
-            //isRequired
+            isRequired
             display="flex"
             // justifyContent="space-between"
             flexWrap="wrap"
@@ -825,7 +825,7 @@ export default function Anketa() {
       eduList.push(
         <div className="fieldsContex">
           <FormControl
-            //isRequired
+            isRequired
             display="flex"
             // justifyContent="space-between"
             flexWrap="wrap"
@@ -1136,7 +1136,7 @@ export default function Anketa() {
         <div className="fieldsContainer">
           <div className="fieldsContex">
             <FormControl
-              //isRequired
+              isRequired
               display="flex"
               // justifyContent="space-between"
               flexWrap="wrap"
@@ -1226,7 +1226,7 @@ export default function Anketa() {
                     обязательные поля)
                   </FormLabel>
                   <FormControl
-                    //isRequired
+                    isRequired
                     display="flex"
                     // justifyContent="space-between"
                     flexWrap="wrap"
@@ -1343,14 +1343,13 @@ export default function Anketa() {
                     Паспорт, удостоверение личности
                   </FormLabel>
                   <FormControl
-                    //isRequired
+                    isRequired
                     display={"flex"}
                     // justifyContent="space-between"
                     flexWrap="wrap"
                   >
                     <div className="field">
-                      <FormControl //isRequired={false}
-                      >
+                      <FormControl isRequired={false}>
                         <FormLabel htmlFor="text" fontSize={fSize}>
                           Серия
                         </FormLabel>
@@ -1457,8 +1456,7 @@ export default function Anketa() {
                           />
                         </div>
                         <div className="field">
-                          <FormControl //isRequired
-                          >
+                          <FormControl isRequired>
                             <FormLabel htmlFor="text" fontSize={fSize}>
                               Мобильный телефон:
                             </FormLabel>
@@ -1481,7 +1479,7 @@ export default function Anketa() {
                         Контактные данные родственника или знакомого:
                       </FormLabel>
                       <FormControl
-                        //isRequired
+                        isRequired
                         display="flex"
                         flexWrap="wrap"
                         //   justifyContent="space-between"
@@ -1542,7 +1540,7 @@ export default function Anketa() {
                       <FormControl
                         display="flex"
                         flexWrap="wrap"
-                        //isRequired
+                        isRequired
                         //   justifyContent="space-between"
                       >
                         <div className="field">
@@ -1621,8 +1619,7 @@ export default function Anketa() {
                           />
                         </div>
                         <div className="field">
-                          <FormControl //isRequired={false}
-                          >
+                          <FormControl isRequired={false}>
                             <FormLabel htmlFor="text" fontSize={fSize}>
                               Корпус:
                             </FormLabel>
@@ -1918,7 +1915,7 @@ export default function Anketa() {
                   <div className="fieldsContainer">
                     <div className="filedsContex">
                       <FormControl
-                        //isRequired
+                        isRequired
                         display="flex"
                         // justifyContent="space-between"
                         flexWrap="wrap"
@@ -2086,7 +2083,7 @@ export default function Anketa() {
                     </div>
                     <div className="filedsContex">
                       <FormControl
-                        //isRequired
+                        isRequired
                         display="flex"
                         // justifyContent="space-between"
                         flexWrap="wrap"
@@ -2254,7 +2251,7 @@ export default function Anketa() {
                     </div>
                     <div className="filedsContex">
                       <FormControl
-                        //isRequired
+                        isRequired
                         display="flex"
                         // justifyContent="space-between"
                         flexWrap="wrap"
@@ -2429,7 +2426,7 @@ export default function Anketa() {
                   <div className="filedsContainer">
                     <div className="filedsContex">
                       <FormControl
-                        //isRequired
+                        isRequired
                         display="flex"
                         // justifyContent="space-between"
                         flexWrap="wrap"
@@ -2510,7 +2507,7 @@ export default function Anketa() {
                     </div>
                     <div className="filedsContex">
                       <FormControl
-                        //isRequired
+                        isRequired
                         display="flex"
                         // justifyContent="space-between"
                         flexWrap="wrap"
@@ -2591,7 +2588,7 @@ export default function Anketa() {
                     </div>
                     <div className="filedsContex">
                       <FormControl
-                        //isRequired
+                        isRequired
                         display="flex"
                         // justifyContent="space-between"
                         flexWrap="wrap"
@@ -2719,7 +2716,7 @@ export default function Anketa() {
                   </FormLabel>
                   <div className="field">
                     <Select
-                      //isRequired
+                      isRequired
                       id="marriageStatus"
                       name="marriageStatus"
                       onChange={formik.handleChange}
@@ -2745,7 +2742,7 @@ export default function Anketa() {
                         <div className="fieldsContainer">
                           <div className="filedsContex">
                             <FormControl
-                              //isRequired
+                              isRequired
                               display="flex"
                               // justifyContent="space-between"
                               flexWrap="wrap"
@@ -3228,7 +3225,7 @@ export default function Anketa() {
                   <div className="field">
                     <span style={{ color: "red" }}>*</span>
                     <Select
-                      //isRequired
+                      isRequired
                       id="military"
                       name="military"
                       onChange={formik.handleChange}
