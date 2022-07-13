@@ -94,4 +94,8 @@ public class AttachmentService {
         }
         return attachment;
     }
+
+    public void deleteAttachmentsByIin(String iin) {
+        attachmentRepository.deleteAttachmentsByIin(iin);
+    }
 }
