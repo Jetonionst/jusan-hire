@@ -129,12 +129,15 @@ export default async function Service(request, content) {
     //   }
     // });
     if (request === "SB") {
-      const req = await fetch(`${url}/api/v1/download/zip/${content}`, {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-        },
-      });
+      const req = await fetch(
+        `${url}/api/v1/download/sb/zip/${content}?types=residentCard,form,medDoc`,
+        {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+          },
+        }
+      );
       if (req.ok) {
         window.open(req.url);
       }
