@@ -1,0 +1,36 @@
+services:
+  client:
+    build:
+      dockerfile: Dockerfile
+      context: "./front-end"
+    image: jusan-hire-client
+    container_name: client
+    ports:
+      - 3001:3000
+  db:
+    image: "postgres"
+    restart: "always"
+    environment:
+      - "POSTGRES_DB=hackathon"
+      - "POSTGRES_USER=postgres"
+      - "POSTGRES_PASSWORD=postgres"
+    ports:
+      - "5433:5432"
+    container_name: db
+
+  web:
+    build:
+      dockerfile: Dockerfile
+      context: "./back-end"
+
+    image: jusan-backend:stable
+    container_name: api
+    depends_on:
+      - db
+    ports:
+      - 8081:8081
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/hackathon
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=postgres
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
