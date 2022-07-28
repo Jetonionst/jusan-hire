@@ -14,7 +14,7 @@ function App() {
                 Найди работу мечты c <span>JUSAN!</span>
               </div>
               <div className="mainTextDescription">
-                ЗАПОЛНИ АНКЕТУ И ПРИСОЕДИНЯЙСЯ К НАШЕЙ КОМАНДЕ :)
+                ЗАПОЛНИ АНКЕТУ И ПРИСОЕДИНЯЙСЯ К НАШЕЙ КОМАНДЕ! :)
               </div>
             </div>
             <div className="mainAuth">
