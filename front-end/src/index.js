@@ -11,6 +11,7 @@ import Anketa from "./components/pages/Anketa";
 import UploadFiles from "./components/pages/UploadFiles";
 import Admin from "./components/pages/Admin";
 import Developers from "./components/pages/DevelopersPage";
+import Profile from "./components/pages/Profile";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -25,6 +26,7 @@ root.render(
         <Route path="/upload/:iin" element={<UploadFiles />} />
         <Route path="/admin" element={<Admin />} />
         <Route path="/developers" element={<Developers />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
     </Router>
   </React.StrictMode>

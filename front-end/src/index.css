@@ -135,7 +135,53 @@ a {
   border-radius: 10px;
   color: #edf2f7;
 }
+.profileField {
+  border-top: 2px solid #fe5000;
 
+  width: 350px;
+}
+.profileFieldElement {
+  margin-top: 14px;
+  margin-bottom: 14px;
+}
+.profileButton {
+  width: 350px;
+}
+.formBtn {
+  display: flex;
+  background-color: #fe5000;
+  border-radius: 15px;
+
+  height: 70px;
+}
+.btnImg {
+  display: flex;
+  justify-content: center;
+  background-color: white;
+  width: 30px;
+  height: 30px;
+  border-radius: 50px;
+  padding: 10px;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: 10px;
+}
+.btnText {
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 30px;
+  /* identical to box height */
+
+  color: #ffffff;
+  margin: auto;
+}
+.profilePageText {
+  font-weight: 400;
+  font-size: 19px;
+  line-height: 28px;
+
+  color: #a3a3a3;
+}
 /* CSS */
 .button-5 {
   align-items: center;
@@ -275,7 +321,7 @@ a {
 .aboveFooter {
   display: flex;
   flex-wrap: wrap;
-  padding-left: 20px;
+  padding: 20px;
   font-weight: 300;
   font-size: 20px;
   line-height: 30px;
@@ -311,6 +357,7 @@ a {
   /* display: block; */
 }
 .footer {
+  padding: 40px;
   padding-top: 28px;
   margin-top: 34px;
   height: 160px;
@@ -436,7 +483,28 @@ a {
   border: 1px solid rgba(0, 0, 0, 0.3);
   border-radius: 5px;
 }
-
+.invite {
+  margin-top: 10px;
+  /* width: 250px; */
+  width: 370px;
+  height: 40px;
+  color: black;
+  padding: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 5px;
+}
+.inviteBtn {
+  margin-top: 15px;
+  background-color: #fe5000;
+  color: white;
+  padding: 10px;
+  border-radius: 10px;
+  margin-left: 35px;
+}
+.createAccount {
+  display: flex;
+  flex-wrap: wrap;
+}
 .candidateBtns > button {
   margin: 10px;
 }
@@ -476,7 +544,24 @@ a {
   background-color: #edf2f7;
 }
 
+.profilePage {
+  max-width: 1360px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 40px;
+}
+.profileButtons {
+  width: 350px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
 @media (max-width: 1024px) {
+  .invite {
+    width: 300px;
+  }
   .autorizationNavElemes {
     display: flex;
     flex-wrap: wrap;
@@ -567,6 +652,24 @@ a {
   }
   .footer {
     height: 250px;
+    padding: 20px;
+  }
+  .profileButtons {
+    width: 330px;
+  }
+  .profileButton {
+    margin-top: 20px;
+  }
+  .profilePageText {
+    margin-top: 20px;
+  }
+  .profileField {
+    width: 320px;
+  }
+  .phones > a {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 }
 

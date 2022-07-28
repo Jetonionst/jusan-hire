@@ -349,7 +349,7 @@ export default function Anketa() {
                   </FormLabel>
 
                   <>
-                    <Button colorScheme="blue" onClick={onOpen}>
+                    <Button colorScheme="orange" onClick={onOpen}>
                       Восстановить анкету
                     </Button>
                     <Modal isOpen={isOpen} onClose={onClose}>
@@ -390,7 +390,7 @@ export default function Anketa() {
                         <ModalFooter>
                           {recoverFormBtn ? (
                             <Button
-                              colorScheme="blue"
+                              colorScheme="orange"
                               mr={3}
                               onClick={async () => {
                                 const iin = recoverIIN.current.value;

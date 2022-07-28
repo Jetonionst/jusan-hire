@@ -1,6 +1,21 @@
 export default async function Service(request, content) {
   const url = "http://localhost:8081";
   try {
+    if (request === "sendInvaite") {
+      const req = await fetch(`${url}/api/v1/user/add`, {
+        method: "POST",
+        body: JSON.stringify(content, null, 2),
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "*/*",
+          "Access-Control-Allow-Origin": "*",
+        },
+      });
+
+      if (req.ok) {
+        alert("Приглашение отправлено!");
+      }
+    }
     if (request === "recover") {
       const req = await fetch(`${url}/api/v1/anketa/${content}`, {
         method: "GET",
@@ -113,7 +128,7 @@ export default async function Service(request, content) {
       }
       if (reqJ.token) {
         sessionStorage.setItem("token", reqJ.token);
-        window.location = "/admin";
+        window.location = "/profile";
       }
     }
     if (request === "applicationList") {
