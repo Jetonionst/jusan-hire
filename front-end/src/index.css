@@ -342,7 +342,7 @@ a {
   background-color: #edf2f7;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 1024px) {
   .headerUserNav {
     display: flex;
     flex-wrap: wrap;
@@ -369,4 +369,13 @@ a {
     margin: 10px;
     width: 100%;
   }
+}
+
+.formConfirmText {
+  font-size: 12px;
+}
+
+.formConfirm {
+  margin-bottom: 25px !important;
+  font-weight: bold;
 }

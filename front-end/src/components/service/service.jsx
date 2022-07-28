@@ -1,6 +1,30 @@
 export default async function Service(request, content) {
-  const url = "https://jusanhireserver.azurewebsites.net";
+  const url = "http://localhost:8081";
   try {
+    if (request === "recover") {
+      const req = await fetch(`${url}/api/v1/anketa/${content}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "*/*",
+          "Access-Control-Allow-Origin": "*",
+        },
+      });
+      const res = await req.json();
+      return res;
+    }
+    if (request === "save") {
+      const req = await fetch(`${url}/api/v1/anketa/submit`, {
+        method: "POST",
+        body: JSON.stringify(content, null, 2),
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "*/*",
+          "Access-Control-Allow-Origin": "*",
+        },
+      });
+      console.log(req);
+    }
     if (request === "uploadForm") {
       const req = await fetch(`${url}/api/v1/anketa/submit`, {
         method: "POST",
@@ -11,7 +35,7 @@ export default async function Service(request, content) {
           "Access-Control-Allow-Origin": "*",
         },
       });
-      console.log(JSON.stringify(content, null, 2));
+      // console.log(JSON.stringify(content, null, 2));
       return true;
     }
     if (request === "downloadForm") {

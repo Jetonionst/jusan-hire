@@ -1,5 +1,15 @@
 import { useFormik } from "formik";
 import ReactLoading from "react-loading";
+import { useDisclosure } from "@chakra-ui/react";
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+} from "@chakra-ui/react";
 import {
   Box,
   Button,
@@ -13,203 +23,207 @@ import {
   Textarea,
   VStack,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Service from "../service/service";
+import { useEffect } from "react";
 
 export default function Anketa() {
   const [isFormdownloaded, setIsFormDownloaded] = useState(false);
   const [isFormUploaded, setIsFormUploaded] = useState(false);
   const [showLoader, setShowLoader] = useState(false);
   const [page, setPage] = useState(1);
-  // const [eduListLength, setEduListLength] = useState(0);
 
+  // const [recoverForm, setRecoverForm] = useState({});
+  // const [eduListLength, setEduListLength] = useState(0);
+  const [form, updateForm] = useState({
+    iin: "",
+    fio: "",
+    previousName: "",
+    birthDate: "",
+    nationality: "",
+    citizenship: "",
+    birthPlace: "",
+    passportSerie: "",
+    passportNumber: "",
+    passportIssuedAt: "",
+    passportIssuedBy: "",
+    email: "",
+    homePhone: "",
+    workPhone: "",
+    mobilePhone: "",
+    relativePhone: "",
+    relativeFIO: "",
+    relativeLevel: "",
+    permanentCity: "",
+    permanentRegion: "",
+    permanentDistrict: "",
+    permanentStreet: "",
+    permanentHouse: "",
+    permanentCorpus: "",
+    permanentApartment: "",
+    isAddressMatches: false,
+    factualCity: "",
+    factualRegion: "",
+    factualDistrict: "",
+    factualStreet: "",
+    factualHouse: "",
+    factualCorpus: "",
+    factualApartment: "",
+    educationList: [
+      {
+        qualification: null,
+        endDate: null,
+        startDate: null,
+        speciality: null,
+        formOfStudy: null,
+        university: null,
+      },
+    ],
+    extracurricularList: [
+      {
+        endDate: null,
+        educationTime: null,
+        educationName: null,
+        speciality: null,
+        degree: null,
+      },
+    ],
+    lastThreeWorkplaces: [
+      {
+        workPeriod: "",
+        organizationName: "",
+        organizationType: "",
+        organizationAddress: "",
+        organizationPhone: "",
+        speciality: "",
+        employerFio: "",
+        employerNumber: "",
+        leavingReazon: "",
+      },
+      {
+        workPeriod: "",
+        organizationName: "",
+        organizationType: "",
+        organizationAddress: "",
+        organizationPhone: "",
+        speciality: "",
+        employerFio: "",
+        employerNumber: "",
+        leavingReazon: "",
+      },
+      {
+        workPeriod: "",
+        organizationName: "",
+        organizationType: "",
+        organizationAddress: "",
+        organizationPhone: "",
+        speciality: "",
+        employerFio: "",
+        employerNumber: "",
+        leavingReazon: "",
+      },
+    ],
+    threeRecommendationPeople: [
+      {
+        peopleFio: "",
+        peopleWorkPlace: "",
+        peopleMajor: "",
+        peoplePhone: "",
+      },
+      {
+        peopleFio: "",
+        peopleWorkPlace: "",
+        peopleMajor: "",
+        peoplePhone: "",
+      },
+      {
+        peopleFio: "",
+        peopleWorkPlace: "",
+        peopleMajor: "",
+        peoplePhone: "",
+      },
+    ],
+    marriageStatus: "",
+    lifeCompanion: [
+      {
+        fio: "",
+        birthDate: "",
+        workPlace: "",
+        major: "",
+        address: "",
+        citizenship: "",
+        phone: "",
+      },
+    ],
+    chilrenList: [
+      {
+        fio: null,
+        birthDate: null,
+        phone: null,
+        studyOrWork: null,
+      },
+    ],
+    relativeList: [
+      {
+        level: null,
+        fio: null,
+        birthDate: null,
+        workPlace: null,
+        major: null,
+        phone: null,
+      },
+    ],
+    iscommercialOrganisation: false,
+    commercialOrganisationList: [
+      {
+        ipOrToo: "",
+        organizationName: "",
+        iin: "",
+        address: "",
+        type: "",
+        phone: "",
+      },
+    ],
+    relativeJusanEmployee: false,
+    relativeJusanEmployeeList: [
+      {
+        level: null,
+        fio: null,
+        division: null,
+        major: null,
+      },
+    ],
+    carOwner: false,
+    carList: [
+      {
+        model: "",
+        year: "",
+        govNumber: "",
+      },
+    ],
+    military: false,
+    svc: false,
+    isSVCAnswer: "",
+    expiredLoan: false,
+    isExpiredLoanAnswer: "",
+    criminal: false,
+    isCriminalAnswer: "",
+    relativeCriminal: false,
+    isRelativeCriminalAnswer: "",
+    criminalDelo: false,
+    isCriminalDeloAnswer: "",
+    alimentPayer: false,
+    isAlimentPayerAnswer: "",
+    hooligan: false,
+    isHooliganAnswer: "",
+    additionalInfo: "",
+    extraIncome: "",
+    formConfirm: "",
+  });
   const fieldsSize = 175;
   const fSize = "14px";
   const formik = useFormik({
-    initialValues: {
-      iin: "",
-      fio: "",
-      previousName: "",
-      birthDate: "",
-      nationality: "",
-      citizenship: "",
-      birthPlace: "",
-      passportSerie: "",
-      passportNumber: "",
-      passportIssuedAt: "",
-      passportIssuedBy: "",
-      email: "",
-      homePhone: "",
-      workPhone: "",
-      mobilePhone: "",
-      relativePhone: "",
-      relativeFIO: "",
-      relativeLevel: "",
-      permanentCity: "",
-      permanentRegion: "",
-      permanentDistrict: "",
-      permanentStreet: "",
-      permanentHouse: "",
-      permanentCorpus: "",
-      permanentApartment: "",
-      isAddressMatches: false,
-      factualCity: "",
-      factualRegion: "",
-      factualDistrict: "",
-      factualStreet: "",
-      factualHouse: "",
-      factualCorpus: "",
-      factualApartment: "",
-      educationList: [
-        {
-          qualification: null,
-          endDate: null,
-          startDate: null,
-          speciality: null,
-          formOfStudy: null,
-          university: null,
-        },
-      ],
-      extracurricularList: [
-        {
-          endDate: null,
-          educationTime: null,
-          educationName: null,
-          speciality: null,
-          degree: null,
-        },
-      ],
-      lastThreeWorkplaces: [
-        {
-          workPeriod: "",
-          organizationName: "",
-          organizationType: "",
-          organizationAddress: "",
-          organizationPhone: "",
-          speciality: "",
-          employerFio: "",
-          employerNumber: "",
-          leavingReazon: "",
-        },
-        {
-          workPeriod: "",
-          organizationName: "",
-          organizationType: "",
-          organizationAddress: "",
-          organizationPhone: "",
-          speciality: "",
-          employerFio: "",
-          employerNumber: "",
-          leavingReazon: "",
-        },
-        {
-          workPeriod: "",
-          organizationName: "",
-          organizationType: "",
-          organizationAddress: "",
-          organizationPhone: "",
-          speciality: "",
-          employerFio: "",
-          employerNumber: "",
-          leavingReazon: "",
-        },
-      ],
-      threeRecommendationPeople: [
-        {
-          peopleFio: "",
-          peopleWorkPlace: "",
-          peopleMajor: "",
-          peoplePhone: "",
-        },
-        {
-          peopleFio: "",
-          peopleWorkPlace: "",
-          peopleMajor: "",
-          peoplePhone: "",
-        },
-        {
-          peopleFio: "",
-          peopleWorkPlace: "",
-          peopleMajor: "",
-          peoplePhone: "",
-        },
-      ],
-      marriageStatus: "",
-      lifeCompanion: [
-        {
-          fio: "",
-          birthDate: "",
-          workPlace: "",
-          major: "",
-          address: "",
-          citizenship: "",
-          phone: "",
-        },
-      ],
-      chilrenList: [
-        {
-          fio: null,
-          birthDate: null,
-          phone: null,
-          studyOrWork: null,
-        },
-      ],
-      relativeList: [
-        {
-          level: null,
-          fio: null,
-          birthDate: null,
-          workPlace: null,
-          major: null,
-          phone: null,
-        },
-      ],
-      iscommercialOrganisation: false,
-      commercialOrganisationList: [
-        {
-          ipOrToo: "",
-          organizationName: "",
-          iin: "",
-          address: "",
-          type: "",
-          phone: "",
-        },
-      ],
-      relativeJusanEmployee: false,
-      relativeJusanEmployeeList: [
-        {
-          level: null,
-          fio: null,
-          division: null,
-          major: null,
-        },
-      ],
-      carOwner: false,
-      carList: [
-        {
-          model: "",
-          year: "",
-          govNumber: "",
-        },
-      ],
-      military: false,
-      svc: false,
-      isSVCAnswer: "",
-      expiredLoan: false,
-      isExpiredLoanAnswer: "",
-      criminal: false,
-      isCriminalAnswer: "",
-      relativeCriminal: false,
-      isRelativeCriminalAnswer: "",
-      criminalDelo: false,
-      isCriminalDeloAnswer: "",
-      alimentPayer: false,
-      isAlimentPayerAnswer: "",
-      hooligan: false,
-      isHooliganAnswer: "",
-      additionalInfo: "",
-      extraIncome: "",
-    },
+    initialValues: form,
     onSubmit: async (values) => {
       if (page === 1) {
         setPage(2);
@@ -243,11 +257,12 @@ export default function Anketa() {
     },
   });
 
+  const [recoverFormBtn, setRecoverFormBtn] = useState(false);
   const [eduListlength, setEduListlength] = useState(0);
   const [eduList] = useState([
     <div className="fieldsContex">
       <FormControl
-        isRequired
+        isRequired={false}
         display="flex"
         // justifyContent="space-between"
         flexWrap="wrap"
@@ -265,7 +280,7 @@ export default function Anketa() {
             variant="filled"
             placeholder="01.01.2000"
             onChange={formik.handleChange}
-            value={formik.values.educationList[eduListlength].startDate}
+            value={form.educationList[eduListlength].startDate}
           />
         </div>
         <div className="field">
@@ -280,7 +295,7 @@ export default function Anketa() {
             type="date"
             variant="filled"
             onChange={formik.handleChange}
-            value={formik.values.educationList[eduListlength].endDate}
+            value={form.educationList[eduListlength].endDate}
           />
         </div>
         <div className="field">
@@ -295,7 +310,7 @@ export default function Anketa() {
             type="text"
             variant="filled"
             onChange={formik.handleChange}
-            value={formik.values.educationList[eduListlength].university}
+            value={form.educationList[eduListlength].university}
           />
         </div>
         <div className="field">
@@ -310,7 +325,7 @@ export default function Anketa() {
             type="text"
             variant="filled"
             onChange={formik.handleChange}
-            value={formik.values.educationList[eduListlength].speciality}
+            value={form.educationList[eduListlength].speciality}
           />
         </div>
 
@@ -326,7 +341,7 @@ export default function Anketa() {
             type="text"
             variant="filled"
             onChange={formik.handleChange}
-            value={formik.values.educationList[eduListlength].formOfStudy}
+            value={form.educationList[eduListlength].formOfStudy}
           />
         </div>
         <div className="field">
@@ -341,7 +356,7 @@ export default function Anketa() {
             type="text"
             variant="filled"
             onChange={formik.handleChange}
-            value={formik.values.educationList[eduListlength].qualification}
+            value={form.educationList[eduListlength].qualification}
           />
         </div>
       </FormControl>
@@ -351,7 +366,7 @@ export default function Anketa() {
   const [specialCourses] = useState([
     <div className="fieldsContex">
       <FormControl
-        isRequired
+        isRequired={false}
         display="flex"
         // justifyContent="space-between"
         flexWrap="wrap"
@@ -369,9 +384,7 @@ export default function Anketa() {
             variant="filled"
             placeholder="01.01.2000"
             onChange={formik.handleChange}
-            value={
-              formik.values.extracurricularList[specialCoursesLength].endDate
-            }
+            value={form.extracurricularList[specialCoursesLength].endDate}
           />
         </div>
         <div className="field">
@@ -386,10 +399,7 @@ export default function Anketa() {
             type="date"
             variant="filled"
             onChange={formik.handleChange}
-            value={
-              formik.values.extracurricularList[specialCoursesLength]
-                .educationTime
-            }
+            value={form.extracurricularList[specialCoursesLength].educationTime}
           />
         </div>
         <div className="field">
@@ -404,10 +414,7 @@ export default function Anketa() {
             type="text"
             variant="filled"
             onChange={formik.handleChange}
-            value={
-              formik.values.extracurricularList[specialCoursesLength]
-                .educationName
-            }
+            value={form.extracurricularList[specialCoursesLength].educationName}
           />
         </div>
         <div className="field">
@@ -422,9 +429,7 @@ export default function Anketa() {
             type="text"
             variant="filled"
             onChange={formik.handleChange}
-            value={
-              formik.values.extracurricularList[specialCoursesLength].speciality
-            }
+            value={form.extracurricularList[specialCoursesLength].speciality}
           />
         </div>
         <div className="field">
@@ -439,9 +444,7 @@ export default function Anketa() {
             type="text"
             variant="filled"
             onChange={formik.handleChange}
-            value={
-              formik.values.extracurricularList[specialCoursesLength].degree
-            }
+            value={form.extracurricularList[specialCoursesLength].degree}
           />
         </div>
       </FormControl>
@@ -467,7 +470,7 @@ export default function Anketa() {
             type="text"
             variant="filled"
             onChange={formik.handleChange}
-            value={formik.values.chilrenList[childrenListLength].fio}
+            value={form.chilrenList[childrenListLength].fio}
           />
         </div>
         <div className="field">
@@ -483,7 +486,7 @@ export default function Anketa() {
             variant="filled"
             onChange={formik.handleChange}
             placeholder="01.01.1999"
-            value={formik.values.chilrenList[childrenListLength].birthDate}
+            value={form.chilrenList[childrenListLength].birthDate}
           />
         </div>
         <div className="field">
@@ -498,7 +501,7 @@ export default function Anketa() {
             type="text"
             variant="filled"
             onChange={formik.handleChange}
-            value={formik.values.chilrenList[childrenListLength].studyOrWork}
+            value={form.chilrenList[childrenListLength].studyOrWork}
           />
         </div>
 
@@ -514,13 +517,14 @@ export default function Anketa() {
             type="text"
             variant="filled"
             onChange={formik.handleChange}
-            value={formik.values.chilrenList[childrenListLength].studyOrWork}
+            value={form.chilrenList[childrenListLength].studyOrWork}
           />
         </div>
       </FormControl>
     </div>,
   ]);
   const [relativeListLength, setRelativeListLength] = useState(0);
+
   const [relativeList] = useState([
     <div className="filedsContex">
       <FormControl
@@ -540,7 +544,7 @@ export default function Anketa() {
             type="text"
             variant="filled"
             onChange={formik.handleChange}
-            value={formik.values.relativeList[relativeListLength].level}
+            value={form.relativeList[relativeListLength]?.level}
           />
         </div>
         <div className="field">
@@ -555,7 +559,7 @@ export default function Anketa() {
             type="text"
             variant="filled"
             onChange={formik.handleChange}
-            value={formik.values.relativeList[relativeListLength].fio}
+            value={form.relativeList[relativeListLength]?.fio}
           />
         </div>
 
@@ -572,7 +576,7 @@ export default function Anketa() {
             variant="filled"
             onChange={formik.handleChange}
             placeholder="01.01.1999"
-            value={formik.values.relativeList[relativeListLength].birthDate}
+            value={form.relativeList[relativeListLength]?.birthDate}
           />
         </div>
         <div className="field">
@@ -587,7 +591,7 @@ export default function Anketa() {
             type="text"
             variant="filled"
             onChange={formik.handleChange}
-            value={formik.values.relativeList[relativeListLength].workPlace}
+            value={form.relativeList[relativeListLength]?.workPlace}
           />
         </div>
         <div className="field">
@@ -602,7 +606,7 @@ export default function Anketa() {
             type="text"
             variant="filled"
             onChange={formik.handleChange}
-            value={formik.values.relativeList[relativeListLength].major}
+            value={form.relativeList[relativeListLength]?.major}
           />
         </div>
 
@@ -618,7 +622,7 @@ export default function Anketa() {
             type="text"
             variant="filled"
             onChange={formik.handleChange}
-            value={formik.values.relativeList[relativeListLength].phone}
+            value={form.relativeList[relativeListLength]?.phone}
           />
         </div>
       </FormControl>
@@ -629,7 +633,7 @@ export default function Anketa() {
     <div className="fieldsContainer">
       <div className="fieldsContex">
         <FormControl
-          isRequired
+          isRequired={false}
           display="flex"
           // justifyContent="space-between"
           flexWrap="wrap"
@@ -646,7 +650,7 @@ export default function Anketa() {
               type="text"
               variant="filled"
               onChange={formik.handleChange}
-              value={formik.values.relativeJusanEmployeeList[0].level}
+              value={form.relativeJusanEmployeeList[0]?.level}
             />
           </div>
           <div className="field">
@@ -661,7 +665,7 @@ export default function Anketa() {
               type="text"
               variant="filled"
               onChange={formik.handleChange}
-              value={formik.values.relativeJusanEmployeeList[0].fio}
+              value={form.relativeJusanEmployeeList[0]?.fio}
             />
           </div>
           <div className="field">
@@ -676,7 +680,7 @@ export default function Anketa() {
               type="text"
               variant="filled"
               onChange={formik.handleChange}
-              value={formik.values.relativeJusanEmployeeList[0].division}
+              value={form.relativeJusanEmployeeList[0]?.division}
             />
           </div>
           <div className="field">
@@ -691,16 +695,21 @@ export default function Anketa() {
               type="text"
               variant="filled"
               onChange={formik.handleChange}
-              value={formik.values.relativeJusanEmployeeList[0].major}
+              value={form.relativeJusanEmployeeList[0]?.major}
             />
           </div>
         </FormControl>
       </div>
     </div>,
   ]);
+
+  async function saveForm() {
+    const save = await Service("save", form);
+  }
+
   function addBtn(formLabel) {
     if (formLabel === "specCourses") {
-      formik.values.extracurricularList.push({
+      form.extracurricularList.push({
         endDate: null,
         educationTime: null,
         educationName: null,
@@ -714,7 +723,7 @@ export default function Anketa() {
       specialCourses.push(
         <div className="fieldsContex">
           <FormControl
-            isRequired
+            isRequired={false}
             display="flex"
             // justifyContent="space-between"
             flexWrap="wrap"
@@ -732,9 +741,7 @@ export default function Anketa() {
                 variant="filled"
                 placeholder="01.01.2000"
                 onChange={formik.handleChange}
-                value={
-                  formik.values.extracurricularList[tempExtraCourse].endDate
-                }
+                value={form.extracurricularList[tempExtraCourse].endDate}
               />
             </div>
             <div className="field">
@@ -749,10 +756,7 @@ export default function Anketa() {
                 type="date"
                 variant="filled"
                 onChange={formik.handleChange}
-                value={
-                  formik.values.extracurricularList[tempExtraCourse]
-                    .educationTime
-                }
+                value={form.extracurricularList[tempExtraCourse].educationTime}
               />
             </div>
             <div className="field">
@@ -767,10 +771,7 @@ export default function Anketa() {
                 type="text"
                 variant="filled"
                 onChange={formik.handleChange}
-                value={
-                  formik.values.extracurricularList[tempExtraCourse]
-                    .educationName
-                }
+                value={form.extracurricularList[tempExtraCourse].educationName}
               />
             </div>
             <div className="field">
@@ -785,9 +786,7 @@ export default function Anketa() {
                 type="text"
                 variant="filled"
                 onChange={formik.handleChange}
-                value={
-                  formik.values.extracurricularList[tempExtraCourse].speciality
-                }
+                value={form.extracurricularList[tempExtraCourse].speciality}
               />
             </div>
             <div className="field">
@@ -802,9 +801,7 @@ export default function Anketa() {
                 type="text"
                 variant="filled"
                 onChange={formik.handleChange}
-                value={
-                  formik.values.extracurricularList[tempExtraCourse].degree
-                }
+                value={form.extracurricularList[tempExtraCourse].degree}
               />
             </div>
           </FormControl>
@@ -812,7 +809,7 @@ export default function Anketa() {
       );
     }
     if (formLabel === "education") {
-      formik.values.educationList.push({
+      form.educationList.push({
         startDate: null,
         endDate: null,
         university: null,
@@ -825,7 +822,7 @@ export default function Anketa() {
       eduList.push(
         <div className="fieldsContex">
           <FormControl
-            isRequired
+            isRequired={false}
             display="flex"
             // justifyContent="space-between"
             flexWrap="wrap"
@@ -843,7 +840,7 @@ export default function Anketa() {
                 variant="filled"
                 placeholder="01.01.2000"
                 onChange={formik.handleChange}
-                value={formik.values.educationList[tempEdu].startDate}
+                value={form.educationList[tempEdu].startDate}
               />
             </div>
             <div className="field">
@@ -858,7 +855,7 @@ export default function Anketa() {
                 type="date"
                 variant="filled"
                 onChange={formik.handleChange}
-                value={formik.values.educationList[tempEdu].endDate}
+                value={form.educationList[tempEdu].endDate}
               />
             </div>
             <div className="field">
@@ -873,7 +870,7 @@ export default function Anketa() {
                 type="text"
                 variant="filled"
                 onChange={formik.handleChange}
-                value={formik.values.educationList[tempEdu].university}
+                value={form.educationList[tempEdu].university}
               />
             </div>
             <div className="field">
@@ -888,7 +885,7 @@ export default function Anketa() {
                 type="text"
                 variant="filled"
                 onChange={formik.handleChange}
-                value={formik.values.educationList[tempEdu].speciality}
+                value={form.educationList[tempEdu].speciality}
               />
             </div>
             <div className="field">
@@ -903,7 +900,7 @@ export default function Anketa() {
                 type="text"
                 variant="filled"
                 onChange={formik.handleChange}
-                value={formik.values.educationList[tempEdu].formOfStudy}
+                value={form.educationList[tempEdu].formOfStudy}
               />
             </div>
             <div className="field">
@@ -918,7 +915,7 @@ export default function Anketa() {
                 type="text"
                 variant="filled"
                 onChange={formik.handleChange}
-                value={formik.values.educationList[tempEdu].qualification}
+                value={form.educationList[tempEdu].qualification}
               />
             </div>
           </FormControl>
@@ -926,7 +923,7 @@ export default function Anketa() {
       );
     }
     if (formLabel === "children") {
-      formik.values.chilrenList.push({
+      form.chilrenList.push({
         fio: null,
         birthDate: null,
         phone: null,
@@ -954,7 +951,7 @@ export default function Anketa() {
                 type="text"
                 variant="filled"
                 onChange={formik.handleChange}
-                value={formik.values.chilrenList[tempChildren].fio}
+                value={form.chilrenList[tempChildren].fio}
               />
             </div>
             <div className="field">
@@ -970,7 +967,7 @@ export default function Anketa() {
                 variant="filled"
                 onChange={formik.handleChange}
                 placeholder="01.01.1999"
-                value={formik.values.chilrenList[tempChildren].birthDate}
+                value={form.chilrenList[tempChildren].birthDate}
               />
             </div>
             <div className="field">
@@ -985,7 +982,7 @@ export default function Anketa() {
                 type="text"
                 variant="filled"
                 onChange={formik.handleChange}
-                value={formik.values.chilrenList[tempChildren].studyOrWork}
+                value={form.chilrenList[tempChildren].studyOrWork}
               />
             </div>
 
@@ -1001,7 +998,7 @@ export default function Anketa() {
                 type="text"
                 variant="filled"
                 onChange={formik.handleChange}
-                value={formik.values.chilrenList[tempChildren].studyOrWork}
+                value={form.chilrenList[tempChildren].studyOrWork}
               />
             </div>
           </FormControl>
@@ -1009,7 +1006,7 @@ export default function Anketa() {
       );
     }
     if (formLabel === "relative") {
-      formik.values.relativeList.push({
+      form.relativeList.push({
         level: null,
         fio: null,
         birthDate: null,
@@ -1038,7 +1035,7 @@ export default function Anketa() {
                 type="text"
                 variant="filled"
                 onChange={formik.handleChange}
-                value={formik.values.relativeList[tempRelative].level}
+                value={form.relativeList[tempRelative].level}
               />
             </div>
             <div className="field">
@@ -1053,7 +1050,7 @@ export default function Anketa() {
                 type="text"
                 variant="filled"
                 onChange={formik.handleChange}
-                value={formik.values.relativeList[tempRelative].fio}
+                value={form.relativeList[tempRelative].fio}
               />
             </div>
 
@@ -1070,7 +1067,7 @@ export default function Anketa() {
                 variant="filled"
                 onChange={formik.handleChange}
                 placeholder="01.01.1999"
-                value={formik.values.relativeList[tempRelative].birthDate}
+                value={form.relativeList[tempRelative].birthDate}
               />
             </div>
             <div className="field">
@@ -1085,7 +1082,7 @@ export default function Anketa() {
                 type="text"
                 variant="filled"
                 onChange={formik.handleChange}
-                value={formik.values.relativeList[tempRelative].workPlace}
+                value={form.relativeList[tempRelative].workPlace}
               />
             </div>
             <div className="field">
@@ -1100,7 +1097,7 @@ export default function Anketa() {
                 type="text"
                 variant="filled"
                 onChange={formik.handleChange}
-                value={formik.values.relativeList[tempRelative].major}
+                value={form.relativeList[tempRelative].major}
               />
             </div>
 
@@ -1116,7 +1113,7 @@ export default function Anketa() {
                 type="text"
                 variant="filled"
                 onChange={formik.handleChange}
-                value={formik.values.relativeList[tempRelative].phone}
+                value={form.relativeList[tempRelative].phone}
               />
             </div>
           </FormControl>
@@ -1126,7 +1123,7 @@ export default function Anketa() {
     if (formLabel === "jusanRelative") {
       const temp = jusanRelativeListLength + 1;
       setJusanRelativeListLength(temp);
-      formik.values.relativeJusanEmployeeList.push({
+      form.relativeJusanEmployeeList.push({
         level: null,
         fio: null,
         division: null,
@@ -1136,7 +1133,7 @@ export default function Anketa() {
         <div className="fieldsContainer">
           <div className="fieldsContex">
             <FormControl
-              isRequired
+              isRequired={false}
               display="flex"
               // justifyContent="space-between"
               flexWrap="wrap"
@@ -1153,7 +1150,7 @@ export default function Anketa() {
                   type="text"
                   variant="filled"
                   onChange={formik.handleChange}
-                  value={formik.values.relativeJusanEmployeeList[temp].level}
+                  value={form.relativeJusanEmployeeList[temp].level}
                 />
               </div>
               <div className="field">
@@ -1168,7 +1165,7 @@ export default function Anketa() {
                   type="text"
                   variant="filled"
                   onChange={formik.handleChange}
-                  value={formik.values.relativeJusanEmployeeList[temp].fio}
+                  value={form.relativeJusanEmployeeList[temp].fio}
                 />
               </div>
               <div className="field">
@@ -1183,7 +1180,7 @@ export default function Anketa() {
                   type="text"
                   variant="filled"
                   onChange={formik.handleChange}
-                  value={formik.values.relativeJusanEmployeeList[temp].division}
+                  value={form.relativeJusanEmployeeList[temp].division}
                 />
               </div>
               <div className="field">
@@ -1198,7 +1195,7 @@ export default function Anketa() {
                   type="text"
                   variant="filled"
                   onChange={formik.handleChange}
-                  value={formik.values.relativeJusanEmployeeList[temp].major}
+                  value={form.relativeJusanEmployeeList[temp].major}
                 />
               </div>
             </FormControl>
@@ -1207,6 +1204,12 @@ export default function Anketa() {
       );
     }
   }
+  // if(page === 0) {
+
+  // }
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const recoverIIN = useRef(null);
+
   if (page === 1) {
     return (
       <ChakraProvider>
@@ -1225,8 +1228,78 @@ export default function Anketa() {
                     АНКЕТА КАНДИДАТА (<span style={{ color: "red" }}>*</span>
                     обязательные поля)
                   </FormLabel>
+
+                  <>
+                    <Button colorScheme="blue" onClick={onOpen}>
+                      Восстановить анкету
+                    </Button>
+                    <Modal isOpen={isOpen} onClose={onClose}>
+                      <ModalOverlay />
+                      <ModalContent>
+                        <ModalHeader>Введите ваш ИИН</ModalHeader>
+                        <ModalCloseButton />
+                        <ModalBody pb={6}>
+                          <FormControl>
+                            <FormLabel>ИИН</FormLabel>
+                            <Input
+                              ref={recoverIIN}
+                              placeholder="Ваш ИИН"
+                              onChange={(e) => {
+                                setRecoverFormBtn(false);
+                                document
+                                  .querySelector(".recoverIINError")
+                                  .removeAttribute("hidden");
+
+                                const regex = /(?=(^([^\d]*?\d){12}$))/;
+                                if (regex.test(e.target.value)) {
+                                  console.log("hey");
+                                  document
+                                    .querySelector(".recoverIINError")
+                                    .setAttribute("hidden", true);
+
+                                  setRecoverFormBtn(true);
+                                }
+                                // console.log(validationSchema.iin);
+                              }}
+                            />
+                            <div className="recoverIINError">
+                              ИИН должен состоять из 12 цифр!
+                            </div>
+                          </FormControl>
+                        </ModalBody>
+
+                        <ModalFooter>
+                          {recoverFormBtn ? (
+                            <Button
+                              colorScheme="blue"
+                              mr={3}
+                              onClick={async () => {
+                                const iin = recoverIIN.current.value;
+                                // const requestToForm = await fetch('')
+                                const requestToRecoverForm = await Service(
+                                  "recover",
+                                  iin
+                                );
+                                updateForm(requestToRecoverForm);
+
+                                console.log(form);
+                              }}
+                            >
+                              Восстановить
+                            </Button>
+                          ) : (
+                            <Button colorScheme="red" opacity={0.5} mr={3}>
+                              Восстановить
+                            </Button>
+                          )}
+                          <Button onClick={onClose}>Отмена</Button>
+                        </ModalFooter>
+                      </ModalContent>
+                    </Modal>
+                  </>
+
                   <FormControl
-                    isRequired
+                    isRequired={false}
                     display="flex"
                     // justifyContent="space-between"
                     flexWrap="wrap"
@@ -1243,7 +1316,7 @@ export default function Anketa() {
                         type="text"
                         variant="filled"
                         onChange={formik.handleChange}
-                        value={formik.values.iin}
+                        value={form.iin}
                       />
                     </div>
                     <div className="field">
@@ -1258,7 +1331,7 @@ export default function Anketa() {
                         type="text"
                         variant="filled"
                         onChange={formik.handleChange}
-                        value={formik.values.fio}
+                        value={form.fio}
                       />
                     </div>
                     <div className="field">
@@ -1273,7 +1346,7 @@ export default function Anketa() {
                         variant="filled"
                         placeholder="Пример: 01.01.1990"
                         onChange={formik.handleChange}
-                        value={formik.values.birthDate}
+                        value={form.birthDate}
                         type="date"
                       />
                     </div>
@@ -1289,7 +1362,7 @@ export default function Anketa() {
                         type="text"
                         variant="filled"
                         onChange={formik.handleChange}
-                        value={formik.values.birthPlace}
+                        value={form.birthPlace}
                       />
                     </div>
 
@@ -1305,7 +1378,7 @@ export default function Anketa() {
                         type="text"
                         variant="filled"
                         onChange={formik.handleChange}
-                        value={formik.values.nationality}
+                        value={form.nationality}
                       />
                     </div>
                     <div className="field">
@@ -1320,7 +1393,7 @@ export default function Anketa() {
                         type="text"
                         variant="filled"
                         onChange={formik.handleChange}
-                        value={formik.values.citizenship}
+                        value={form.citizenship}
                       />
                     </div>
                     <div className="field">
@@ -1335,7 +1408,7 @@ export default function Anketa() {
                         type="text"
                         variant="filled"
                         onChange={formik.handleChange}
-                        value={formik.values.email}
+                        value={form.email}
                       />
                     </div>
                   </FormControl>
@@ -1343,13 +1416,15 @@ export default function Anketa() {
                     Паспорт, удостоверение личности
                   </FormLabel>
                   <FormControl
-                    isRequired
+                    isRequired={false}
                     display={"flex"}
                     // justifyContent="space-between"
                     flexWrap="wrap"
                   >
                     <div className="field">
-                      <FormControl isRequired={false}>
+                      <FormControl
+                      //  sisRequired={false}={false}
+                      >
                         <FormLabel htmlFor="text" fontSize={fSize}>
                           Серия
                         </FormLabel>
@@ -1362,7 +1437,7 @@ export default function Anketa() {
                           type="text"
                           variant="filled"
                           onChange={formik.handleChange}
-                          value={formik.values.passportSerie}
+                          value={form.passportSerie}
                         />
                       </FormControl>
                     </div>
@@ -1379,7 +1454,7 @@ export default function Anketa() {
                         type="text"
                         variant="filled"
                         onChange={formik.handleChange}
-                        value={formik.values.passportNumber}
+                        value={form.passportNumber}
                       />
                     </div>
                     <div className="field">
@@ -1394,7 +1469,7 @@ export default function Anketa() {
                         type="text"
                         variant="filled"
                         onChange={formik.handleChange}
-                        value={formik.values.passportIssuedBy}
+                        value={form.passportIssuedBy}
                       />
                     </div>
                     <div className="field">
@@ -1409,7 +1484,7 @@ export default function Anketa() {
                         type="date"
                         variant="filled"
                         onChange={formik.handleChange}
-                        value={formik.values.passportIssuedAt}
+                        value={form.passportIssuedAt}
                       />
                     </div>
                   </FormControl>
@@ -1437,7 +1512,7 @@ export default function Anketa() {
                             type="tel"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={formik.values.homePhone}
+                            value={form.homePhone}
                           />
                         </div>
                         <div className="field">
@@ -1452,11 +1527,11 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={formik.values.workPhone}
+                            value={form.workPhone}
                           />
                         </div>
                         <div className="field">
-                          <FormControl isRequired>
+                          <FormControl isRequired={false}>
                             <FormLabel htmlFor="text" fontSize={fSize}>
                               Мобильный телефон:
                             </FormLabel>
@@ -1468,7 +1543,7 @@ export default function Anketa() {
                               type="phone"
                               variant="filled"
                               onChange={formik.handleChange}
-                              value={formik.values.mobilePhone}
+                              value={form.mobilePhone}
                             />
                           </FormControl>
                         </div>
@@ -1479,7 +1554,7 @@ export default function Anketa() {
                         Контактные данные родственника или знакомого:
                       </FormLabel>
                       <FormControl
-                        isRequired
+                        isRequired={false}
                         display="flex"
                         flexWrap="wrap"
                         //   justifyContent="space-between"
@@ -1496,7 +1571,7 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={formik.values.relativePhone}
+                            value={form.relativePhone}
                           />
                         </div>
                         <div className="field">
@@ -1511,7 +1586,7 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={formik.values.relativeFIO}
+                            value={form.relativeFIO}
                           />
                         </div>
                         <div className="field">
@@ -1526,7 +1601,7 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={formik.values.relativeLevel}
+                            value={form.relativeLevel}
                           />
                         </div>
                       </FormControl>
@@ -1540,7 +1615,7 @@ export default function Anketa() {
                       <FormControl
                         display="flex"
                         flexWrap="wrap"
-                        isRequired
+                        isRequired={false}
                         //   justifyContent="space-between"
                       >
                         <div className="field">
@@ -1555,7 +1630,7 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={formik.values.permanentCity}
+                            value={form.permanentCity}
                           />
                         </div>
                         <div className="field">
@@ -1570,7 +1645,7 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={formik.values.permanentRegion}
+                            value={form.permanentRegion}
                           />
                         </div>
                         <div className="field">
@@ -1585,7 +1660,7 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={formik.values.permanentDistrict}
+                            value={form.permanentDistrict}
                           />
                         </div>
                         <div className="field">
@@ -1600,7 +1675,7 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={formik.values.permanentStreet}
+                            value={form.permanentStreet}
                           />
                         </div>
                         <div className="field">
@@ -1615,11 +1690,13 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={formik.values.permanentHouse}
+                            value={form.permanentHouse}
                           />
                         </div>
                         <div className="field">
-                          <FormControl isRequired={false}>
+                          <FormControl
+                          // isRequired={false}={false}
+                          >
                             <FormLabel htmlFor="text" fontSize={fSize}>
                               Корпус:
                             </FormLabel>
@@ -1631,7 +1708,7 @@ export default function Anketa() {
                               type="text"
                               variant="filled"
                               onChange={formik.handleChange}
-                              value={formik.values.permanentCorpus}
+                              value={form.permanentCorpus}
                             />
                           </FormControl>
                         </div>
@@ -1647,7 +1724,7 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={formik.values.permanentApartment}
+                            value={form.permanentApartment}
                           />
                         </div>
                       </FormControl>
@@ -1661,13 +1738,13 @@ export default function Anketa() {
                           id="isAddressMatches"
                           name="isAddressMatches"
                           onChange={formik.handleChange}
-                          isChecked={formik.values.isAddressMatches}
+                          isChecked={form.isAddressMatches}
                           colorScheme="orange"
                         >
                           Cовпадает с адресом постоянной регистрации
                         </Checkbox>
                       </div>
-                      {!formik.values.isAddressMatches && (
+                      {!form.isAddressMatches && (
                         <FormControl
                           display="flex"
                           flexWrap="wrap"
@@ -1686,7 +1763,7 @@ export default function Anketa() {
                               type="text"
                               variant="filled"
                               onChange={formik.handleChange}
-                              value={formik.values.factualCity}
+                              value={form.factualCity}
                             />
                           </div>
                           <div className="field">
@@ -1701,7 +1778,7 @@ export default function Anketa() {
                               type="text"
                               variant="filled"
                               onChange={formik.handleChange}
-                              value={formik.values.factualRegion}
+                              value={form.factualRegion}
                             />
                           </div>
                           <div className="field">
@@ -1716,7 +1793,7 @@ export default function Anketa() {
                               type="text"
                               variant="filled"
                               onChange={formik.handleChange}
-                              value={formik.values.factualDistrict}
+                              value={form.factualDistrict}
                             />
                           </div>
                           <div className="field">
@@ -1731,7 +1808,7 @@ export default function Anketa() {
                               type="text"
                               variant="filled"
                               onChange={formik.handleChange}
-                              value={formik.values.factualStreet}
+                              value={form.factualStreet}
                             />
                           </div>
                           <div className="field">
@@ -1746,7 +1823,7 @@ export default function Anketa() {
                               type="text"
                               variant="filled"
                               onChange={formik.handleChange}
-                              value={formik.values.factualHouse}
+                              value={form.factualHouse}
                             />
                           </div>
                           <div className="field">
@@ -1761,7 +1838,7 @@ export default function Anketa() {
                               type="text"
                               variant="filled"
                               onChange={formik.handleChange}
-                              value={formik.values.factualCorpus}
+                              value={form.factualCorpus}
                             />
                           </div>
                           <div className="field">
@@ -1776,7 +1853,7 @@ export default function Anketa() {
                               type="text"
                               variant="filled"
                               onChange={formik.handleChange}
-                              value={formik.values.factualApartment}
+                              value={form.factualApartment}
                             />
                           </div>
                         </FormControl>
@@ -1787,21 +1864,43 @@ export default function Anketa() {
                 id="rememberMe"
                 name="rememberMe"
                 onChange={formik.handleChange}
-                isChecked={formik.values.rememberMe}
+                isChecked={form.rememberMe}
                 colorScheme="orange"
               >
                 Remember me?
               </Checkbox> */}
-
-                  <Button
-                    colorScheme="orange"
-                    width="30%"
-                    // type="submit"
-                    marginLeft="50px"
-                    type="submit"
-                  >
-                    Далее
-                  </Button>
+                  <div className="buttons">
+                    <Button
+                      colorScheme="orange"
+                      width="30%"
+                      // type="submit"
+                      marginLeft="50px"
+                      type="submit"
+                    >
+                      Далее
+                    </Button>
+                    {form.iin ? (
+                      <Button
+                        colorScheme="green"
+                        width="30%"
+                        // type="submit"
+                        marginLeft="50px"
+                        onClick={saveForm}
+                      >
+                        Сохранить
+                      </Button>
+                    ) : (
+                      <Button
+                        colorScheme="red"
+                        width="30%"
+                        opacity={0.3}
+                        // type="submit"
+                        marginLeft="50px"
+                      >
+                        Сохранить
+                      </Button>
+                    )}
+                  </div>
                 </VStack>
               </form>
             </Box>
@@ -1886,6 +1985,15 @@ export default function Anketa() {
                     >
                       Далее
                     </Button>
+                    <Button
+                      colorScheme="green"
+                      width="30%"
+                      // type="submit"
+                      marginLeft="50px"
+                      onClick={saveForm}
+                    >
+                      Сохранить
+                    </Button>
                   </div>
                 </VStack>
               </form>
@@ -1915,7 +2023,7 @@ export default function Anketa() {
                   <div className="fieldsContainer">
                     <div className="filedsContex">
                       <FormControl
-                        isRequired
+                        isRequired={false}
                         display="flex"
                         // justifyContent="space-between"
                         flexWrap="wrap"
@@ -1933,9 +2041,7 @@ export default function Anketa() {
                             variant="filled"
                             placeholder="1 год 2 месяца"
                             onChange={formik.handleChange}
-                            value={
-                              formik.values.lastThreeWorkplaces[0].workPeriod
-                            }
+                            value={form.lastThreeWorkplaces[0].workPeriod}
                           />
                         </div>
                         <div className="field">
@@ -1950,10 +2056,7 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={
-                              formik.values.lastThreeWorkplaces[0]
-                                .organizationName
-                            }
+                            value={form.lastThreeWorkplaces[0].organizationName}
                           />
                         </div>
                         <div className="field">
@@ -1968,10 +2071,7 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={
-                              formik.values.lastThreeWorkplaces[0]
-                                .organizationType
-                            }
+                            value={form.lastThreeWorkplaces[0].organizationType}
                           />
                         </div>
                         <div className="field">
@@ -1987,8 +2087,7 @@ export default function Anketa() {
                             variant="filled"
                             onChange={formik.handleChange}
                             value={
-                              formik.values.lastThreeWorkplaces[0]
-                                .organizationAddress
+                              form.lastThreeWorkplaces[0].organizationAddress
                             }
                           />
                         </div>
@@ -2005,8 +2104,7 @@ export default function Anketa() {
                             variant="filled"
                             onChange={formik.handleChange}
                             value={
-                              formik.values.lastThreeWorkplaces[0]
-                                .organizationPhone
+                              form.lastThreeWorkplaces[0].organizationPhone
                             }
                           />
                         </div>
@@ -2022,9 +2120,7 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={
-                              formik.values.lastThreeWorkplaces[0].speciality
-                            }
+                            value={form.lastThreeWorkplaces[0].speciality}
                           />
                         </div>
                         <div className="field">
@@ -2039,9 +2135,7 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={
-                              formik.values.lastThreeWorkplaces[0].employerFio
-                            }
+                            value={form.lastThreeWorkplaces[0].employerFio}
                           />
                         </div>
                         <div className="field">
@@ -2056,10 +2150,7 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={
-                              formik.values.lastThreeWorkplaces[0]
-                                .employerNumber
-                            }
+                            value={form.lastThreeWorkplaces[0].employerNumber}
                           />
                         </div>
                         <div className="field">
@@ -2074,16 +2165,14 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={
-                              formik.values.lastThreeWorkplaces[0].leavingReazon
-                            }
+                            value={form.lastThreeWorkplaces[0].leavingReazon}
                           />
                         </div>
                       </FormControl>
                     </div>
                     <div className="filedsContex">
                       <FormControl
-                        isRequired
+                        isRequired={false}
                         display="flex"
                         // justifyContent="space-between"
                         flexWrap="wrap"
@@ -2101,9 +2190,7 @@ export default function Anketa() {
                             variant="filled"
                             placeholder="1 год 2 месяца"
                             onChange={formik.handleChange}
-                            value={
-                              formik.values.lastThreeWorkplaces[1].workPeriod
-                            }
+                            value={form.lastThreeWorkplaces[1].workPeriod}
                           />
                         </div>
                         <div className="field">
@@ -2118,10 +2205,7 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={
-                              formik.values.lastThreeWorkplaces[1]
-                                .organizationName
-                            }
+                            value={form.lastThreeWorkplaces[1].organizationName}
                           />
                         </div>
                         <div className="field">
@@ -2136,10 +2220,7 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={
-                              formik.values.lastThreeWorkplaces[1]
-                                .organizationType
-                            }
+                            value={form.lastThreeWorkplaces[1].organizationType}
                           />
                         </div>
                         <div className="field">
@@ -2155,8 +2236,7 @@ export default function Anketa() {
                             variant="filled"
                             onChange={formik.handleChange}
                             value={
-                              formik.values.lastThreeWorkplaces[1]
-                                .organizationAddress
+                              form.lastThreeWorkplaces[1].organizationAddress
                             }
                           />
                         </div>
@@ -2173,8 +2253,7 @@ export default function Anketa() {
                             variant="filled"
                             onChange={formik.handleChange}
                             value={
-                              formik.values.lastThreeWorkplaces[1]
-                                .organizationPhone
+                              form.lastThreeWorkplaces[1].organizationPhone
                             }
                           />
                         </div>
@@ -2190,9 +2269,7 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={
-                              formik.values.lastThreeWorkplaces[1].speciality
-                            }
+                            value={form.lastThreeWorkplaces[1].speciality}
                           />
                         </div>
                         <div className="field">
@@ -2207,9 +2284,7 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={
-                              formik.values.lastThreeWorkplaces[1].employerFio
-                            }
+                            value={form.lastThreeWorkplaces[1].employerFio}
                           />
                         </div>
                         <div className="field">
@@ -2224,10 +2299,7 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={
-                              formik.values.lastThreeWorkplaces[1]
-                                .employerNumber
-                            }
+                            value={form.lastThreeWorkplaces[1].employerNumber}
                           />
                         </div>
                         <div className="field">
@@ -2242,16 +2314,14 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={
-                              formik.values.lastThreeWorkplaces[1].leavingReazon
-                            }
+                            value={form.lastThreeWorkplaces[1].leavingReazon}
                           />
                         </div>
                       </FormControl>
                     </div>
                     <div className="filedsContex">
                       <FormControl
-                        isRequired
+                        isRequired={false}
                         display="flex"
                         // justifyContent="space-between"
                         flexWrap="wrap"
@@ -2269,9 +2339,7 @@ export default function Anketa() {
                             variant="filled"
                             placeholder="1 год 2 месяца"
                             onChange={formik.handleChange}
-                            value={
-                              formik.values.lastThreeWorkplaces[2].workPeriod
-                            }
+                            value={form.lastThreeWorkplaces[2].workPeriod}
                           />
                         </div>
                         <div className="field">
@@ -2286,10 +2354,7 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={
-                              formik.values.lastThreeWorkplaces[2]
-                                .organizationName
-                            }
+                            value={form.lastThreeWorkplaces[2].organizationName}
                           />
                         </div>
                         <div className="field">
@@ -2304,10 +2369,7 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={
-                              formik.values.lastThreeWorkplaces[2]
-                                .organizationType
-                            }
+                            value={form.lastThreeWorkplaces[2].organizationType}
                           />
                         </div>
                         <div className="field">
@@ -2323,8 +2385,7 @@ export default function Anketa() {
                             variant="filled"
                             onChange={formik.handleChange}
                             value={
-                              formik.values.lastThreeWorkplaces[2]
-                                .organizationAddress
+                              form.lastThreeWorkplaces[2].organizationAddress
                             }
                           />
                         </div>
@@ -2341,8 +2402,7 @@ export default function Anketa() {
                             variant="filled"
                             onChange={formik.handleChange}
                             value={
-                              formik.values.lastThreeWorkplaces[2]
-                                .organizationPhone
+                              form.lastThreeWorkplaces[2].organizationPhone
                             }
                           />
                         </div>
@@ -2358,9 +2418,7 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={
-                              formik.values.lastThreeWorkplaces[2].speciality
-                            }
+                            value={form.lastThreeWorkplaces[2].speciality}
                           />
                         </div>
                         <div className="field">
@@ -2375,9 +2433,7 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={
-                              formik.values.lastThreeWorkplaces[2].employerFio
-                            }
+                            value={form.lastThreeWorkplaces[2].employerFio}
                           />
                         </div>
                         <div className="field">
@@ -2392,10 +2448,7 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={
-                              formik.values.lastThreeWorkplaces[2]
-                                .employerNumber
-                            }
+                            value={form.lastThreeWorkplaces[2].employerNumber}
                           />
                         </div>
                         <div className="field">
@@ -2410,9 +2463,7 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={
-                              formik.values.lastThreeWorkplaces[2].leavingReazon
-                            }
+                            value={form.lastThreeWorkplaces[2].leavingReazon}
                           />
                         </div>
                       </FormControl>
@@ -2426,7 +2477,7 @@ export default function Anketa() {
                   <div className="filedsContainer">
                     <div className="filedsContex">
                       <FormControl
-                        isRequired
+                        isRequired={false}
                         display="flex"
                         // justifyContent="space-between"
                         flexWrap="wrap"
@@ -2443,10 +2494,7 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={
-                              formik.values.threeRecommendationPeople[0]
-                                .peopleFio
-                            }
+                            value={form.threeRecommendationPeople[0].peopleFio}
                           />
                         </div>
                         <div className="field">
@@ -2462,8 +2510,7 @@ export default function Anketa() {
                             variant="filled"
                             onChange={formik.handleChange}
                             value={
-                              formik.values.threeRecommendationPeople[0]
-                                .peopleWorkPlace
+                              form.threeRecommendationPeople[0].peopleWorkPlace
                             }
                           />
                         </div>
@@ -2480,8 +2527,7 @@ export default function Anketa() {
                             variant="filled"
                             onChange={formik.handleChange}
                             value={
-                              formik.values.threeRecommendationPeople[0]
-                                .peopleMajor
+                              form.threeRecommendationPeople[0].peopleMajor
                             }
                           />
                         </div>
@@ -2498,8 +2544,7 @@ export default function Anketa() {
                             variant="filled"
                             onChange={formik.handleChange}
                             value={
-                              formik.values.threeRecommendationPeople[0]
-                                .peoplePhone
+                              form.threeRecommendationPeople[0].peoplePhone
                             }
                           />
                         </div>
@@ -2507,7 +2552,7 @@ export default function Anketa() {
                     </div>
                     <div className="filedsContex">
                       <FormControl
-                        isRequired
+                        isRequired={false}
                         display="flex"
                         // justifyContent="space-between"
                         flexWrap="wrap"
@@ -2524,10 +2569,7 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={
-                              formik.values.threeRecommendationPeople[1]
-                                .peopleFio
-                            }
+                            value={form.threeRecommendationPeople[1].peopleFio}
                           />
                         </div>
                         <div className="field">
@@ -2543,8 +2585,7 @@ export default function Anketa() {
                             variant="filled"
                             onChange={formik.handleChange}
                             value={
-                              formik.values.threeRecommendationPeople[1]
-                                .peopleWorkPlace
+                              form.threeRecommendationPeople[1].peopleWorkPlace
                             }
                           />
                         </div>
@@ -2561,8 +2602,7 @@ export default function Anketa() {
                             variant="filled"
                             onChange={formik.handleChange}
                             value={
-                              formik.values.threeRecommendationPeople[1]
-                                .peopleMajor
+                              form.threeRecommendationPeople[1].peopleMajor
                             }
                           />
                         </div>
@@ -2579,8 +2619,7 @@ export default function Anketa() {
                             variant="filled"
                             onChange={formik.handleChange}
                             value={
-                              formik.values.threeRecommendationPeople[1]
-                                .peoplePhone
+                              form.threeRecommendationPeople[1].peoplePhone
                             }
                           />
                         </div>
@@ -2588,7 +2627,7 @@ export default function Anketa() {
                     </div>
                     <div className="filedsContex">
                       <FormControl
-                        isRequired
+                        isRequired={false}
                         display="flex"
                         // justifyContent="space-between"
                         flexWrap="wrap"
@@ -2605,10 +2644,7 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={
-                              formik.values.threeRecommendationPeople[2]
-                                .peopleFio
-                            }
+                            value={form.threeRecommendationPeople[2].peopleFio}
                           />
                         </div>
                         <div className="field">
@@ -2624,8 +2660,7 @@ export default function Anketa() {
                             variant="filled"
                             onChange={formik.handleChange}
                             value={
-                              formik.values.threeRecommendationPeople[2]
-                                .peopleWorkPlace
+                              form.threeRecommendationPeople[2].peopleWorkPlace
                             }
                           />
                         </div>
@@ -2642,8 +2677,7 @@ export default function Anketa() {
                             variant="filled"
                             onChange={formik.handleChange}
                             value={
-                              formik.values.threeRecommendationPeople[2]
-                                .peopleMajor
+                              form.threeRecommendationPeople[2].peopleMajor
                             }
                           />
                         </div>
@@ -2660,8 +2694,7 @@ export default function Anketa() {
                             variant="filled"
                             onChange={formik.handleChange}
                             value={
-                              formik.values.threeRecommendationPeople[2]
-                                .peoplePhone
+                              form.threeRecommendationPeople[2].peoplePhone
                             }
                           />
                         </div>
@@ -2690,6 +2723,15 @@ export default function Anketa() {
                     >
                       Далее
                     </Button>
+                    <Button
+                      colorScheme="green"
+                      width="30%"
+                      // type="submit"
+                      marginLeft="50px"
+                      onClick={saveForm}
+                    >
+                      Сохранить
+                    </Button>
                   </div>
                 </VStack>
               </form>
@@ -2716,7 +2758,7 @@ export default function Anketa() {
                   </FormLabel>
                   <div className="field">
                     <Select
-                      isRequired
+                      isRequired={false}
                       id="marriageStatus"
                       name="marriageStatus"
                       onChange={formik.handleChange}
@@ -2735,14 +2777,14 @@ export default function Anketa() {
                       <option value="Вдова(ец)">Вдова(ец)</option>
                     </Select>
                   </div>
-                  {formik.values.marriageStatus !== "Не состою в браке" &&
-                    formik.values.marriageStatus !== "" && (
+                  {form.marriageStatus !== "Не состою в браке" &&
+                    form.marriageStatus !== "" && (
                       <>
                         <FormLabel htmlFor="text">Супруг(а):</FormLabel>
                         <div className="fieldsContainer">
                           <div className="filedsContex">
                             <FormControl
-                              isRequired
+                              isRequired={false}
                               display="flex"
                               // justifyContent="space-between"
                               flexWrap="wrap"
@@ -2759,7 +2801,7 @@ export default function Anketa() {
                                   type="text"
                                   variant="filled"
                                   onChange={formik.handleChange}
-                                  value={formik.values.lifeCompanion[0].fio}
+                                  value={form.lifeCompanion[0].fio}
                                 />
                               </div>
                               <div className="field">
@@ -2775,9 +2817,7 @@ export default function Anketa() {
                                   variant="filled"
                                   onChange={formik.handleChange}
                                   placeholder="01.01.1999"
-                                  value={
-                                    formik.values.lifeCompanion[0].birthDate
-                                  }
+                                  value={form.lifeCompanion[0].birthDate}
                                 />
                               </div>
                               <div className="field">
@@ -2792,9 +2832,7 @@ export default function Anketa() {
                                   type="text"
                                   variant="filled"
                                   onChange={formik.handleChange}
-                                  value={
-                                    formik.values.lifeCompanion[0].workPlace
-                                  }
+                                  value={form.lifeCompanion[0].workPlace}
                                 />
                               </div>
                               <div className="field">
@@ -2809,7 +2847,7 @@ export default function Anketa() {
                                   type="text"
                                   variant="filled"
                                   onChange={formik.handleChange}
-                                  value={formik.values.lifeCompanion[0].major}
+                                  value={form.lifeCompanion[0].major}
                                 />
                               </div>
                               <div className="field">
@@ -2824,7 +2862,7 @@ export default function Anketa() {
                                   type="text"
                                   variant="filled"
                                   onChange={formik.handleChange}
-                                  value={formik.values.lifeCompanion[0].address}
+                                  value={form.lifeCompanion[0].address}
                                 />
                               </div>
                               <div className="field">
@@ -2839,9 +2877,7 @@ export default function Anketa() {
                                   type="text"
                                   variant="filled"
                                   onChange={formik.handleChange}
-                                  value={
-                                    formik.values.lifeCompanion[0].citizenship
-                                  }
+                                  value={form.lifeCompanion[0].citizenship}
                                 />
                               </div>
                               <div className="field">
@@ -2856,7 +2892,7 @@ export default function Anketa() {
                                   type="text"
                                   variant="filled"
                                   onChange={formik.handleChange}
-                                  value={formik.values.lifeCompanion[0].phone}
+                                  value={form.lifeCompanion[0].phone}
                                 />
                               </div>
                             </FormControl>
@@ -2919,6 +2955,15 @@ export default function Anketa() {
                     >
                       Далее
                     </Button>
+                    <Button
+                      colorScheme="green"
+                      width="30%"
+                      // type="submit"
+                      marginLeft="50px"
+                      onClick={saveForm}
+                    >
+                      Сохранить
+                    </Button>
                   </div>
                 </VStack>
               </form>
@@ -2954,14 +2999,14 @@ export default function Anketa() {
                       id="iscommercialOrganisation"
                       name="iscommercialOrganisation"
                       onChange={formik.handleChange}
-                      isChecked={formik.values.iscommercialOrganisation}
+                      isChecked={form.iscommercialOrganisation}
                       colorScheme="orange"
                     >
                       Да
                     </Checkbox>
                   </div>
                   <div className="fieldsContainer">
-                    {formik.values.iscommercialOrganisation && (
+                    {form.iscommercialOrganisation && (
                       <div className="fieldsContex">
                         <div className="field">
                           <FormLabel htmlFor="text" fontSize={fSize}>
@@ -2975,9 +3020,7 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={
-                              formik.values.iscommercialOrganisation.ipOrToo
-                            }
+                            value={form.iscommercialOrganisation.ipOrToo}
                           />
                         </div>
                         <div className="field">
@@ -2993,8 +3036,7 @@ export default function Anketa() {
                             variant="filled"
                             onChange={formik.handleChange}
                             value={
-                              formik.values.iscommercialOrganisation
-                                .organizationName
+                              form.iscommercialOrganisation.organizationName
                             }
                           />
                         </div>
@@ -3010,9 +3052,7 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={
-                              formik.values.commercialOrganisationList[0].iin
-                            }
+                            value={form.commercialOrganisationList[0].iin}
                           />
                         </div>
                         <div className="field">
@@ -3027,10 +3067,7 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={
-                              formik.values.commercialOrganisationList[0]
-                                .address
-                            }
+                            value={form.commercialOrganisationList[0].address}
                           />
                         </div>
                         <div className="field">
@@ -3045,9 +3082,7 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={
-                              formik.values.commercialOrganisationList[0].type
-                            }
+                            value={form.commercialOrganisationList[0].type}
                           />
                         </div>
                         <div className="field">
@@ -3062,9 +3097,7 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={
-                              formik.values.commercialOrganisationList[0].phone
-                            }
+                            value={form.commercialOrganisationList[0].phone}
                           />
                         </div>
                       </div>
@@ -3080,14 +3113,14 @@ export default function Anketa() {
                           id="relativeJusanEmployee"
                           name="relativeJusanEmployee"
                           onChange={formik.handleChange}
-                          isChecked={formik.values.relativeJusanEmployee}
+                          isChecked={form.relativeJusanEmployee}
                           colorScheme="orange"
                         >
                           Да
                         </Checkbox>
                       </div>
 
-                      {formik.values.relativeJusanEmployee && (
+                      {form.relativeJusanEmployee && (
                         <>
                           {jusanRelative.map((elem) => {
                             return elem;
@@ -3128,6 +3161,15 @@ export default function Anketa() {
                     >
                       Далее
                     </Button>
+                    <Button
+                      colorScheme="green"
+                      width="30%"
+                      // type="submit"
+                      marginLeft="50px"
+                      onClick={saveForm}
+                    >
+                      Сохранить
+                    </Button>
                   </div>
                 </VStack>
               </form>
@@ -3165,13 +3207,13 @@ export default function Anketa() {
                       id="carOwner"
                       name="carOwner"
                       onChange={formik.handleChange}
-                      isChecked={formik.values.carOwner}
+                      isChecked={form.carOwner}
                       colorScheme="orange"
                     >
                       Да
                     </Checkbox>
                   </div>
-                  {formik.values.carOwner && (
+                  {form.carOwner && (
                     <div className="fieldsContainer">
                       <div className="fieldsContex">
                         <div className="field">
@@ -3186,7 +3228,7 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={formik.values.carList[0].model}
+                            value={form.carList[0].model}
                           />
                         </div>
                         <div className="field">
@@ -3201,7 +3243,7 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={formik.values.carList[0].govNumber}
+                            value={form.carList[0].govNumber}
                           />
                         </div>
                         <div className="field">
@@ -3216,7 +3258,7 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={formik.values.carList[0].year}
+                            value={form.carList[0].year}
                           />
                         </div>
                       </div>
@@ -3225,7 +3267,7 @@ export default function Anketa() {
                   <div className="field">
                     <span style={{ color: "red" }}>*</span>
                     <Select
-                      isRequired
+                      isRequired={false}
                       id="military"
                       name="military"
                       onChange={formik.handleChange}
@@ -3250,13 +3292,13 @@ export default function Anketa() {
                           id="svc"
                           name="svc"
                           onChange={formik.handleChange}
-                          isChecked={formik.values.svc}
+                          isChecked={form.svc}
                           colorScheme="orange"
                         >
                           Да
                         </Checkbox>
                       </div>
-                      {formik.values.svc && (
+                      {form.svc && (
                         <div className="field">
                           <FormLabel htmlFor="text" fontSize={fSize}>
                             Уточните
@@ -3269,7 +3311,7 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={formik.values.isSVCAnswer}
+                            value={form.isSVCAnswer}
                           />
                         </div>
                       )}
@@ -3283,13 +3325,13 @@ export default function Anketa() {
                           id="expiredLoan"
                           name="expiredLoan"
                           onChange={formik.handleChange}
-                          isChecked={formik.values.expiredLoan}
+                          isChecked={form.expiredLoan}
                           colorScheme="orange"
                         >
                           Да
                         </Checkbox>
                       </div>
-                      {formik.values.expiredLoan && (
+                      {form.expiredLoan && (
                         <div className="field">
                           <FormLabel htmlFor="text" fontSize={fSize}>
                             Уточните
@@ -3302,7 +3344,7 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={formik.values.isExpiredLoanAnswer}
+                            value={form.isExpiredLoanAnswer}
                           />
                         </div>
                       )}
@@ -3316,13 +3358,13 @@ export default function Anketa() {
                           id="criminal"
                           name="criminal"
                           onChange={formik.handleChange}
-                          isChecked={formik.values.criminal}
+                          isChecked={form.criminal}
                           colorScheme="orange"
                         >
                           Да
                         </Checkbox>
                       </div>
-                      {formik.values.criminal && (
+                      {form.criminal && (
                         <div className="field">
                           <FormLabel htmlFor="text" fontSize={fSize}>
                             Уточните
@@ -3335,7 +3377,7 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={formik.values.isCriminalAnswer}
+                            value={form.isCriminalAnswer}
                           />
                         </div>
                       )}
@@ -3350,13 +3392,13 @@ export default function Anketa() {
                           id="relativeCriminal"
                           name="relativeCriminal"
                           onChange={formik.handleChange}
-                          isChecked={formik.values.relativeCriminal}
+                          isChecked={form.relativeCriminal}
                           colorScheme="orange"
                         >
                           Да
                         </Checkbox>
                       </div>
-                      {formik.values.relativeCriminal && (
+                      {form.relativeCriminal && (
                         <div className="field">
                           <FormLabel htmlFor="text" fontSize={fSize}>
                             Уточните
@@ -3369,7 +3411,7 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={formik.values.isRelativeCriminalAnswer}
+                            value={form.isRelativeCriminalAnswer}
                           />
                         </div>
                       )}
@@ -3383,13 +3425,13 @@ export default function Anketa() {
                           id="criminalDelo"
                           name="criminalDelo"
                           onChange={formik.handleChange}
-                          isChecked={formik.values.criminalDelo}
+                          isChecked={form.criminalDelo}
                           colorScheme="orange"
                         >
                           Да
                         </Checkbox>
                       </div>
-                      {formik.values.criminalDelo && (
+                      {form.criminalDelo && (
                         <div className="field">
                           <FormLabel htmlFor="text" fontSize={fSize}>
                             Уточните
@@ -3402,7 +3444,7 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={formik.values.isCriminalDeloAnswer}
+                            value={form.isCriminalDeloAnswer}
                           />
                         </div>
                       )}
@@ -3416,13 +3458,13 @@ export default function Anketa() {
                           id="alimentPayer"
                           name="alimentPayer"
                           onChange={formik.handleChange}
-                          isChecked={formik.values.alimentPayer}
+                          isChecked={form.alimentPayer}
                           colorScheme="orange"
                         >
                           Да
                         </Checkbox>
                       </div>
-                      {formik.values.alimentPayer && (
+                      {form.alimentPayer && (
                         <div className="field">
                           <FormLabel htmlFor="text" fontSize={fSize}>
                             Уточните
@@ -3435,7 +3477,7 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={formik.values.isAlimentPayerAnswer}
+                            value={form.isAlimentPayerAnswer}
                           />
                         </div>
                       )}
@@ -3449,13 +3491,13 @@ export default function Anketa() {
                           id="hooligan"
                           name="hooligan"
                           onChange={formik.handleChange}
-                          isChecked={formik.values.hooligan}
+                          isChecked={form.hooligan}
                           colorScheme="orange"
                         >
                           Да
                         </Checkbox>
                       </div>
-                      {formik.values.hooligan && (
+                      {form.hooligan && (
                         <div className="field">
                           <FormLabel htmlFor="text" fontSize={fSize}>
                             Уточните
@@ -3468,7 +3510,7 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={formik.values.isHooliganAnswer}
+                            value={form.isHooliganAnswer}
                           />
                         </div>
                       )}
@@ -3485,7 +3527,7 @@ export default function Anketa() {
                       type="text"
                       variant="filled"
                       onChange={formik.handleChange}
-                      value={formik.values.additionalInfo}
+                      value={form.additionalInfo}
                     />
                   </div>
                   <div className="field">
@@ -3500,8 +3542,40 @@ export default function Anketa() {
                       type="text"
                       variant="filled"
                       onChange={formik.handleChange}
-                      value={formik.values.extraIncome}
+                      value={form.extraIncome}
                     />
+                  </div>
+
+                  <div className="formConfirm">
+                    <Checkbox
+                      id="formConfirm"
+                      name="formConfirm"
+                      onChange={formik.handleChange}
+                      isChecked={form.formConfirm}
+                      colorScheme="orange"
+                    >
+                      <div className="formConfirmText">
+                        В соответствии с требованиями Закона Республики
+                        Казахстан «О персональных данных и их защите» даю АО "
+                        Jusan Bank" (далее – «Банк») безусловное согласие на
+                        сбор, обработку, хранение и распространение Банком
+                        информации обо мне [и представляемом мной лице], включая
+                        мои персональные данные [и персональные данные
+                        представляемого мной лица], в том числе биометрические,
+                        зафиксированные на электронном, бумажном и любом ином
+                        носителе, а также происходящие в них в будущем изменения
+                        и дополнения, в связи с возникновением с Банком, в том
+                        числе в будущем, любых правоотношений, связанных,
+                        включая, но не ограничиваясь, с банковским и/или иным
+                        обслуживанием. <br />
+                        При этом мои персональные данные [и персональные данные
+                        представляемого мной лица] должны распространяться
+                        Банком с учетом ограничений, установленных
+                        законодательством Республики Казахстан, в том числе, ст.
+                        50 Закона Республики Казахстан «О банках и банковской
+                        деятельности в Республике Казахстан».
+                      </div>
+                    </Checkbox>
                   </div>
                   <div className="buttons">
                     <Button
@@ -3514,17 +3588,33 @@ export default function Anketa() {
                     >
                       Назад
                     </Button>
-                    <Button
-                      colorScheme="blue"
-                      marginLeft="50px"
-                      width="50%"
-                      // onClick={() => {
+                    {form.formConfirm ? (
+                      <Button
+                        colorScheme="blue"
+                        marginLeft="50px"
+                        width="50%"
+                        // onClick={() => {
 
-                      // }}
-                      type="submit"
-                    >
-                      Подписать Анкету
-                    </Button>
+                        // }}
+                        type="submit"
+                      >
+                        Подписать Анкету
+                      </Button>
+                    ) : (
+                      <Button
+                        colorScheme="red"
+                        opacity={0.5}
+                        marginLeft="50px"
+                        width="50%"
+                        // onClick={() => {
+
+                        // }}
+                        // type="submit"
+                      >
+                        Подписать Анкету
+                      </Button>
+                    )}
+
                     {isFormUploaded ? (
                       <Button
                         colorScheme="green"
@@ -3534,7 +3624,7 @@ export default function Anketa() {
                           setShowLoader(true);
                           const requestToDownload = await Service(
                             "downloadForm",
-                            formik.values
+                            form
                           );
                           if (requestToDownload) {
                             setIsFormDownloaded(true);
@@ -3563,11 +3653,11 @@ export default function Anketa() {
                           marginLeft="50px"
                           // type="submit"
                           onClick={() => {
-                            window.location = `/upload/${formik.values.iin}`;
+                            window.location = `/upload/${form.iin}`;
                           }}
                         >
                           Далее
-                        </Button>{" "}
+                        </Button>
                       </>
                     ) : (
                       <>
@@ -3578,13 +3668,22 @@ export default function Anketa() {
                           marginLeft="50px"
                           // type="submit"
                           onClick={() => {
-                            // console.log(formik.values);
+                            // console.log(form);
                           }}
                         >
                           Далее
                         </Button>
                       </>
                     )}
+                    <Button
+                      colorScheme="green"
+                      width="30%"
+                      // type="submit"
+                      marginLeft="50px"
+                      onClick={saveForm}
+                    >
+                      Сохранить
+                    </Button>
                   </div>
                 </VStack>
               </form>
