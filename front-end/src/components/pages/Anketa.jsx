@@ -33,197 +33,194 @@ export default function Anketa() {
   const [showLoader, setShowLoader] = useState(false);
   const [page, setPage] = useState(1);
 
-  // const [recoverForm, setRecoverForm] = useState({});
-  // const [eduListLength, setEduListLength] = useState(0);
-  const [form, updateForm] = useState({
-    iin: "",
-    fio: "",
-    previousName: "",
-    birthDate: "",
-    nationality: "",
-    citizenship: "",
-    birthPlace: "",
-    passportSerie: "",
-    passportNumber: "",
-    passportIssuedAt: "",
-    passportIssuedBy: "",
-    email: "",
-    homePhone: "",
-    workPhone: "",
-    mobilePhone: "",
-    relativePhone: "",
-    relativeFIO: "",
-    relativeLevel: "",
-    permanentCity: "",
-    permanentRegion: "",
-    permanentDistrict: "",
-    permanentStreet: "",
-    permanentHouse: "",
-    permanentCorpus: "",
-    permanentApartment: "",
-    isAddressMatches: false,
-    factualCity: "",
-    factualRegion: "",
-    factualDistrict: "",
-    factualStreet: "",
-    factualHouse: "",
-    factualCorpus: "",
-    factualApartment: "",
-    educationList: [
-      {
-        qualification: null,
-        endDate: null,
-        startDate: null,
-        speciality: null,
-        formOfStudy: null,
-        university: null,
-      },
-    ],
-    extracurricularList: [
-      {
-        endDate: null,
-        educationTime: null,
-        educationName: null,
-        speciality: null,
-        degree: null,
-      },
-    ],
-    lastThreeWorkplaces: [
-      {
-        workPeriod: "",
-        organizationName: "",
-        organizationType: "",
-        organizationAddress: "",
-        organizationPhone: "",
-        speciality: "",
-        employerFio: "",
-        employerNumber: "",
-        leavingReazon: "",
-      },
-      {
-        workPeriod: "",
-        organizationName: "",
-        organizationType: "",
-        organizationAddress: "",
-        organizationPhone: "",
-        speciality: "",
-        employerFio: "",
-        employerNumber: "",
-        leavingReazon: "",
-      },
-      {
-        workPeriod: "",
-        organizationName: "",
-        organizationType: "",
-        organizationAddress: "",
-        organizationPhone: "",
-        speciality: "",
-        employerFio: "",
-        employerNumber: "",
-        leavingReazon: "",
-      },
-    ],
-    threeRecommendationPeople: [
-      {
-        peopleFio: "",
-        peopleWorkPlace: "",
-        peopleMajor: "",
-        peoplePhone: "",
-      },
-      {
-        peopleFio: "",
-        peopleWorkPlace: "",
-        peopleMajor: "",
-        peoplePhone: "",
-      },
-      {
-        peopleFio: "",
-        peopleWorkPlace: "",
-        peopleMajor: "",
-        peoplePhone: "",
-      },
-    ],
-    marriageStatus: "",
-    lifeCompanion: [
-      {
-        fio: "",
-        birthDate: "",
-        workPlace: "",
-        major: "",
-        address: "",
-        citizenship: "",
-        phone: "",
-      },
-    ],
-    chilrenList: [
-      {
-        fio: null,
-        birthDate: null,
-        phone: null,
-        studyOrWork: null,
-      },
-    ],
-    relativeList: [
-      {
-        level: null,
-        fio: null,
-        birthDate: null,
-        workPlace: null,
-        major: null,
-        phone: null,
-      },
-    ],
-    iscommercialOrganisation: false,
-    commercialOrganisationList: [
-      {
-        ipOrToo: "",
-        organizationName: "",
-        iin: "",
-        address: "",
-        type: "",
-        phone: "",
-      },
-    ],
-    relativeJusanEmployee: false,
-    relativeJusanEmployeeList: [
-      {
-        level: null,
-        fio: null,
-        division: null,
-        major: null,
-      },
-    ],
-    carOwner: false,
-    carList: [
-      {
-        model: "",
-        year: "",
-        govNumber: "",
-      },
-    ],
-    military: false,
-    svc: false,
-    isSVCAnswer: "",
-    expiredLoan: false,
-    isExpiredLoanAnswer: "",
-    criminal: false,
-    isCriminalAnswer: "",
-    relativeCriminal: false,
-    isRelativeCriminalAnswer: "",
-    criminalDelo: false,
-    isCriminalDeloAnswer: "",
-    alimentPayer: false,
-    isAlimentPayerAnswer: "",
-    hooligan: false,
-    isHooliganAnswer: "",
-    additionalInfo: "",
-    extraIncome: "",
-    formConfirm: "",
-  });
   const fieldsSize = 175;
   const fSize = "14px";
   const formik = useFormik({
-    initialValues: form,
+    initialValues: {
+      iin: "",
+      fio: "",
+      previousName: "",
+      birthDate: "",
+      nationality: "",
+      citizenship: "",
+      birthPlace: "",
+      passportSerie: "",
+      passportNumber: "",
+      passportIssuedAt: "",
+      passportIssuedBy: "",
+      email: "",
+      homePhone: "",
+      workPhone: "",
+      mobilePhone: "",
+      relativePhone: "",
+      relativeFIO: "",
+      relativeLevel: "",
+      permanentCity: "",
+      permanentRegion: "",
+      permanentDistrict: "",
+      permanentStreet: "",
+      permanentHouse: "",
+      permanentCorpus: "",
+      permanentApartment: "",
+      isAddressMatches: false,
+      factualCity: "",
+      factualRegion: "",
+      factualDistrict: "",
+      factualStreet: "",
+      factualHouse: "",
+      factualCorpus: "",
+      factualApartment: "",
+      educationList: [
+        {
+          qualification: "",
+          endDate: "",
+          startDate: "",
+          speciality: "",
+          formOfStudy: "",
+          university: "",
+        },
+      ],
+      extracurricularList: [
+        {
+          endDate: "",
+          educationTime: "",
+          educationName: "",
+          speciality: "",
+          degree: "",
+        },
+      ],
+      lastThreeWorkplaces: [
+        {
+          workPeriod: "",
+          organizationName: "",
+          organizationType: "",
+          organizationAddress: "",
+          organizationPhone: "",
+          speciality: "",
+          employerFio: "",
+          employerNumber: "",
+          leavingReazon: "",
+        },
+        {
+          workPeriod: "",
+          organizationName: "",
+          organizationType: "",
+          organizationAddress: "",
+          organizationPhone: "",
+          speciality: "",
+          employerFio: "",
+          employerNumber: "",
+          leavingReazon: "",
+        },
+        {
+          workPeriod: "",
+          organizationName: "",
+          organizationType: "",
+          organizationAddress: "",
+          organizationPhone: "",
+          speciality: "",
+          employerFio: "",
+          employerNumber: "",
+          leavingReazon: "",
+        },
+      ],
+      threeRecommendationPeople: [
+        {
+          peopleFio: "",
+          peopleWorkPlace: "",
+          peopleMajor: "",
+          peoplePhone: "",
+        },
+        {
+          peopleFio: "",
+          peopleWorkPlace: "",
+          peopleMajor: "",
+          peoplePhone: "",
+        },
+        {
+          peopleFio: "",
+          peopleWorkPlace: "",
+          peopleMajor: "",
+          peoplePhone: "",
+        },
+      ],
+      marriageStatus: "",
+      lifeCompanion: [
+        {
+          fio: "",
+          birthDate: "",
+          workPlace: "",
+          major: "",
+          address: "",
+          citizenship: "",
+          phone: "",
+        },
+      ],
+      chilrenList: [
+        {
+          fio: "",
+          birthDate: "",
+          phone: "",
+          studyOrWork: "",
+        },
+      ],
+      relativeList: [
+        {
+          level: "",
+          fio: "",
+          birthDate: "",
+          workPlace: "",
+          major: "",
+          phone: "",
+        },
+      ],
+      iscommercialOrganisation: false,
+      commercialOrganisationList: [
+        {
+          ipOrToo: "",
+          organizationName: "",
+          iin: "",
+          address: "",
+          type: "",
+          phone: "",
+        },
+      ],
+      relativeJusanEmployee: false,
+      relativeJusanEmployeeList: [
+        {
+          level: "",
+          fio: "",
+          division: "",
+          major: "",
+        },
+      ],
+      carOwner: false,
+      carList: [
+        {
+          model: "",
+          year: "",
+          govNumber: "",
+        },
+      ],
+      military: false,
+      svc: false,
+      isSVCAnswer: "",
+      expiredLoan: false,
+      isExpiredLoanAnswer: "",
+      criminal: false,
+      isCriminalAnswer: "",
+      relativeCriminal: false,
+      isRelativeCriminalAnswer: "",
+      criminalDelo: false,
+      isCriminalDeloAnswer: "",
+      alimentPayer: false,
+      isAlimentPayerAnswer: "",
+      hooligan: false,
+      isHooliganAnswer: "",
+      additionalInfo: "",
+      extraIncome: "",
+      formConfirm: "",
+    },
     onSubmit: async (values) => {
       if (page === 1) {
         setPage(2);
@@ -258,957 +255,79 @@ export default function Anketa() {
   });
 
   const [recoverFormBtn, setRecoverFormBtn] = useState(false);
-  const [eduListlength, setEduListlength] = useState(0);
-  const [eduList] = useState([
-    <div className="fieldsContex">
-      <FormControl
-        isRequired={false}
-        display="flex"
-        // justifyContent="space-between"
-        flexWrap="wrap"
-      >
-        <div className="field">
-          <FormLabel htmlFor="text" fontSize={fSize}>
-            Дата начала обучения:
-          </FormLabel>
-          <Input
-            fontSize={fSize}
-            w={fieldsSize}
-            id={`educationList[${eduListlength}].startDate`}
-            name={`educationList[${eduListlength}].startDate`}
-            type="date"
-            variant="filled"
-            placeholder="01.01.2000"
-            onChange={formik.handleChange}
-            value={form.educationList[eduListlength].startDate}
-          />
-        </div>
-        <div className="field">
-          <FormLabel htmlFor="text" fontSize={fSize}>
-            Дата окончания обучения:
-          </FormLabel>
-          <Input
-            fontSize={fSize}
-            w={fieldsSize}
-            id={`educationList[${eduListlength}].endDate`}
-            name={`educationList[${eduListlength}].endDate`}
-            type="date"
-            variant="filled"
-            onChange={formik.handleChange}
-            value={form.educationList[eduListlength].endDate}
-          />
-        </div>
-        <div className="field">
-          <FormLabel htmlFor="text" fontSize={fSize}>
-            Полное название учебного заведения:
-          </FormLabel>
-          <Input
-            fontSize={fSize}
-            w={fieldsSize}
-            id={`educationList[${eduListlength}].university`}
-            name={`educationList[${eduListlength}].university`}
-            type="text"
-            variant="filled"
-            onChange={formik.handleChange}
-            value={form.educationList[eduListlength].university}
-          />
-        </div>
-        <div className="field">
-          <FormLabel htmlFor="text" fontSize={fSize}>
-            Специальность:
-          </FormLabel>
-          <Input
-            fontSize={fSize}
-            w={fieldsSize}
-            id={`educationList[${eduListlength}].speciality`}
-            name={`educationList[${eduListlength}].speciality`}
-            type="text"
-            variant="filled"
-            onChange={formik.handleChange}
-            value={form.educationList[eduListlength].speciality}
-          />
-        </div>
-
-        <div className="field">
-          <FormLabel htmlFor="text" fontSize={fSize}>
-            Форма обучения:
-          </FormLabel>
-          <Input
-            fontSize={fSize}
-            w={fieldsSize}
-            id={`educationList[${eduListlength}].formOfStudy`}
-            name={`educationList[${eduListlength}].formOfStudy`}
-            type="text"
-            variant="filled"
-            onChange={formik.handleChange}
-            value={form.educationList[eduListlength].formOfStudy}
-          />
-        </div>
-        <div className="field">
-          <FormLabel htmlFor="text" fontSize={fSize}>
-            Квалификация:
-          </FormLabel>
-          <Input
-            fontSize={fSize}
-            w={fieldsSize}
-            id={`educationList[${eduListlength}].qualification`}
-            name={`educationList[${eduListlength}].qualification`}
-            type="text"
-            variant="filled"
-            onChange={formik.handleChange}
-            value={form.educationList[eduListlength].qualification}
-          />
-        </div>
-      </FormControl>
-    </div>,
-  ]);
-  const [specialCoursesLength, setSpecialCoursesLength] = useState(0);
-  const [specialCourses] = useState([
-    <div className="fieldsContex">
-      <FormControl
-        isRequired={false}
-        display="flex"
-        // justifyContent="space-between"
-        flexWrap="wrap"
-      >
-        <div className="field">
-          <FormLabel htmlFor="text" fontSize={fSize}>
-            Год окончания:
-          </FormLabel>
-          <Input
-            fontSize={fSize}
-            w={fieldsSize}
-            id={`extracurricularList[${specialCoursesLength}].endDate`}
-            name={`extracurricularList[${specialCoursesLength}].endDate`}
-            type="date"
-            variant="filled"
-            placeholder="01.01.2000"
-            onChange={formik.handleChange}
-            value={form.extracurricularList[specialCoursesLength].endDate}
-          />
-        </div>
-        <div className="field">
-          <FormLabel htmlFor="text" fontSize={fSize}>
-            Начало обучения:
-          </FormLabel>
-          <Input
-            fontSize={fSize}
-            w={fieldsSize}
-            id={`extracurricularList[${specialCoursesLength}].educationTime`}
-            name={`extracurricularList[${specialCoursesLength}].educationTime`}
-            type="date"
-            variant="filled"
-            onChange={formik.handleChange}
-            value={form.extracurricularList[specialCoursesLength].educationTime}
-          />
-        </div>
-        <div className="field">
-          <FormLabel htmlFor="text" fontSize={fSize}>
-            Полное наименование курсов:
-          </FormLabel>
-          <Input
-            fontSize={fSize}
-            w={fieldsSize}
-            id={`extracurricularList[${specialCoursesLength}].educationName`}
-            name={`extracurricularList[${specialCoursesLength}].educationName`}
-            type="text"
-            variant="filled"
-            onChange={formik.handleChange}
-            value={form.extracurricularList[specialCoursesLength].educationName}
-          />
-        </div>
-        <div className="field">
-          <FormLabel htmlFor="text" fontSize={fSize}>
-            Специальность:
-          </FormLabel>
-          <Input
-            fontSize={fSize}
-            w={fieldsSize}
-            id={`extracurricularList[${specialCoursesLength}].speciality`}
-            name={`extracurricularList[${specialCoursesLength}].speciality`}
-            type="text"
-            variant="filled"
-            onChange={formik.handleChange}
-            value={form.extracurricularList[specialCoursesLength].speciality}
-          />
-        </div>
-        <div className="field">
-          <FormLabel htmlFor="text" fontSize={fSize}>
-            Учёная степень, сертификаты:
-          </FormLabel>
-          <Input
-            fontSize={fSize}
-            w={fieldsSize}
-            id={`extracurricularList[${specialCoursesLength}].degree`}
-            name={`extracurricularList[${specialCoursesLength}].degree`}
-            type="text"
-            variant="filled"
-            onChange={formik.handleChange}
-            value={form.extracurricularList[specialCoursesLength].degree}
-          />
-        </div>
-      </FormControl>
-    </div>,
-  ]);
-  const [childrenListLength, setchildrenListLength] = useState(0);
-  const [childrenList] = useState([
-    <div className="filedsContex">
-      <FormControl
-        display="flex"
-        // justifyContent="space-between"
-        flexWrap="wrap"
-      >
-        <div className="field">
-          <FormLabel htmlFor="text" fontSize={fSize}>
-            ФИО (полностью):
-          </FormLabel>
-          <Input
-            fontSize={fSize}
-            w={fieldsSize}
-            id={`chilrenList[${childrenListLength}].fio`}
-            name={`chilrenList[${childrenListLength}].fio`}
-            type="text"
-            variant="filled"
-            onChange={formik.handleChange}
-            value={form.chilrenList[childrenListLength].fio}
-          />
-        </div>
-        <div className="field">
-          <FormLabel htmlFor="text" fontSize={fSize}>
-            Дата Рождения:
-          </FormLabel>
-          <Input
-            fontSize={fSize}
-            w={fieldsSize}
-            id={`chilrenList[${childrenListLength}].birthDate`}
-            name={`chilrenList[${childrenListLength}].birthDate`}
-            type="date"
-            variant="filled"
-            onChange={formik.handleChange}
-            placeholder="01.01.1999"
-            value={form.chilrenList[childrenListLength].birthDate}
-          />
-        </div>
-        <div className="field">
-          <FormLabel htmlFor="text" fontSize={fSize}>
-            Место Учебы/Работы:
-          </FormLabel>
-          <Input
-            fontSize={fSize}
-            w={fieldsSize}
-            id={`chilrenList[${childrenListLength}].studyOrWork`}
-            name={`chilrenList[${childrenListLength}].studyOrWork`}
-            type="text"
-            variant="filled"
-            onChange={formik.handleChange}
-            value={form.chilrenList[childrenListLength].studyOrWork}
-          />
-        </div>
-
-        <div className="field">
-          <FormLabel htmlFor="text" fontSize={fSize}>
-            Телефон:
-          </FormLabel>
-          <Input
-            fontSize={fSize}
-            w={fieldsSize}
-            id={`chilrenList[${childrenListLength}].studyOrWork`}
-            name={`chilrenList[${childrenListLength}].studyOrWork`}
-            type="text"
-            variant="filled"
-            onChange={formik.handleChange}
-            value={form.chilrenList[childrenListLength].studyOrWork}
-          />
-        </div>
-      </FormControl>
-    </div>,
-  ]);
-  const [relativeListLength, setRelativeListLength] = useState(0);
-
-  const [relativeList] = useState([
-    <div className="filedsContex">
-      <FormControl
-        display="flex"
-        // justifyContent="space-between"
-        flexWrap="wrap"
-      >
-        <div className="field">
-          <FormLabel htmlFor="text" fontSize={fSize}>
-            Степень Родства:
-          </FormLabel>
-          <Input
-            fontSize={fSize}
-            w={fieldsSize}
-            id={`relativeList[${relativeListLength}].level`}
-            name={`relativeList[${relativeListLength}].level`}
-            type="text"
-            variant="filled"
-            onChange={formik.handleChange}
-            value={form.relativeList[relativeListLength]?.level}
-          />
-        </div>
-        <div className="field">
-          <FormLabel htmlFor="text" fontSize={fSize}>
-            ФИО (полностью):
-          </FormLabel>
-          <Input
-            fontSize={fSize}
-            w={fieldsSize}
-            id={`relativeList[${relativeListLength}].fio`}
-            name={`relativeList[${relativeListLength}].fio`}
-            type="text"
-            variant="filled"
-            onChange={formik.handleChange}
-            value={form.relativeList[relativeListLength]?.fio}
-          />
-        </div>
-
-        <div className="field">
-          <FormLabel htmlFor="text" fontSize={fSize}>
-            Дата Рождения:
-          </FormLabel>
-          <Input
-            fontSize={fSize}
-            w={fieldsSize}
-            id={`relativeList[${relativeListLength}].birthDate`}
-            name={`relativeList[${relativeListLength}].birthDate`}
-            type="date"
-            variant="filled"
-            onChange={formik.handleChange}
-            placeholder="01.01.1999"
-            value={form.relativeList[relativeListLength]?.birthDate}
-          />
-        </div>
-        <div className="field">
-          <FormLabel htmlFor="text" fontSize={fSize}>
-            Место Работы:
-          </FormLabel>
-          <Input
-            fontSize={fSize}
-            w={fieldsSize}
-            id={`relativeList[${relativeListLength}].workPlace`}
-            name={`relativeList[${relativeListLength}].workPlace`}
-            type="text"
-            variant="filled"
-            onChange={formik.handleChange}
-            value={form.relativeList[relativeListLength]?.workPlace}
-          />
-        </div>
-        <div className="field">
-          <FormLabel htmlFor="text" fontSize={fSize}>
-            Должность:
-          </FormLabel>
-          <Input
-            fontSize={fSize}
-            w={fieldsSize}
-            id={`relativeList[${relativeListLength}].major`}
-            name={`relativeList[${relativeListLength}].major`}
-            type="text"
-            variant="filled"
-            onChange={formik.handleChange}
-            value={form.relativeList[relativeListLength]?.major}
-          />
-        </div>
-
-        <div className="field">
-          <FormLabel htmlFor="text" fontSize={fSize}>
-            Телефон:
-          </FormLabel>
-          <Input
-            fontSize={fSize}
-            w={fieldsSize}
-            id={`relativeList[${relativeListLength}].phone`}
-            name={`relativeList[${relativeListLength}].phone`}
-            type="text"
-            variant="filled"
-            onChange={formik.handleChange}
-            value={form.relativeList[relativeListLength]?.phone}
-          />
-        </div>
-      </FormControl>
-    </div>,
-  ]);
-  const [jusanRelativeListLength, setJusanRelativeListLength] = useState(0);
-  const [jusanRelative] = useState([
-    <div className="fieldsContainer">
-      <div className="fieldsContex">
-        <FormControl
-          isRequired={false}
-          display="flex"
-          // justifyContent="space-between"
-          flexWrap="wrap"
-        >
-          <div className="field">
-            <FormLabel htmlFor="text" fontSize={fSize}>
-              Степень родства:
-            </FormLabel>
-            <Input
-              fontSize={fSize}
-              w={fieldsSize}
-              id="relativeJusanEmployeeList[0].level"
-              name="relativeJusanEmployeeList[0].level"
-              type="text"
-              variant="filled"
-              onChange={formik.handleChange}
-              value={form.relativeJusanEmployeeList[0]?.level}
-            />
-          </div>
-          <div className="field">
-            <FormLabel htmlFor="text" fontSize={fSize}>
-              ФИО:
-            </FormLabel>
-            <Input
-              fontSize={fSize}
-              w={fieldsSize}
-              id="relativeJusanEmployeeList[0].fio"
-              name="relativeJusanEmployeeList[0].fio"
-              type="text"
-              variant="filled"
-              onChange={formik.handleChange}
-              value={form.relativeJusanEmployeeList[0]?.fio}
-            />
-          </div>
-          <div className="field">
-            <FormLabel htmlFor="text" fontSize={fSize}>
-              Подразделение:
-            </FormLabel>
-            <Input
-              fontSize={fSize}
-              w={fieldsSize}
-              id="relativeJusanEmployeeList[0].division"
-              name="relativeJusanEmployeeList[0].division"
-              type="text"
-              variant="filled"
-              onChange={formik.handleChange}
-              value={form.relativeJusanEmployeeList[0]?.division}
-            />
-          </div>
-          <div className="field">
-            <FormLabel htmlFor="text" fontSize={fSize}>
-              Должность:
-            </FormLabel>
-            <Input
-              fontSize={fSize}
-              w={fieldsSize}
-              id="relativeJusanEmployeeList[0].major"
-              name="relativeJusanEmployeeList[0].major"
-              type="text"
-              variant="filled"
-              onChange={formik.handleChange}
-              value={form.relativeJusanEmployeeList[0]?.major}
-            />
-          </div>
-        </FormControl>
-      </div>
-    </div>,
-  ]);
 
   async function saveForm() {
-    const save = await Service("save", form);
+    const save = await Service("save", formik.values);
   }
 
   function addBtn(formLabel) {
     if (formLabel === "specCourses") {
-      form.extracurricularList.push({
-        endDate: null,
-        educationTime: null,
-        educationName: null,
-        speciality: null,
-        degree: null,
-      });
-      const tempExtraCourse = specialCoursesLength + 1;
-
-      setSpecialCoursesLength(tempExtraCourse);
-
-      specialCourses.push(
-        <div className="fieldsContex">
-          <FormControl
-            isRequired={false}
-            display="flex"
-            // justifyContent="space-between"
-            flexWrap="wrap"
-          >
-            <div className="field">
-              <FormLabel htmlFor="text" fontSize={fSize}>
-                Год окончания:
-              </FormLabel>
-              <Input
-                fontSize={fSize}
-                w={fieldsSize}
-                id={`extracurricularList[${tempExtraCourse}].endDate`}
-                name={`extracurricularList[${tempExtraCourse}].endDate`}
-                type="date"
-                variant="filled"
-                placeholder="01.01.2000"
-                onChange={formik.handleChange}
-                value={form.extracurricularList[tempExtraCourse].endDate}
-              />
-            </div>
-            <div className="field">
-              <FormLabel htmlFor="text" fontSize={fSize}>
-                Длительность обучения:
-              </FormLabel>
-              <Input
-                fontSize={fSize}
-                w={fieldsSize}
-                id={`extracurricularList[${tempExtraCourse}].educationTime`}
-                name={`extracurricularList[${tempExtraCourse}].educationTime`}
-                type="date"
-                variant="filled"
-                onChange={formik.handleChange}
-                value={form.extracurricularList[tempExtraCourse].educationTime}
-              />
-            </div>
-            <div className="field">
-              <FormLabel htmlFor="text" fontSize={fSize}>
-                Полное наименование курсов:
-              </FormLabel>
-              <Input
-                fontSize={fSize}
-                w={fieldsSize}
-                id={`extracurricularList[${tempExtraCourse}].educationName`}
-                name={`extracurricularList[${tempExtraCourse}].educationName`}
-                type="text"
-                variant="filled"
-                onChange={formik.handleChange}
-                value={form.extracurricularList[tempExtraCourse].educationName}
-              />
-            </div>
-            <div className="field">
-              <FormLabel htmlFor="text" fontSize={fSize}>
-                Специальность:
-              </FormLabel>
-              <Input
-                fontSize={fSize}
-                w={fieldsSize}
-                id={`extracurricularList[${tempExtraCourse}].speciality`}
-                name={`extracurricularList[${tempExtraCourse}].speciality`}
-                type="text"
-                variant="filled"
-                onChange={formik.handleChange}
-                value={form.extracurricularList[tempExtraCourse].speciality}
-              />
-            </div>
-            <div className="field">
-              <FormLabel htmlFor="text" fontSize={fSize}>
-                Учёная степень, сертификаты:
-              </FormLabel>
-              <Input
-                fontSize={fSize}
-                w={fieldsSize}
-                id={`extracurricularList[${tempExtraCourse}].degree`}
-                name={`extracurricularList[${tempExtraCourse}].degree`}
-                type="text"
-                variant="filled"
-                onChange={formik.handleChange}
-                value={form.extracurricularList[tempExtraCourse].degree}
-              />
-            </div>
-          </FormControl>
-        </div>
-      );
+      formik.setFieldValue("extracurricularList", [
+        ...formik.values.extracurricularList,
+        {
+          endDate: "",
+          educationTime: "",
+          educationName: "",
+          speciality: "",
+          degree: "",
+        },
+      ]);
     }
+
     if (formLabel === "education") {
-      form.educationList.push({
-        startDate: null,
-        endDate: null,
-        university: null,
-        speciality: null,
-        qualification: null,
-        formOfStudy: null,
-      });
-      const tempEdu = eduListlength + 1;
-      setEduListlength(tempEdu);
-      eduList.push(
-        <div className="fieldsContex">
-          <FormControl
-            isRequired={false}
-            display="flex"
-            // justifyContent="space-between"
-            flexWrap="wrap"
-          >
-            <div className="field">
-              <FormLabel htmlFor="text" fontSize={fSize}>
-                Дата начала обучения:
-              </FormLabel>
-              <Input
-                fontSize={fSize}
-                w={fieldsSize}
-                id={`educationList[${tempEdu}].startDate`}
-                name={`educationList[${tempEdu}].startDate`}
-                type="date"
-                variant="filled"
-                placeholder="01.01.2000"
-                onChange={formik.handleChange}
-                value={form.educationList[tempEdu].startDate}
-              />
-            </div>
-            <div className="field">
-              <FormLabel htmlFor="text" fontSize={fSize}>
-                Дата окончания обучения:
-              </FormLabel>
-              <Input
-                fontSize={fSize}
-                w={fieldsSize}
-                id={`educationList[${tempEdu}].endDate`}
-                name={`educationList[${tempEdu}].endDate`}
-                type="date"
-                variant="filled"
-                onChange={formik.handleChange}
-                value={form.educationList[tempEdu].endDate}
-              />
-            </div>
-            <div className="field">
-              <FormLabel htmlFor="text" fontSize={fSize}>
-                Полное название учебного заведения:
-              </FormLabel>
-              <Input
-                fontSize={fSize}
-                w={fieldsSize}
-                id={`educationList[${tempEdu}].university`}
-                name={`educationList[${tempEdu}].university`}
-                type="text"
-                variant="filled"
-                onChange={formik.handleChange}
-                value={form.educationList[tempEdu].university}
-              />
-            </div>
-            <div className="field">
-              <FormLabel htmlFor="text" fontSize={fSize}>
-                Специальность:
-              </FormLabel>
-              <Input
-                fontSize={fSize}
-                w={fieldsSize}
-                id={`educationList[${tempEdu}].speciality`}
-                name={`educationList[${tempEdu}].speciality`}
-                type="text"
-                variant="filled"
-                onChange={formik.handleChange}
-                value={form.educationList[tempEdu].speciality}
-              />
-            </div>
-            <div className="field">
-              <FormLabel htmlFor="text" fontSize={fSize}>
-                Форма обучения:
-              </FormLabel>
-              <Input
-                fontSize={fSize}
-                w={fieldsSize}
-                id={`educationList[${tempEdu}].formOfStudy`}
-                name={`educationList[${tempEdu}].formOfStudy`}
-                type="text"
-                variant="filled"
-                onChange={formik.handleChange}
-                value={form.educationList[tempEdu].formOfStudy}
-              />
-            </div>
-            <div className="field">
-              <FormLabel htmlFor="text" fontSize={fSize}>
-                Квалификация:
-              </FormLabel>
-              <Input
-                fontSize={fSize}
-                w={fieldsSize}
-                id={`educationList[${tempEdu}].qualification`}
-                name={`educationList[${tempEdu}].qualification`}
-                type="text"
-                variant="filled"
-                onChange={formik.handleChange}
-                value={form.educationList[tempEdu].qualification}
-              />
-            </div>
-          </FormControl>
-        </div>
-      );
+      formik.setFieldValue("educationList", [
+        ...formik.values.educationList,
+        {
+          startDate: "",
+          endDate: "",
+          university: "",
+          speciality: "",
+          qualification: "",
+          formOfStudy: "",
+        },
+      ]);
     }
     if (formLabel === "children") {
-      form.chilrenList.push({
-        fio: null,
-        birthDate: null,
-        phone: null,
-        studyOrWork: null,
-      });
-      const tempChildren = childrenListLength + 1;
-      setchildrenListLength(tempChildren);
-
-      childrenList.push(
-        <div className="filedsContex">
-          <FormControl
-            display="flex"
-            // justifyContent="space-between"
-            flexWrap="wrap"
-          >
-            <div className="field">
-              <FormLabel htmlFor="text" fontSize={fSize}>
-                ФИО (полностью):
-              </FormLabel>
-              <Input
-                fontSize={fSize}
-                w={fieldsSize}
-                id={`chilrenList[${tempChildren}].fio`}
-                name={`chilrenList[${tempChildren}].fio`}
-                type="text"
-                variant="filled"
-                onChange={formik.handleChange}
-                value={form.chilrenList[tempChildren].fio}
-              />
-            </div>
-            <div className="field">
-              <FormLabel htmlFor="text" fontSize={fSize}>
-                Дата Рождения:
-              </FormLabel>
-              <Input
-                fontSize={fSize}
-                w={fieldsSize}
-                id={`chilrenList[${tempChildren}].birthDate`}
-                name={`chilrenList[${tempChildren}].birthDate`}
-                type="date"
-                variant="filled"
-                onChange={formik.handleChange}
-                placeholder="01.01.1999"
-                value={form.chilrenList[tempChildren].birthDate}
-              />
-            </div>
-            <div className="field">
-              <FormLabel htmlFor="text" fontSize={fSize}>
-                Место Учебы/Работы:
-              </FormLabel>
-              <Input
-                fontSize={fSize}
-                w={fieldsSize}
-                id={`chilrenList[${tempChildren}].studyOrWork`}
-                name={`chilrenList[${tempChildren}].studyOrWork`}
-                type="text"
-                variant="filled"
-                onChange={formik.handleChange}
-                value={form.chilrenList[tempChildren].studyOrWork}
-              />
-            </div>
-
-            <div className="field">
-              <FormLabel htmlFor="text" fontSize={fSize}>
-                Телефон:
-              </FormLabel>
-              <Input
-                fontSize={fSize}
-                w={fieldsSize}
-                id={`chilrenList[${tempChildren}].studyOrWork`}
-                name={`chilrenList[${tempChildren}].studyOrWork`}
-                type="text"
-                variant="filled"
-                onChange={formik.handleChange}
-                value={form.chilrenList[tempChildren].studyOrWork}
-              />
-            </div>
-          </FormControl>
-        </div>
-      );
+      formik.setFieldValue("chilrenList", [
+        ...formik.values.chilrenList,
+        {
+          fio: "",
+          birthDate: "",
+          phone: "",
+          studyOrWork: "",
+        },
+      ]);
     }
     if (formLabel === "relative") {
-      form.relativeList.push({
-        level: null,
-        fio: null,
-        birthDate: null,
-        workPlace: null,
-        major: null,
-        phone: null,
-      });
-      const tempRelative = relativeListLength + 1;
-      setRelativeListLength(tempRelative);
-      relativeList.push(
-        <div className="filedsContex">
-          <FormControl
-            display="flex"
-            // justifyContent="space-between"
-            flexWrap="wrap"
-          >
-            <div className="field">
-              <FormLabel htmlFor="text" fontSize={fSize}>
-                Степень Родства:
-              </FormLabel>
-              <Input
-                fontSize={fSize}
-                w={fieldsSize}
-                id={`relativeList[${tempRelative}].level`}
-                name={`relativeList[${tempRelative}].level`}
-                type="text"
-                variant="filled"
-                onChange={formik.handleChange}
-                value={form.relativeList[tempRelative].level}
-              />
-            </div>
-            <div className="field">
-              <FormLabel htmlFor="text" fontSize={fSize}>
-                ФИО (полностью):
-              </FormLabel>
-              <Input
-                fontSize={fSize}
-                w={fieldsSize}
-                id={`relativeList[${tempRelative}].fio`}
-                name={`relativeList[${tempRelative}].fio`}
-                type="text"
-                variant="filled"
-                onChange={formik.handleChange}
-                value={form.relativeList[tempRelative].fio}
-              />
-            </div>
-
-            <div className="field">
-              <FormLabel htmlFor="text" fontSize={fSize}>
-                Дата Рождения:
-              </FormLabel>
-              <Input
-                fontSize={fSize}
-                w={fieldsSize}
-                id={`relativeList[${tempRelative}].birthDate`}
-                name={`relativeList[${tempRelative}].birthDate`}
-                type="date"
-                variant="filled"
-                onChange={formik.handleChange}
-                placeholder="01.01.1999"
-                value={form.relativeList[tempRelative].birthDate}
-              />
-            </div>
-            <div className="field">
-              <FormLabel htmlFor="text" fontSize={fSize}>
-                Место Работы:
-              </FormLabel>
-              <Input
-                fontSize={fSize}
-                w={fieldsSize}
-                id={`relativeList[${tempRelative}].workPlace`}
-                name={`relativeList[${tempRelative}].workPlace`}
-                type="text"
-                variant="filled"
-                onChange={formik.handleChange}
-                value={form.relativeList[tempRelative].workPlace}
-              />
-            </div>
-            <div className="field">
-              <FormLabel htmlFor="text" fontSize={fSize}>
-                Должность:
-              </FormLabel>
-              <Input
-                fontSize={fSize}
-                w={fieldsSize}
-                id={`relativeList[${tempRelative}].major`}
-                name={`relativeList[${tempRelative}].major`}
-                type="text"
-                variant="filled"
-                onChange={formik.handleChange}
-                value={form.relativeList[tempRelative].major}
-              />
-            </div>
-
-            <div className="field">
-              <FormLabel htmlFor="text" fontSize={fSize}>
-                Телефон:
-              </FormLabel>
-              <Input
-                fontSize={fSize}
-                w={fieldsSize}
-                id={`relativeList[${tempRelative}].phone`}
-                name={`relativeList[${tempRelative}].phone`}
-                type="text"
-                variant="filled"
-                onChange={formik.handleChange}
-                value={form.relativeList[tempRelative].phone}
-              />
-            </div>
-          </FormControl>
-        </div>
-      );
+      formik.setFieldValue("relativeList", [
+        ...formik.values.relativeList,
+        {
+          level: "",
+          fio: "",
+          birthDate: "",
+          workPlace: "",
+          major: "",
+          phone: "",
+        },
+      ]);
     }
     if (formLabel === "jusanRelative") {
-      const temp = jusanRelativeListLength + 1;
-      setJusanRelativeListLength(temp);
-      form.relativeJusanEmployeeList.push({
-        level: null,
-        fio: null,
-        division: null,
-        major: null,
-      });
-      jusanRelative.push(
-        <div className="fieldsContainer">
-          <div className="fieldsContex">
-            <FormControl
-              isRequired={false}
-              display="flex"
-              // justifyContent="space-between"
-              flexWrap="wrap"
-            >
-              <div className="field">
-                <FormLabel htmlFor="text" fontSize={fSize}>
-                  Степень родства:
-                </FormLabel>
-                <Input
-                  fontSize={fSize}
-                  w={fieldsSize}
-                  id={`relativeJusanEmployeeList[${temp}].level`}
-                  name={`relativeJusanEmployeeList[${temp}].level`}
-                  type="text"
-                  variant="filled"
-                  onChange={formik.handleChange}
-                  value={form.relativeJusanEmployeeList[temp].level}
-                />
-              </div>
-              <div className="field">
-                <FormLabel htmlFor="text" fontSize={fSize}>
-                  ФИО:
-                </FormLabel>
-                <Input
-                  fontSize={fSize}
-                  w={fieldsSize}
-                  id={`relativeJusanEmployeeList[${temp}].fio`}
-                  name={`relativeJusanEmployeeList[${temp}].fio`}
-                  type="text"
-                  variant="filled"
-                  onChange={formik.handleChange}
-                  value={form.relativeJusanEmployeeList[temp].fio}
-                />
-              </div>
-              <div className="field">
-                <FormLabel htmlFor="text" fontSize={fSize}>
-                  Подразделение:
-                </FormLabel>
-                <Input
-                  fontSize={fSize}
-                  w={fieldsSize}
-                  id={`relativeJusanEmployeeList[${temp}].division`}
-                  name={`relativeJusanEmployeeList[${temp}].division`}
-                  type="text"
-                  variant="filled"
-                  onChange={formik.handleChange}
-                  value={form.relativeJusanEmployeeList[temp].division}
-                />
-              </div>
-              <div className="field">
-                <FormLabel htmlFor="text" fontSize={fSize}>
-                  Должность:
-                </FormLabel>
-                <Input
-                  fontSize={fSize}
-                  w={fieldsSize}
-                  id={`relativeJusanEmployeeList[${temp}].major`}
-                  name={`relativeJusanEmployeeList[${temp}].major`}
-                  type="text"
-                  variant="filled"
-                  onChange={formik.handleChange}
-                  value={form.relativeJusanEmployeeList[temp].major}
-                />
-              </div>
-            </FormControl>
-          </div>
-        </div>
-      );
+      formik.setFieldValue("relativeJusanEmployeeList", [
+        ...formik.values.relativeJusanEmployeeList,
+        {
+          level: "",
+          fio: "",
+          division: "",
+          major: "",
+        },
+      ]);
     }
   }
   // if(page === 0) {
 
   // }
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const recoverIIN = useRef(null);
+  const recoverIIN = useRef("");
 
   if (page === 1) {
     return (
@@ -1280,9 +399,10 @@ export default function Anketa() {
                                   "recover",
                                   iin
                                 );
-                                updateForm(requestToRecoverForm);
-
-                                console.log(form);
+                                formik.resetForm({
+                                  values: requestToRecoverForm,
+                                });
+                                onClose();
                               }}
                             >
                               Восстановить
@@ -1316,7 +436,7 @@ export default function Anketa() {
                         type="text"
                         variant="filled"
                         onChange={formik.handleChange}
-                        value={form.iin}
+                        value={formik.values.iin}
                       />
                     </div>
                     <div className="field">
@@ -1331,7 +451,7 @@ export default function Anketa() {
                         type="text"
                         variant="filled"
                         onChange={formik.handleChange}
-                        value={form.fio}
+                        value={formik.values.fio}
                       />
                     </div>
                     <div className="field">
@@ -1346,7 +466,7 @@ export default function Anketa() {
                         variant="filled"
                         placeholder="Пример: 01.01.1990"
                         onChange={formik.handleChange}
-                        value={form.birthDate}
+                        value={formik.values.birthDate}
                         type="date"
                       />
                     </div>
@@ -1362,7 +482,7 @@ export default function Anketa() {
                         type="text"
                         variant="filled"
                         onChange={formik.handleChange}
-                        value={form.birthPlace}
+                        value={formik.values.birthPlace}
                       />
                     </div>
 
@@ -1378,7 +498,7 @@ export default function Anketa() {
                         type="text"
                         variant="filled"
                         onChange={formik.handleChange}
-                        value={form.nationality}
+                        value={formik.values.nationality}
                       />
                     </div>
                     <div className="field">
@@ -1393,7 +513,7 @@ export default function Anketa() {
                         type="text"
                         variant="filled"
                         onChange={formik.handleChange}
-                        value={form.citizenship}
+                        value={formik.values.citizenship}
                       />
                     </div>
                     <div className="field">
@@ -1408,7 +528,7 @@ export default function Anketa() {
                         type="text"
                         variant="filled"
                         onChange={formik.handleChange}
-                        value={form.email}
+                        value={formik.values.email}
                       />
                     </div>
                   </FormControl>
@@ -1437,7 +557,7 @@ export default function Anketa() {
                           type="text"
                           variant="filled"
                           onChange={formik.handleChange}
-                          value={form.passportSerie}
+                          value={formik.values.passportSerie}
                         />
                       </FormControl>
                     </div>
@@ -1454,7 +574,7 @@ export default function Anketa() {
                         type="text"
                         variant="filled"
                         onChange={formik.handleChange}
-                        value={form.passportNumber}
+                        value={formik.values.passportNumber}
                       />
                     </div>
                     <div className="field">
@@ -1469,7 +589,7 @@ export default function Anketa() {
                         type="text"
                         variant="filled"
                         onChange={formik.handleChange}
-                        value={form.passportIssuedBy}
+                        value={formik.values.passportIssuedBy}
                       />
                     </div>
                     <div className="field">
@@ -1484,7 +604,7 @@ export default function Anketa() {
                         type="date"
                         variant="filled"
                         onChange={formik.handleChange}
-                        value={form.passportIssuedAt}
+                        value={formik.values.passportIssuedAt}
                       />
                     </div>
                   </FormControl>
@@ -1512,7 +632,7 @@ export default function Anketa() {
                             type="tel"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={form.homePhone}
+                            value={formik.values.homePhone}
                           />
                         </div>
                         <div className="field">
@@ -1527,7 +647,7 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={form.workPhone}
+                            value={formik.values.workPhone}
                           />
                         </div>
                         <div className="field">
@@ -1543,7 +663,7 @@ export default function Anketa() {
                               type="phone"
                               variant="filled"
                               onChange={formik.handleChange}
-                              value={form.mobilePhone}
+                              value={formik.values.mobilePhone}
                             />
                           </FormControl>
                         </div>
@@ -1571,7 +691,7 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={form.relativePhone}
+                            value={formik.values.relativePhone}
                           />
                         </div>
                         <div className="field">
@@ -1586,7 +706,7 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={form.relativeFIO}
+                            value={formik.values.relativeFIO}
                           />
                         </div>
                         <div className="field">
@@ -1601,7 +721,7 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={form.relativeLevel}
+                            value={formik.values.relativeLevel}
                           />
                         </div>
                       </FormControl>
@@ -1630,7 +750,7 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={form.permanentCity}
+                            value={formik.values.permanentCity}
                           />
                         </div>
                         <div className="field">
@@ -1645,7 +765,7 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={form.permanentRegion}
+                            value={formik.values.permanentRegion}
                           />
                         </div>
                         <div className="field">
@@ -1660,7 +780,7 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={form.permanentDistrict}
+                            value={formik.values.permanentDistrict}
                           />
                         </div>
                         <div className="field">
@@ -1675,7 +795,7 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={form.permanentStreet}
+                            value={formik.values.permanentStreet}
                           />
                         </div>
                         <div className="field">
@@ -1690,7 +810,7 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={form.permanentHouse}
+                            value={formik.values.permanentHouse}
                           />
                         </div>
                         <div className="field">
@@ -1708,7 +828,7 @@ export default function Anketa() {
                               type="text"
                               variant="filled"
                               onChange={formik.handleChange}
-                              value={form.permanentCorpus}
+                              value={formik.values.permanentCorpus}
                             />
                           </FormControl>
                         </div>
@@ -1724,7 +844,7 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={form.permanentApartment}
+                            value={formik.values.permanentApartment}
                           />
                         </div>
                       </FormControl>
@@ -1738,13 +858,13 @@ export default function Anketa() {
                           id="isAddressMatches"
                           name="isAddressMatches"
                           onChange={formik.handleChange}
-                          isChecked={form.isAddressMatches}
+                          isChecked={formik.values.isAddressMatches}
                           colorScheme="orange"
                         >
                           Cовпадает с адресом постоянной регистрации
                         </Checkbox>
                       </div>
-                      {!form.isAddressMatches && (
+                      {!formik.values.isAddressMatches && (
                         <FormControl
                           display="flex"
                           flexWrap="wrap"
@@ -1763,7 +883,7 @@ export default function Anketa() {
                               type="text"
                               variant="filled"
                               onChange={formik.handleChange}
-                              value={form.factualCity}
+                              value={formik.values.factualCity}
                             />
                           </div>
                           <div className="field">
@@ -1778,7 +898,7 @@ export default function Anketa() {
                               type="text"
                               variant="filled"
                               onChange={formik.handleChange}
-                              value={form.factualRegion}
+                              value={formik.values.factualRegion}
                             />
                           </div>
                           <div className="field">
@@ -1793,7 +913,7 @@ export default function Anketa() {
                               type="text"
                               variant="filled"
                               onChange={formik.handleChange}
-                              value={form.factualDistrict}
+                              value={formik.values.factualDistrict}
                             />
                           </div>
                           <div className="field">
@@ -1808,7 +928,7 @@ export default function Anketa() {
                               type="text"
                               variant="filled"
                               onChange={formik.handleChange}
-                              value={form.factualStreet}
+                              value={formik.values.factualStreet}
                             />
                           </div>
                           <div className="field">
@@ -1823,7 +943,7 @@ export default function Anketa() {
                               type="text"
                               variant="filled"
                               onChange={formik.handleChange}
-                              value={form.factualHouse}
+                              value={formik.values.factualHouse}
                             />
                           </div>
                           <div className="field">
@@ -1838,7 +958,7 @@ export default function Anketa() {
                               type="text"
                               variant="filled"
                               onChange={formik.handleChange}
-                              value={form.factualCorpus}
+                              value={formik.values.factualCorpus}
                             />
                           </div>
                           <div className="field">
@@ -1853,7 +973,7 @@ export default function Anketa() {
                               type="text"
                               variant="filled"
                               onChange={formik.handleChange}
-                              value={form.factualApartment}
+                              value={formik.values.factualApartment}
                             />
                           </div>
                         </FormControl>
@@ -1864,7 +984,7 @@ export default function Anketa() {
                 id="rememberMe"
                 name="rememberMe"
                 onChange={formik.handleChange}
-                isChecked={form.rememberMe}
+                isChecked={formik.values.rememberMe}
                 colorScheme="orange"
               >
                 Remember me?
@@ -1879,7 +999,7 @@ export default function Anketa() {
                     >
                       Далее
                     </Button>
-                    {form.iin ? (
+                    {formik.values.iin ? (
                       <Button
                         colorScheme="green"
                         width="30%"
@@ -1910,6 +1030,7 @@ export default function Anketa() {
     );
   }
   if (page === 2) {
+    console.log("values : ", formik.values);
     return (
       <ChakraProvider>
         <div className="bg">
@@ -1927,8 +1048,111 @@ export default function Anketa() {
                   </FormLabel>
                   <div className="fieldsContainer">
                     <div className="fieldsContex">
-                      {eduList.map((elem) => {
-                        return elem;
+                      {formik.values.educationList.map((education, i) => {
+                        return (
+                          <div className="fieldsContex">
+                            <FormControl
+                              isRequired={false}
+                              display="flex"
+                              // justifyContent="space-between"
+                              flexWrap="wrap"
+                            >
+                              <div className="field">
+                                <FormLabel htmlFor="text" fontSize={fSize}>
+                                  Дата начала обучения:
+                                </FormLabel>
+                                <Input
+                                  fontSize={fSize}
+                                  w={fieldsSize}
+                                  id={`educationList.${i}.startDate`}
+                                  name={`educationList.${i}.startDate`}
+                                  type="date"
+                                  variant="filled"
+                                  placeholder="01.01.2000"
+                                  onChange={formik.handleChange}
+                                  value={education?.startDate}
+                                />
+                              </div>
+                              {console.log(formik.values.educationList)}
+                              <div className="field">
+                                <FormLabel htmlFor="text" fontSize={fSize}>
+                                  Дата окончания обучения:
+                                </FormLabel>
+                                <Input
+                                  fontSize={fSize}
+                                  w={fieldsSize}
+                                  id={`educationList.${i}.endDate`}
+                                  name={`educationList.${i}.endDate`}
+                                  type="date"
+                                  variant="filled"
+                                  onChange={formik.handleChange}
+                                  value={education?.endDate}
+                                />
+                              </div>
+                              <div className="field">
+                                <FormLabel htmlFor="text" fontSize={fSize}>
+                                  Полное название учебного заведения:
+                                </FormLabel>
+                                <Input
+                                  fontSize={fSize}
+                                  w={fieldsSize}
+                                  id={`educationList.${i}.university`}
+                                  name={`educationList.${i}.university`}
+                                  type="text"
+                                  variant="filled"
+                                  onChange={formik.handleChange}
+                                  value={education?.university}
+                                />
+                              </div>
+                              <div className="field">
+                                <FormLabel htmlFor="text" fontSize={fSize}>
+                                  Специальность:
+                                </FormLabel>
+                                <Input
+                                  fontSize={fSize}
+                                  w={fieldsSize}
+                                  id={`educationList.${i}.speciality`}
+                                  name={`educationList.${i}.speciality`}
+                                  type="text"
+                                  variant="filled"
+                                  onChange={formik.handleChange}
+                                  value={education?.speciality}
+                                />
+                              </div>
+
+                              <div className="field">
+                                <FormLabel htmlFor="text" fontSize={fSize}>
+                                  Форма обучения:
+                                </FormLabel>
+                                <Input
+                                  fontSize={fSize}
+                                  w={fieldsSize}
+                                  id={`educationList.${i}.formOfStudy`}
+                                  name={`educationList.${i}.formOfStudy`}
+                                  type="text"
+                                  variant="filled"
+                                  onChange={formik.handleChange}
+                                  value={education?.formOfStudy}
+                                />
+                              </div>
+                              <div className="field">
+                                <FormLabel htmlFor="text" fontSize={fSize}>
+                                  Квалификация:
+                                </FormLabel>
+                                <Input
+                                  fontSize={fSize}
+                                  w={fieldsSize}
+                                  id={`educationList.${i}.qualification`}
+                                  name={`educationList.${i}.qualification`}
+                                  type="text"
+                                  variant="filled"
+                                  onChange={formik.handleChange}
+                                  value={education?.qualification}
+                                />
+                              </div>
+                            </FormControl>
+                          </div>
+                        );
                       })}
                       <div className="addBtn">
                         <Button
@@ -1947,8 +1171,94 @@ export default function Anketa() {
                   </FormLabel>
                   <div className="fieldsContainer">
                     <div className="fieldsContex">
-                      {specialCourses.map((elem) => {
-                        return elem;
+                      {formik.values.extracurricularList.map((course, i) => {
+                        return (
+                          <div className="fieldsContex">
+                            <FormControl
+                              isRequired={false}
+                              display="flex"
+                              // justifyContent="space-between"
+                              flexWrap="wrap"
+                            >
+                              <div className="field">
+                                <FormLabel htmlFor="text" fontSize={fSize}>
+                                  Год окончания:
+                                </FormLabel>
+                                <Input
+                                  fontSize={fSize}
+                                  w={fieldsSize}
+                                  id={`extracurricularList.${i}.endDate`}
+                                  name={`extracurricularList.${i}.endDate`}
+                                  type="date"
+                                  variant="filled"
+                                  placeholder="01.01.2000"
+                                  onChange={formik.handleChange}
+                                  value={course?.endDate}
+                                />
+                              </div>
+                              <div className="field">
+                                <FormLabel htmlFor="text" fontSize={fSize}>
+                                  Начало обучения:
+                                </FormLabel>
+                                <Input
+                                  fontSize={fSize}
+                                  w={fieldsSize}
+                                  id={`extracurricularList.${i}.educationTime`}
+                                  name={`extracurricularList.${i}.educationTime`}
+                                  type="date"
+                                  variant="filled"
+                                  onChange={formik.handleChange}
+                                  value={course?.educationTime}
+                                />
+                              </div>
+                              <div className="field">
+                                <FormLabel htmlFor="text" fontSize={fSize}>
+                                  Полное наименование курсов:
+                                </FormLabel>
+                                <Input
+                                  fontSize={fSize}
+                                  w={fieldsSize}
+                                  id={`extracurricularList.${i}.educationName`}
+                                  name={`extracurricularList.${i}.educationName`}
+                                  type="text"
+                                  variant="filled"
+                                  onChange={formik.handleChange}
+                                  value={course?.educationName}
+                                />
+                              </div>
+                              <div className="field">
+                                <FormLabel htmlFor="text" fontSize={fSize}>
+                                  Специальность:
+                                </FormLabel>
+                                <Input
+                                  fontSize={fSize}
+                                  w={fieldsSize}
+                                  id={`extracurricularList.${i}.speciality`}
+                                  name={`extracurricularList.${i}.speciality`}
+                                  type="text"
+                                  variant="filled"
+                                  onChange={formik.handleChange}
+                                  value={course?.speciality}
+                                />
+                              </div>
+                              <div className="field">
+                                <FormLabel htmlFor="text" fontSize={fSize}>
+                                  Учёная степень, сертификаты:
+                                </FormLabel>
+                                <Input
+                                  fontSize={fSize}
+                                  w={fieldsSize}
+                                  id={`extracurricularList.${i}.degree`}
+                                  name={`extracurricularList.${i}.degree`}
+                                  type="text"
+                                  variant="filled"
+                                  onChange={formik.handleChange}
+                                  value={course?.degree}
+                                />
+                              </div>
+                            </FormControl>
+                          </div>
+                        );
                       })}
                     </div>
                     <div className="addBtn">
@@ -2041,7 +1351,9 @@ export default function Anketa() {
                             variant="filled"
                             placeholder="1 год 2 месяца"
                             onChange={formik.handleChange}
-                            value={form.lastThreeWorkplaces[0].workPeriod}
+                            value={
+                              formik.values.lastThreeWorkplaces[0].workPeriod
+                            }
                           />
                         </div>
                         <div className="field">
@@ -2056,7 +1368,10 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={form.lastThreeWorkplaces[0].organizationName}
+                            value={
+                              formik.values.lastThreeWorkplaces[0]
+                                .organizationName
+                            }
                           />
                         </div>
                         <div className="field">
@@ -2071,7 +1386,10 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={form.lastThreeWorkplaces[0].organizationType}
+                            value={
+                              formik.values.lastThreeWorkplaces[0]
+                                .organizationType
+                            }
                           />
                         </div>
                         <div className="field">
@@ -2087,7 +1405,8 @@ export default function Anketa() {
                             variant="filled"
                             onChange={formik.handleChange}
                             value={
-                              form.lastThreeWorkplaces[0].organizationAddress
+                              formik.values.lastThreeWorkplaces[0]
+                                .organizationAddress
                             }
                           />
                         </div>
@@ -2104,7 +1423,8 @@ export default function Anketa() {
                             variant="filled"
                             onChange={formik.handleChange}
                             value={
-                              form.lastThreeWorkplaces[0].organizationPhone
+                              formik.values.lastThreeWorkplaces[0]
+                                .organizationPhone
                             }
                           />
                         </div>
@@ -2120,7 +1440,9 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={form.lastThreeWorkplaces[0].speciality}
+                            value={
+                              formik.values.lastThreeWorkplaces[0].speciality
+                            }
                           />
                         </div>
                         <div className="field">
@@ -2135,7 +1457,9 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={form.lastThreeWorkplaces[0].employerFio}
+                            value={
+                              formik.values.lastThreeWorkplaces[0].employerFio
+                            }
                           />
                         </div>
                         <div className="field">
@@ -2150,7 +1474,10 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={form.lastThreeWorkplaces[0].employerNumber}
+                            value={
+                              formik.values.lastThreeWorkplaces[0]
+                                .employerNumber
+                            }
                           />
                         </div>
                         <div className="field">
@@ -2165,7 +1492,9 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={form.lastThreeWorkplaces[0].leavingReazon}
+                            value={
+                              formik.values.lastThreeWorkplaces[0].leavingReazon
+                            }
                           />
                         </div>
                       </FormControl>
@@ -2190,7 +1519,9 @@ export default function Anketa() {
                             variant="filled"
                             placeholder="1 год 2 месяца"
                             onChange={formik.handleChange}
-                            value={form.lastThreeWorkplaces[1].workPeriod}
+                            value={
+                              formik.values.lastThreeWorkplaces[1].workPeriod
+                            }
                           />
                         </div>
                         <div className="field">
@@ -2205,7 +1536,10 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={form.lastThreeWorkplaces[1].organizationName}
+                            value={
+                              formik.values.lastThreeWorkplaces[1]
+                                .organizationName
+                            }
                           />
                         </div>
                         <div className="field">
@@ -2220,7 +1554,10 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={form.lastThreeWorkplaces[1].organizationType}
+                            value={
+                              formik.values.lastThreeWorkplaces[1]
+                                .organizationType
+                            }
                           />
                         </div>
                         <div className="field">
@@ -2236,7 +1573,8 @@ export default function Anketa() {
                             variant="filled"
                             onChange={formik.handleChange}
                             value={
-                              form.lastThreeWorkplaces[1].organizationAddress
+                              formik.values.lastThreeWorkplaces[1]
+                                .organizationAddress
                             }
                           />
                         </div>
@@ -2253,7 +1591,8 @@ export default function Anketa() {
                             variant="filled"
                             onChange={formik.handleChange}
                             value={
-                              form.lastThreeWorkplaces[1].organizationPhone
+                              formik.values.lastThreeWorkplaces[1]
+                                .organizationPhone
                             }
                           />
                         </div>
@@ -2269,7 +1608,9 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={form.lastThreeWorkplaces[1].speciality}
+                            value={
+                              formik.values.lastThreeWorkplaces[1].speciality
+                            }
                           />
                         </div>
                         <div className="field">
@@ -2284,7 +1625,9 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={form.lastThreeWorkplaces[1].employerFio}
+                            value={
+                              formik.values.lastThreeWorkplaces[1].employerFio
+                            }
                           />
                         </div>
                         <div className="field">
@@ -2299,7 +1642,10 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={form.lastThreeWorkplaces[1].employerNumber}
+                            value={
+                              formik.values.lastThreeWorkplaces[1]
+                                .employerNumber
+                            }
                           />
                         </div>
                         <div className="field">
@@ -2314,7 +1660,9 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={form.lastThreeWorkplaces[1].leavingReazon}
+                            value={
+                              formik.values.lastThreeWorkplaces[1].leavingReazon
+                            }
                           />
                         </div>
                       </FormControl>
@@ -2339,7 +1687,9 @@ export default function Anketa() {
                             variant="filled"
                             placeholder="1 год 2 месяца"
                             onChange={formik.handleChange}
-                            value={form.lastThreeWorkplaces[2].workPeriod}
+                            value={
+                              formik.values.lastThreeWorkplaces[2].workPeriod
+                            }
                           />
                         </div>
                         <div className="field">
@@ -2354,7 +1704,10 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={form.lastThreeWorkplaces[2].organizationName}
+                            value={
+                              formik.values.lastThreeWorkplaces[2]
+                                .organizationName
+                            }
                           />
                         </div>
                         <div className="field">
@@ -2369,7 +1722,10 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={form.lastThreeWorkplaces[2].organizationType}
+                            value={
+                              formik.values.lastThreeWorkplaces[2]
+                                .organizationType
+                            }
                           />
                         </div>
                         <div className="field">
@@ -2385,7 +1741,8 @@ export default function Anketa() {
                             variant="filled"
                             onChange={formik.handleChange}
                             value={
-                              form.lastThreeWorkplaces[2].organizationAddress
+                              formik.values.lastThreeWorkplaces[2]
+                                .organizationAddress
                             }
                           />
                         </div>
@@ -2402,7 +1759,8 @@ export default function Anketa() {
                             variant="filled"
                             onChange={formik.handleChange}
                             value={
-                              form.lastThreeWorkplaces[2].organizationPhone
+                              formik.values.lastThreeWorkplaces[2]
+                                .organizationPhone
                             }
                           />
                         </div>
@@ -2418,7 +1776,9 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={form.lastThreeWorkplaces[2].speciality}
+                            value={
+                              formik.values.lastThreeWorkplaces[2].speciality
+                            }
                           />
                         </div>
                         <div className="field">
@@ -2433,7 +1793,9 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={form.lastThreeWorkplaces[2].employerFio}
+                            value={
+                              formik.values.lastThreeWorkplaces[2].employerFio
+                            }
                           />
                         </div>
                         <div className="field">
@@ -2448,7 +1810,10 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={form.lastThreeWorkplaces[2].employerNumber}
+                            value={
+                              formik.values.lastThreeWorkplaces[2]
+                                .employerNumber
+                            }
                           />
                         </div>
                         <div className="field">
@@ -2463,7 +1828,9 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={form.lastThreeWorkplaces[2].leavingReazon}
+                            value={
+                              formik.values.lastThreeWorkplaces[2].leavingReazon
+                            }
                           />
                         </div>
                       </FormControl>
@@ -2494,7 +1861,10 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={form.threeRecommendationPeople[0].peopleFio}
+                            value={
+                              formik.values.threeRecommendationPeople[0]
+                                .peopleFio
+                            }
                           />
                         </div>
                         <div className="field">
@@ -2510,7 +1880,8 @@ export default function Anketa() {
                             variant="filled"
                             onChange={formik.handleChange}
                             value={
-                              form.threeRecommendationPeople[0].peopleWorkPlace
+                              formik.values.threeRecommendationPeople[0]
+                                .peopleWorkPlace
                             }
                           />
                         </div>
@@ -2527,7 +1898,8 @@ export default function Anketa() {
                             variant="filled"
                             onChange={formik.handleChange}
                             value={
-                              form.threeRecommendationPeople[0].peopleMajor
+                              formik.values.threeRecommendationPeople[0]
+                                .peopleMajor
                             }
                           />
                         </div>
@@ -2544,7 +1916,8 @@ export default function Anketa() {
                             variant="filled"
                             onChange={formik.handleChange}
                             value={
-                              form.threeRecommendationPeople[0].peoplePhone
+                              formik.values.threeRecommendationPeople[0]
+                                .peoplePhone
                             }
                           />
                         </div>
@@ -2569,7 +1942,10 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={form.threeRecommendationPeople[1].peopleFio}
+                            value={
+                              formik.values.threeRecommendationPeople[1]
+                                .peopleFio
+                            }
                           />
                         </div>
                         <div className="field">
@@ -2585,7 +1961,8 @@ export default function Anketa() {
                             variant="filled"
                             onChange={formik.handleChange}
                             value={
-                              form.threeRecommendationPeople[1].peopleWorkPlace
+                              formik.values.threeRecommendationPeople[1]
+                                .peopleWorkPlace
                             }
                           />
                         </div>
@@ -2602,7 +1979,8 @@ export default function Anketa() {
                             variant="filled"
                             onChange={formik.handleChange}
                             value={
-                              form.threeRecommendationPeople[1].peopleMajor
+                              formik.values.threeRecommendationPeople[1]
+                                .peopleMajor
                             }
                           />
                         </div>
@@ -2619,7 +1997,8 @@ export default function Anketa() {
                             variant="filled"
                             onChange={formik.handleChange}
                             value={
-                              form.threeRecommendationPeople[1].peoplePhone
+                              formik.values.threeRecommendationPeople[1]
+                                .peoplePhone
                             }
                           />
                         </div>
@@ -2644,7 +2023,10 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={form.threeRecommendationPeople[2].peopleFio}
+                            value={
+                              formik.values.threeRecommendationPeople[2]
+                                .peopleFio
+                            }
                           />
                         </div>
                         <div className="field">
@@ -2660,7 +2042,8 @@ export default function Anketa() {
                             variant="filled"
                             onChange={formik.handleChange}
                             value={
-                              form.threeRecommendationPeople[2].peopleWorkPlace
+                              formik.values.threeRecommendationPeople[2]
+                                .peopleWorkPlace
                             }
                           />
                         </div>
@@ -2677,7 +2060,8 @@ export default function Anketa() {
                             variant="filled"
                             onChange={formik.handleChange}
                             value={
-                              form.threeRecommendationPeople[2].peopleMajor
+                              formik.values.threeRecommendationPeople[2]
+                                .peopleMajor
                             }
                           />
                         </div>
@@ -2694,7 +2078,8 @@ export default function Anketa() {
                             variant="filled"
                             onChange={formik.handleChange}
                             value={
-                              form.threeRecommendationPeople[2].peoplePhone
+                              formik.values.threeRecommendationPeople[2]
+                                .peoplePhone
                             }
                           />
                         </div>
@@ -2777,8 +2162,8 @@ export default function Anketa() {
                       <option value="Вдова(ец)">Вдова(ец)</option>
                     </Select>
                   </div>
-                  {form.marriageStatus !== "Не состою в браке" &&
-                    form.marriageStatus !== "" && (
+                  {formik.values.marriageStatus !== "Не состою в браке" &&
+                    formik.values.marriageStatus !== "" && (
                       <>
                         <FormLabel htmlFor="text">Супруг(а):</FormLabel>
                         <div className="fieldsContainer">
@@ -2801,7 +2186,7 @@ export default function Anketa() {
                                   type="text"
                                   variant="filled"
                                   onChange={formik.handleChange}
-                                  value={form.lifeCompanion[0].fio}
+                                  value={formik.values.lifeCompanion[0].fio}
                                 />
                               </div>
                               <div className="field">
@@ -2817,7 +2202,9 @@ export default function Anketa() {
                                   variant="filled"
                                   onChange={formik.handleChange}
                                   placeholder="01.01.1999"
-                                  value={form.lifeCompanion[0].birthDate}
+                                  value={
+                                    formik.values.lifeCompanion[0].birthDate
+                                  }
                                 />
                               </div>
                               <div className="field">
@@ -2832,7 +2219,9 @@ export default function Anketa() {
                                   type="text"
                                   variant="filled"
                                   onChange={formik.handleChange}
-                                  value={form.lifeCompanion[0].workPlace}
+                                  value={
+                                    formik.values.lifeCompanion[0].workPlace
+                                  }
                                 />
                               </div>
                               <div className="field">
@@ -2847,7 +2236,7 @@ export default function Anketa() {
                                   type="text"
                                   variant="filled"
                                   onChange={formik.handleChange}
-                                  value={form.lifeCompanion[0].major}
+                                  value={formik.values.lifeCompanion[0].major}
                                 />
                               </div>
                               <div className="field">
@@ -2862,7 +2251,7 @@ export default function Anketa() {
                                   type="text"
                                   variant="filled"
                                   onChange={formik.handleChange}
-                                  value={form.lifeCompanion[0].address}
+                                  value={formik.values.lifeCompanion[0].address}
                                 />
                               </div>
                               <div className="field">
@@ -2877,7 +2266,9 @@ export default function Anketa() {
                                   type="text"
                                   variant="filled"
                                   onChange={formik.handleChange}
-                                  value={form.lifeCompanion[0].citizenship}
+                                  value={
+                                    formik.values.lifeCompanion[0].citizenship
+                                  }
                                 />
                               </div>
                               <div className="field">
@@ -2892,7 +2283,7 @@ export default function Anketa() {
                                   type="text"
                                   variant="filled"
                                   onChange={formik.handleChange}
-                                  value={form.lifeCompanion[0].phone}
+                                  value={formik.values.lifeCompanion[0].phone}
                                 />
                               </div>
                             </FormControl>
@@ -2902,8 +2293,79 @@ export default function Anketa() {
                     )}
                   <FormLabel htmlFor="text">Дети:</FormLabel>
                   <div className="fieldsContainer">
-                    {childrenList.map((elem) => {
-                      return elem;
+                    {formik.values.chilrenList.map((child, i) => {
+                      return (
+                        <div className="filedsContex">
+                          <FormControl
+                            display="flex"
+                            // justifyContent="space-between"
+                            flexWrap="wrap"
+                          >
+                            <div className="field">
+                              <FormLabel htmlFor="text" fontSize={fSize}>
+                                ФИО (полностью):
+                              </FormLabel>
+                              <Input
+                                fontSize={fSize}
+                                w={fieldsSize}
+                                id={`chilrenList.${i}.fio`}
+                                name={`chilrenList.${i}.fio`}
+                                type="text"
+                                variant="filled"
+                                onChange={formik.handleChange}
+                                value={child?.fio}
+                              />
+                            </div>
+                            <div className="field">
+                              <FormLabel htmlFor="text" fontSize={fSize}>
+                                Дата Рождения:
+                              </FormLabel>
+                              <Input
+                                fontSize={fSize}
+                                w={fieldsSize}
+                                id={`chilrenList.${i}.birthDate`}
+                                name={`chilrenList.${i}.birthDate`}
+                                type="date"
+                                variant="filled"
+                                onChange={formik.handleChange}
+                                placeholder="01.01.1999"
+                                value={child?.birthDate}
+                              />
+                            </div>
+                            <div className="field">
+                              <FormLabel htmlFor="text" fontSize={fSize}>
+                                Место Учебы/Работы:
+                              </FormLabel>
+                              <Input
+                                fontSize={fSize}
+                                w={fieldsSize}
+                                id={`chilrenList.${i}.studyOrWork`}
+                                name={`chilrenList.${i}.studyOrWork`}
+                                type="text"
+                                variant="filled"
+                                onChange={formik.handleChange}
+                                value={child?.studyOrWork}
+                              />
+                            </div>
+
+                            <div className="field">
+                              <FormLabel htmlFor="text" fontSize={fSize}>
+                                Телефон:
+                              </FormLabel>
+                              <Input
+                                fontSize={fSize}
+                                w={fieldsSize}
+                                id={`chilrenList.${i}.studyOrWork`}
+                                name={`chilrenList.${i}.studyOrWork`}
+                                type="text"
+                                variant="filled"
+                                onChange={formik.handleChange}
+                                value={child?.studyOrWork}
+                              />
+                            </div>
+                          </FormControl>
+                        </div>
+                      );
                     })}
                   </div>
                   <div className="addBtn">
@@ -2919,8 +2381,110 @@ export default function Anketa() {
 
                   <FormLabel htmlFor="text">Ближайшие родственники:</FormLabel>
                   <div className="fieldsContainer">
-                    {relativeList.map((elem) => {
-                      return elem;
+                    {formik.values.relativeList.map((relative, i) => {
+                      return (
+                        <div className="filedsContex">
+                          <FormControl
+                            display="flex"
+                            // justifyContent="space-between"
+                            flexWrap="wrap"
+                          >
+                            <div className="field">
+                              <FormLabel htmlFor="text" fontSize={fSize}>
+                                Степень Родства:
+                              </FormLabel>
+                              <Input
+                                fontSize={fSize}
+                                w={fieldsSize}
+                                id={`relativeList.${i}.level`}
+                                name={`relativeList.${i}.level`}
+                                type="text"
+                                variant="filled"
+                                onChange={formik.handleChange}
+                                value={relative?.level}
+                              />
+                            </div>
+                            <div className="field">
+                              <FormLabel htmlFor="text" fontSize={fSize}>
+                                ФИО (полностью):
+                              </FormLabel>
+                              <Input
+                                fontSize={fSize}
+                                w={fieldsSize}
+                                id={`relativeList.${i}.fio`}
+                                name={`relativeList.${i}.fio`}
+                                type="text"
+                                variant="filled"
+                                onChange={formik.handleChange}
+                                value={relative?.fio}
+                              />
+                            </div>
+
+                            <div className="field">
+                              <FormLabel htmlFor="text" fontSize={fSize}>
+                                Дата Рождения:
+                              </FormLabel>
+                              <Input
+                                fontSize={fSize}
+                                w={fieldsSize}
+                                id={`relativeList.${i}.birthDate`}
+                                name={`relativeList.${i}.birthDate`}
+                                type="date"
+                                variant="filled"
+                                onChange={formik.handleChange}
+                                placeholder="01.01.1999"
+                                value={relative?.birthDate}
+                              />
+                            </div>
+                            <div className="field">
+                              <FormLabel htmlFor="text" fontSize={fSize}>
+                                Место Работы:
+                              </FormLabel>
+                              <Input
+                                fontSize={fSize}
+                                w={fieldsSize}
+                                id={`relativeList.${i}.workPlace`}
+                                name={`relativeList.${i}.workPlace`}
+                                type="text"
+                                variant="filled"
+                                onChange={formik.handleChange}
+                                value={relative?.workPlace}
+                              />
+                            </div>
+                            <div className="field">
+                              <FormLabel htmlFor="text" fontSize={fSize}>
+                                Должность:
+                              </FormLabel>
+                              <Input
+                                fontSize={fSize}
+                                w={fieldsSize}
+                                id={`relativeList.${i}.major`}
+                                name={`relativeList.${i}.major`}
+                                type="text"
+                                variant="filled"
+                                onChange={formik.handleChange}
+                                value={relative?.major}
+                              />
+                            </div>
+
+                            <div className="field">
+                              <FormLabel htmlFor="text" fontSize={fSize}>
+                                Телефон:
+                              </FormLabel>
+                              <Input
+                                fontSize={fSize}
+                                w={fieldsSize}
+                                id={`relativeList.${i}.phone`}
+                                name={`relativeList.${i}.phone`}
+                                type="text"
+                                variant="filled"
+                                onChange={formik.handleChange}
+                                value={relative?.phone}
+                              />
+                            </div>
+                          </FormControl>
+                        </div>
+                      );
                     })}
                     <div className="addBtn">
                       <Button
@@ -2999,14 +2563,14 @@ export default function Anketa() {
                       id="iscommercialOrganisation"
                       name="iscommercialOrganisation"
                       onChange={formik.handleChange}
-                      isChecked={form.iscommercialOrganisation}
+                      isChecked={formik.values.iscommercialOrganisation}
                       colorScheme="orange"
                     >
                       Да
                     </Checkbox>
                   </div>
                   <div className="fieldsContainer">
-                    {form.iscommercialOrganisation && (
+                    {formik.values.iscommercialOrganisation && (
                       <div className="fieldsContex">
                         <div className="field">
                           <FormLabel htmlFor="text" fontSize={fSize}>
@@ -3020,7 +2584,9 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={form.iscommercialOrganisation.ipOrToo}
+                            value={
+                              formik.values.iscommercialOrganisation.ipOrToo
+                            }
                           />
                         </div>
                         <div className="field">
@@ -3036,7 +2602,8 @@ export default function Anketa() {
                             variant="filled"
                             onChange={formik.handleChange}
                             value={
-                              form.iscommercialOrganisation.organizationName
+                              formik.values.iscommercialOrganisation
+                                .organizationName
                             }
                           />
                         </div>
@@ -3052,7 +2619,9 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={form.commercialOrganisationList[0].iin}
+                            value={
+                              formik.values.commercialOrganisationList[0].iin
+                            }
                           />
                         </div>
                         <div className="field">
@@ -3067,7 +2636,10 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={form.commercialOrganisationList[0].address}
+                            value={
+                              formik.values.commercialOrganisationList[0]
+                                .address
+                            }
                           />
                         </div>
                         <div className="field">
@@ -3082,7 +2654,9 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={form.commercialOrganisationList[0].type}
+                            value={
+                              formik.values.commercialOrganisationList[0].type
+                            }
                           />
                         </div>
                         <div className="field">
@@ -3097,7 +2671,9 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={form.commercialOrganisationList[0].phone}
+                            value={
+                              formik.values.commercialOrganisationList[0].phone
+                            }
                           />
                         </div>
                       </div>
@@ -3113,18 +2689,106 @@ export default function Anketa() {
                           id="relativeJusanEmployee"
                           name="relativeJusanEmployee"
                           onChange={formik.handleChange}
-                          isChecked={form.relativeJusanEmployee}
+                          isChecked={formik.values.relativeJusanEmployee}
                           colorScheme="orange"
                         >
                           Да
                         </Checkbox>
                       </div>
 
-                      {form.relativeJusanEmployee && (
+                      {formik.values.relativeJusanEmployee && (
                         <>
-                          {jusanRelative.map((elem) => {
-                            return elem;
-                          })}
+                          {formik.values.relativeJusanEmployeeList.map(
+                            (relative, i) => {
+                              return (
+                                <div className="fieldsContainer">
+                                  <div className="fieldsContex">
+                                    <FormControl
+                                      isRequired={false}
+                                      display="flex"
+                                      // justifyContent="space-between"
+                                      flexWrap="wrap"
+                                    >
+                                      <div className="field">
+                                        <FormLabel
+                                          htmlFor="text"
+                                          fontSize={fSize}
+                                        >
+                                          Степень родства:
+                                        </FormLabel>
+                                        <Input
+                                          fontSize={fSize}
+                                          w={fieldsSize}
+                                          id={`relativeJusanEmployeeList.${i}.level`}
+                                          name={`relativeJusanEmployeeList.${i}.level`}
+                                          type="text"
+                                          variant="filled"
+                                          onChange={formik.handleChange}
+                                          value={relative?.level}
+                                        />
+                                      </div>
+                                      <div className="field">
+                                        <FormLabel
+                                          htmlFor="text"
+                                          fontSize={fSize}
+                                        >
+                                          ФИО:
+                                        </FormLabel>
+                                        <Input
+                                          fontSize={fSize}
+                                          w={fieldsSize}
+                                          id={`relativeJusanEmployeeList.${i}.fio
+`}
+                                          name={`relativeJusanEmployeeList.${i}.fio
+`}
+                                          type="text"
+                                          variant="filled"
+                                          onChange={formik.handleChange}
+                                          value={relative?.fio}
+                                        />
+                                      </div>
+                                      <div className="field">
+                                        <FormLabel
+                                          htmlFor="text"
+                                          fontSize={fSize}
+                                        >
+                                          Подразделение:
+                                        </FormLabel>
+                                        <Input
+                                          fontSize={fSize}
+                                          w={fieldsSize}
+                                          id={`relativeJusanEmployeeList.${i}.divison`}
+                                          name={`relativeJusanEmployeeList.${i}.divison`}
+                                          type="text"
+                                          variant="filled"
+                                          onChange={formik.handleChange}
+                                          value={relative?.division}
+                                        />
+                                      </div>
+                                      <div className="field">
+                                        <FormLabel
+                                          htmlFor="text"
+                                          fontSize={fSize}
+                                        >
+                                          Должность:
+                                        </FormLabel>
+                                        <Input
+                                          fontSize={fSize}
+                                          w={fieldsSize}
+                                          id={`relativeJusanEmployeeList.${i}.major`}
+                                          name={`relativeJusanEmployeeList.${i}.major`}
+                                          type="text"
+                                          variant="filled"
+                                          onChange={formik.handleChange}
+                                          value={relative?.major}
+                                        />
+                                      </div>
+                                    </FormControl>
+                                  </div>
+                                </div>
+                              );
+                            }
+                          )}
                           <div className="addBtn">
                             <Button
                               colorScheme="orange"
@@ -3207,13 +2871,13 @@ export default function Anketa() {
                       id="carOwner"
                       name="carOwner"
                       onChange={formik.handleChange}
-                      isChecked={form.carOwner}
+                      isChecked={formik.values.carOwner}
                       colorScheme="orange"
                     >
                       Да
                     </Checkbox>
                   </div>
-                  {form.carOwner && (
+                  {formik.values.carOwner && (
                     <div className="fieldsContainer">
                       <div className="fieldsContex">
                         <div className="field">
@@ -3228,7 +2892,7 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={form.carList[0].model}
+                            value={formik.values.carList[0].model}
                           />
                         </div>
                         <div className="field">
@@ -3243,7 +2907,7 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={form.carList[0].govNumber}
+                            value={formik.values.carList[0].govNumber}
                           />
                         </div>
                         <div className="field">
@@ -3258,7 +2922,7 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={form.carList[0].year}
+                            value={formik.values.carList[0].year}
                           />
                         </div>
                       </div>
@@ -3292,13 +2956,13 @@ export default function Anketa() {
                           id="svc"
                           name="svc"
                           onChange={formik.handleChange}
-                          isChecked={form.svc}
+                          isChecked={formik.values.svc}
                           colorScheme="orange"
                         >
                           Да
                         </Checkbox>
                       </div>
-                      {form.svc && (
+                      {formik.values.svc && (
                         <div className="field">
                           <FormLabel htmlFor="text" fontSize={fSize}>
                             Уточните
@@ -3311,7 +2975,7 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={form.isSVCAnswer}
+                            value={formik.values.isSVCAnswer}
                           />
                         </div>
                       )}
@@ -3325,13 +2989,13 @@ export default function Anketa() {
                           id="expiredLoan"
                           name="expiredLoan"
                           onChange={formik.handleChange}
-                          isChecked={form.expiredLoan}
+                          isChecked={formik.values.expiredLoan}
                           colorScheme="orange"
                         >
                           Да
                         </Checkbox>
                       </div>
-                      {form.expiredLoan && (
+                      {formik.values.expiredLoan && (
                         <div className="field">
                           <FormLabel htmlFor="text" fontSize={fSize}>
                             Уточните
@@ -3344,7 +3008,7 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={form.isExpiredLoanAnswer}
+                            value={formik.values.isExpiredLoanAnswer}
                           />
                         </div>
                       )}
@@ -3358,13 +3022,13 @@ export default function Anketa() {
                           id="criminal"
                           name="criminal"
                           onChange={formik.handleChange}
-                          isChecked={form.criminal}
+                          isChecked={formik.values.criminal}
                           colorScheme="orange"
                         >
                           Да
                         </Checkbox>
                       </div>
-                      {form.criminal && (
+                      {formik.values.criminal && (
                         <div className="field">
                           <FormLabel htmlFor="text" fontSize={fSize}>
                             Уточните
@@ -3377,7 +3041,7 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={form.isCriminalAnswer}
+                            value={formik.values.isCriminalAnswer}
                           />
                         </div>
                       )}
@@ -3392,13 +3056,13 @@ export default function Anketa() {
                           id="relativeCriminal"
                           name="relativeCriminal"
                           onChange={formik.handleChange}
-                          isChecked={form.relativeCriminal}
+                          isChecked={formik.values.relativeCriminal}
                           colorScheme="orange"
                         >
                           Да
                         </Checkbox>
                       </div>
-                      {form.relativeCriminal && (
+                      {formik.values.relativeCriminal && (
                         <div className="field">
                           <FormLabel htmlFor="text" fontSize={fSize}>
                             Уточните
@@ -3411,7 +3075,7 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={form.isRelativeCriminalAnswer}
+                            value={formik.values.isRelativeCriminalAnswer}
                           />
                         </div>
                       )}
@@ -3425,13 +3089,13 @@ export default function Anketa() {
                           id="criminalDelo"
                           name="criminalDelo"
                           onChange={formik.handleChange}
-                          isChecked={form.criminalDelo}
+                          isChecked={formik.values.criminalDelo}
                           colorScheme="orange"
                         >
                           Да
                         </Checkbox>
                       </div>
-                      {form.criminalDelo && (
+                      {formik.values.criminalDelo && (
                         <div className="field">
                           <FormLabel htmlFor="text" fontSize={fSize}>
                             Уточните
@@ -3444,7 +3108,7 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={form.isCriminalDeloAnswer}
+                            value={formik.values.isCriminalDeloAnswer}
                           />
                         </div>
                       )}
@@ -3458,13 +3122,13 @@ export default function Anketa() {
                           id="alimentPayer"
                           name="alimentPayer"
                           onChange={formik.handleChange}
-                          isChecked={form.alimentPayer}
+                          isChecked={formik.values.alimentPayer}
                           colorScheme="orange"
                         >
                           Да
                         </Checkbox>
                       </div>
-                      {form.alimentPayer && (
+                      {formik.values.alimentPayer && (
                         <div className="field">
                           <FormLabel htmlFor="text" fontSize={fSize}>
                             Уточните
@@ -3477,7 +3141,7 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={form.isAlimentPayerAnswer}
+                            value={formik.values.isAlimentPayerAnswer}
                           />
                         </div>
                       )}
@@ -3491,13 +3155,13 @@ export default function Anketa() {
                           id="hooligan"
                           name="hooligan"
                           onChange={formik.handleChange}
-                          isChecked={form.hooligan}
+                          isChecked={formik.values.hooligan}
                           colorScheme="orange"
                         >
                           Да
                         </Checkbox>
                       </div>
-                      {form.hooligan && (
+                      {formik.values.hooligan && (
                         <div className="field">
                           <FormLabel htmlFor="text" fontSize={fSize}>
                             Уточните
@@ -3510,7 +3174,7 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
-                            value={form.isHooliganAnswer}
+                            value={formik.values.isHooliganAnswer}
                           />
                         </div>
                       )}
@@ -3527,7 +3191,7 @@ export default function Anketa() {
                       type="text"
                       variant="filled"
                       onChange={formik.handleChange}
-                      value={form.additionalInfo}
+                      value={formik.values.additionalInfo}
                     />
                   </div>
                   <div className="field">
@@ -3542,7 +3206,7 @@ export default function Anketa() {
                       type="text"
                       variant="filled"
                       onChange={formik.handleChange}
-                      value={form.extraIncome}
+                      value={formik.values.extraIncome}
                     />
                   </div>
 
@@ -3551,7 +3215,7 @@ export default function Anketa() {
                       id="formConfirm"
                       name="formConfirm"
                       onChange={formik.handleChange}
-                      isChecked={form.formConfirm}
+                      isChecked={formik.values.formConfirm}
                       colorScheme="orange"
                     >
                       <div className="formConfirmText">
@@ -3588,7 +3252,7 @@ export default function Anketa() {
                     >
                       Назад
                     </Button>
-                    {form.formConfirm ? (
+                    {formik.values.formConfirm ? (
                       <Button
                         colorScheme="blue"
                         marginLeft="50px"
@@ -3624,7 +3288,7 @@ export default function Anketa() {
                           setShowLoader(true);
                           const requestToDownload = await Service(
                             "downloadForm",
-                            form
+                            formik.values
                           );
                           if (requestToDownload) {
                             setIsFormDownloaded(true);
@@ -3653,7 +3317,7 @@ export default function Anketa() {
                           marginLeft="50px"
                           // type="submit"
                           onClick={() => {
-                            window.location = `/upload/${form.iin}`;
+                            window.location = `/upload/${formik.values.iin}`;
                           }}
                         >
                           Далее
