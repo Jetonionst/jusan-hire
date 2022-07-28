@@ -1,22 +1,28 @@
-import doWeHaveToken from "../functions/checkIfAutorized";
+// import doWeHaveToken from "../functions/checkIfAutorized";
+import logo from "../logos/logo.svg";
 
 export default function Header() {
-  if (doWeHaveToken()) {
-    return (
-      <nav className="autorizationNavElemes">
-        <a className="Logo" href="/">
-          <img
-            src="https://thumb.tildacdn.com/tild3864-6334-4461-b934-313861376333/-/resize/200x/-/format/webp/image.png"
-            alt="SingLogo"
-          />
+  return (
+    <nav className="autorizationNavElemes">
+      <a className="Logo" href="/">
+        <img src={logo} alt="SingLogo" />
+      </a>
+
+      <div className="headerUserNav">
+        <a href="https://jusan.kz" className="headerBtns">
+          JUSAN.KZ
+        </a>
+        <a href="https://jusan.kz" className="headerBtns">
+          О НАС
+        </a>
+        <a href="https://jusan.kz" className="headerBtns">
+          КОНТАКТЫ
+        </a>
+        <a href="/developers" className="headerBtns">
+          РАЗРАБОТЧИКИ
         </a>
 
-        <div className="headerUserNav">
-          <a href="/admin" className="button-5 ">
-            Список заявок
-          </a>
-
-          <a
+        {/* <a
             href="/"
             className="button-5"
             onClick={() => {
@@ -24,23 +30,7 @@ export default function Header() {
             }}
           >
             Выйти
-          </a>
-        </div>
-      </nav>
-    );
-  }
-  return (
-    <nav className="autorizationNavElemes">
-      <a className="Logo" href="/">
-        <img
-          src="https://thumb.tildacdn.com/tild3864-6334-4461-b934-313861376333/-/resize/200x/-/format/webp/image.png"
-          alt="SingLogo"
-        />
-      </a>
-      <div className="headerUserNav">
-        <a className="button-5 " href="/login">
-          Войти
-        </a>
+          </a> */}
       </div>
     </nav>
   );

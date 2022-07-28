@@ -1,22 +1,39 @@
-@import url("https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@300;400;500&family=Roboto:wght@400;500;700&display=swap");
-
+@import "http://fonts.fontstorage.com/import/mplusrounded1c.css";
 body {
-  font-family: "Cormorant SC", serif;
+  font-family: "M PLUS Rounded 1c", sans-serif !important;
 }
 a {
   text-decoration: none;
+  color: black;
 }
 .autorizationNavElemes {
   display: flex;
 }
 .headerUserNav {
+  display: flex;
   justify-content: end;
+  width: 50%;
+  justify-content: space-around;
 }
-
+.headerBtns {
+  font-size: 20px;
+  font-weight: 400;
+  color: black;
+}
 .field {
   margin: 5px;
 }
-
+.main {
+  max-width: 1360px;
+  margin: 0 auto;
+}
+.mainAuth {
+  margin-top: 60px;
+  /* margin: 0 auto; */
+  /* display: flex; */
+  /* justify-content: center; */
+  /* align-items: center; */
+}
 .fieldsContainer {
   display: flex;
   flex-wrap: wrap;
@@ -72,19 +89,25 @@ a {
 }
 
 .mainPicture {
-  margin: auto;
-  background-image: url("../public/another.png");
+  margin: 0 auto;
+  background-image: url("./components/logos/mainPagePicture.svg");
   background-size: contain;
   background-repeat: no-repeat;
-  width: 650px;
-  height: 650px;
+  width: 610px;
+  height: 610px;
 }
 
 .mainContainer {
-  background-color: #edf2f7;
-  height: 100vh;
+  /* background-color: #edf2f7; */
+  /* height: 100vh; */
   display: flex;
   flex-wrap: wrap;
+}
+.mainTextDescription {
+  margin-top: 12px;
+  font-weight: 300;
+  font-size: 20px;
+  line-height: 30px;
 }
 
 .formbtn {
@@ -92,12 +115,15 @@ a {
   /* background-size: contain; */
   /* background-repeat: no-repeat; */
   /* width: 45%; */
-  margin: auto;
+  margin: 70px auto;
   padding: 20px;
-  width: 300px;
-  height: 300px;
+  padding-left: 0;
+  padding-bottom: 0;
+  width: 585px;
+  margin-bottom: 0;
+  /* height: 300px; */
   position: relative;
-  align-items: center;
+  /* align-items: center; */
   flex-wrap: wrap;
 }
 .btnOnDesk > a {
@@ -158,47 +184,74 @@ a {
 }
 
 .autorizationNavElemes {
+  margin: 0 auto;
+  max-width: 1360px;
   justify-content: space-between;
   /* padding-left: 15px;
   padding-right: 15px; */
-  padding: 15px;
-  background-color: #edf2f7;
+  padding: 40px;
+  /* background-color: #edf2f7; */
 }
 
 .mainText {
   font-size: 32px;
   font-weight: 300;
-  text-align: center;
+  /* text-align: center; */
 }
 
+.mainTextTitle {
+  font-size: 48px;
+  font-weight: 800;
+  line-height: 71px;
+  text-transform: uppercase;
+}
+.mainTextTitle > span {
+  color: #fe5000;
+}
 .btnOnDesk {
   margin-top: 15px;
   text-align: center;
 }
 
 .motivImage {
-  background-image: url("../public/main.png");
+  background-image: url("./components/logos/bank-logo.svg");
   background-size: contain;
   background-repeat: no-repeat;
-  width: 450px;
-  height: 450px;
+  width: 276px;
+  height: 331px;
   margin: auto;
+  margin-left: 205px;
+  margin-right: 205px;
 }
 
 .mainMotivation {
-  background-color: #e3ddec;
+  margin-top: 115px;
+  /* background-color: #e3ddec; */
   padding-bottom: 50px;
 }
-.motivText {
-  width: 400px;
-  font-size: 24px;
+.motivTextTitle {
+  width: 600px;
+  font-weight: 800;
+  font-size: 40px;
   margin: 0 auto;
-  margin-left: auto;
+  margin-left: 0;
+  line-height: 59px;
+  text-transform: uppercase;
 }
-.motivText > h2 {
-  text-align: center;
+.motivTextTitle > span {
+  color: #fe5000;
 }
-
+.motivTextDiscrtiption {
+  width: 600px;
+  font-size: 20px;
+  font-weight: 400;
+  color: #646464;
+  margin-top: 28px;
+  line-height: 30px;
+}
+.motivTextDiscrtiption > span {
+  display: block;
+}
 .container {
   margin: 0 auto;
   display: flex;
@@ -206,16 +259,96 @@ a {
   max-width: 1360px;
 }
 
-.Footer {
-  height: 150px;
+.footerContainer {
+  margin: 0 auto;
+  max-width: 1360px;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #edf2f7;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.FooterContainer {
+  margin: 0 auto;
+  max-width: 1360px;
+
+  flex-wrap: wrap;
+}
+.aboveFooter {
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 20px;
+  font-weight: 300;
+  font-size: 20px;
+  line-height: 30px;
+  margin-top: 25px;
+  color: #c6c6c6;
+  justify-content: space-between;
+}
+.telephone::before {
+  content: url("./components/logos/phone.svg");
+  position: relative;
+  top: 7px;
+  left: -5px;
+}
+.email::before {
+  content: url("./components/logos/email.svg");
+  position: relative;
+  top: 7px;
+  left: -5px;
+}
+.phones {
+  width: 647px;
+  display: flex;
+  justify-content: space-between;
+}
+.socialMedais {
+  display: flex;
+  /* width: 70px; */
+  margin-left: auto;
+  /* float: right; */
+}
+.socialMedais > a {
+  padding-left: 10px;
+  /* display: block; */
+}
+.footer {
+  padding-top: 28px;
+  margin-top: 34px;
+  height: 160px;
+  background-color: black;
+}
+.footerLogo {
+  background-image: url("./components/logos/footerLogo.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 233px;
+  height: 40px;
+}
+.copyrights {
+  margin-top: 32px;
+  width: 273px;
+  font-weight: 300;
+  font-size: 12px;
+  line-height: 18px;
+
+  color: #ffffff;
 }
 
+.footerBtns {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  /* identical to box height */
+
+  color: #ffffff;
+}
+.footerNav {
+  display: flex;
+  justify-content: end;
+  width: 50%;
+  justify-content: space-around;
+}
 .adminPage {
-  background-color: #edf2f7;
+  /* background-color: #edf2f7; */
   padding: 10px;
   /* height: 70vh; */
 }
