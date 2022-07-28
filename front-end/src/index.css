@@ -452,9 +452,10 @@ a {
 }
 .teamLogo > img {
   width: 250px;
+  border: 3px solid #fe5000;
 }
 .developerPic > img {
-  border: 3px solid #1b63af;
+  border: 3px solid #fe5000;
   height: 350px;
   width: 250px;
 }
@@ -476,16 +477,78 @@ a {
 }
 
 @media (max-width: 1024px) {
+  .autorizationNavElemes {
+    display: flex;
+    flex-wrap: wrap;
+    /* align-items: center; */
+    justify-content: center;
+  }
+  .headerUserNav > a {
+    width: 100%;
+  }
+  .mainPicture {
+    margin-top: 35px;
+    height: 400px;
+  }
+  .mainText {
+    text-align: center;
+  }
+  .mainTextTitle {
+    font-size: 34px;
+    line-height: 38px;
+  }
+  .mainTextDescription {
+    font-size: 16px;
+  }
+  .mainAuth {
+    display: flex;
+    justify-content: center;
+  }
+  .motivImage {
+    margin: auto;
+  }
+
+  .motivTextTitle {
+    width: 380px;
+    margin-top: 35px;
+  }
+  .motivTextDiscrtiption {
+    width: 380px;
+  }
+  .mainMotivation {
+    margin-top: 40px;
+  }
   .headerUserNav {
     display: flex;
     flex-wrap: wrap;
+    padding-top: 15px;
+    text-align: center;
   }
-  .button-5 {
-    margin: 5px;
+  .footerContainer {
+    justify-content: center;
+  }
+  .footerNav {
+    flex-wrap: wrap;
+    text-align: center;
+  }
+  .footerNav > a {
+    width: 100%;
+  }
+  .formbtn {
+    margin-top: 0;
+    padding: 0;
   }
   .motivText {
     padding: 30px;
     font-size: 24px;
+    margin: 0 auto;
+    padding: 0;
+  }
+  .aboveFooter {
+    font-size: 14px;
+  }
+  .socialMedais {
+    margin: 15px auto;
   }
   .buttons {
     flex-wrap: wrap;
@@ -501,6 +564,9 @@ a {
   .candidateBtns > button {
     margin: 10px;
     width: 100%;
+  }
+  .footer {
+    height: 250px;
   }
 }
 
