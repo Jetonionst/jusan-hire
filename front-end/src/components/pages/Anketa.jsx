@@ -25,7 +25,6 @@ import {
 } from "@chakra-ui/react";
 import { useRef, useState } from "react";
 import Service from "../service/service";
-import { useEffect } from "react";
 
 export default function Anketa() {
   const [isFormdownloaded, setIsFormDownloaded] = useState(false);
@@ -223,6 +222,14 @@ export default function Anketa() {
     },
     onSubmit: async (values) => {
       if (page === 1) {
+        // setPage(2);
+        const validList = [...document.querySelectorAll(".InvalidVaildation")];
+        validList.map((e) => {
+          if (e.attributes.length < 2) {
+            setAllFieldsCorrect(false);
+          }
+          return null;
+        });
         setPage(2);
       }
       if (page === 2) {
@@ -254,10 +261,48 @@ export default function Anketa() {
     },
   });
 
+  const [allFieldsCorrect, setAllFieldsCorrect] = useState(true);
+  function validation(target, type) {
+    // console.log(target);
+    target.nextSibling.removeAttribute("hidden");
+    setAllFieldsCorrect(false);
+    if (type === "iin") {
+      const regex = /(?=(^([^\d]*?\d){12}$))/;
+
+      if (regex.test(target.value)) {
+        // console.log(target.value);
+        target.nextSibling.setAttribute("hidden", true);
+        setAllFieldsCorrect(true);
+      }
+    }
+    if (type === "email") {
+      const emailRegx =
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      if (emailRegx.test(target.value)) {
+        target.nextSibling.setAttribute("hidden", true);
+        setAllFieldsCorrect(true);
+      }
+    }
+    if (type === "series") {
+      const regex = /-?\d+(.\d{0,})?/;
+
+      if (regex.test(target.value)) {
+        target.nextSibling.setAttribute("hidden", true);
+        setAllFieldsCorrect(true);
+      }
+    }
+    if (type === "phone") {
+      const regex = /^((8|\+7)[- ]?)?(\(?\d{3}\)?[- ]?)?[\d\- ]{7,10}$/;
+      if (regex.test(target.value)) {
+        target.nextSibling.setAttribute("hidden", true);
+        setAllFieldsCorrect(true);
+      }
+    }
+  }
   const [recoverFormBtn, setRecoverFormBtn] = useState(false);
 
   async function saveForm() {
-    const save = await Service("save", formik.values);
+    await Service("save", formik.values);
   }
 
   function addBtn(formLabel) {
@@ -419,7 +464,7 @@ export default function Anketa() {
                   </>
 
                   <FormControl
-                    isRequired={false}
+                    isRequired={true}
                     display="flex"
                     // justifyContent="space-between"
                     flexWrap="wrap"
@@ -436,9 +481,17 @@ export default function Anketa() {
                         type="text"
                         variant="filled"
                         onChange={formik.handleChange}
+                        onInput={(e) => {
+                          validation(e.target, "iin");
+                          // console.log(e.target.value);
+                        }}
                         value={formik.values.iin}
                       />
+                      <div hidden className="InvalidVaildation iinVal">
+                        ИИН должен состоять из 12 цифр!
+                      </div>
                     </div>
+
                     <div className="field">
                       <FormLabel htmlFor="text" fontSize={fSize}>
                         ФИО
@@ -522,28 +575,35 @@ export default function Anketa() {
                       </FormLabel>
                       <Input
                         fontSize={fSize}
-                        w={150}
+                        w={175}
                         id="email"
                         name="email"
                         type="text"
                         variant="filled"
                         onChange={formik.handleChange}
+                        onInput={(e) => {
+                          validation(e.target, "email");
+                        }}
                         value={formik.values.email}
+                        placeholder="example@email.com"
                       />
+                      <div hidden className="InvalidVaildation emailVal">
+                        Не правильный формат email!
+                      </div>
                     </div>
                   </FormControl>
                   <FormLabel htmlFor="text">
                     Паспорт, удостоверение личности
                   </FormLabel>
                   <FormControl
-                    isRequired={false}
+                    isRequired={true}
                     display={"flex"}
                     // justifyContent="space-between"
                     flexWrap="wrap"
                   >
                     <div className="field">
                       <FormControl
-                      //  sisRequired={false}={false}
+                      //  sisRequired={true}={false}
                       >
                         <FormLabel htmlFor="text" fontSize={fSize}>
                           Серия
@@ -557,8 +617,12 @@ export default function Anketa() {
                           type="text"
                           variant="filled"
                           onChange={formik.handleChange}
+                          onInput={(e) => validation(e.target, "series")}
                           value={formik.values.passportSerie}
                         />
+                        <div hidden className="InvalidVaildation pasVal">
+                          Только цифры!
+                        </div>
                       </FormControl>
                     </div>
 
@@ -574,8 +638,12 @@ export default function Anketa() {
                         type="text"
                         variant="filled"
                         onChange={formik.handleChange}
+                        onInput={(e) => validation(e.target, "series")}
                         value={formik.values.passportNumber}
                       />
+                      <div hidden className="InvalidVaildation idVal">
+                        Только цифры!
+                      </div>
                     </div>
                     <div className="field">
                       <FormLabel htmlFor="text" fontSize={fSize}>
@@ -632,8 +700,15 @@ export default function Anketa() {
                             type="tel"
                             variant="filled"
                             onChange={formik.handleChange}
+                            onInput={(e) => validation(e.target, "phone")}
                             value={formik.values.homePhone}
                           />
+                          <div
+                            hidden
+                            className="InvalidVaildation phoneVal homePhone"
+                          >
+                            Неверный формат телефона!
+                          </div>
                         </div>
                         <div className="field">
                           <FormLabel htmlFor="text" fontSize={fSize}>
@@ -646,12 +721,19 @@ export default function Anketa() {
                             name="workPhone"
                             type="text"
                             variant="filled"
+                            onInput={(e) => validation(e.target, "phone")}
                             onChange={formik.handleChange}
                             value={formik.values.workPhone}
                           />
+                          <div
+                            hidden
+                            className="InvalidVaildation phoneVal workPhone"
+                          >
+                            Неверный формат телефона!
+                          </div>
                         </div>
                         <div className="field">
-                          <FormControl isRequired={false}>
+                          <FormControl isRequired={true}>
                             <FormLabel htmlFor="text" fontSize={fSize}>
                               Мобильный телефон:
                             </FormLabel>
@@ -662,9 +744,16 @@ export default function Anketa() {
                               name="mobilePhone"
                               type="phone"
                               variant="filled"
+                              onInput={(e) => validation(e.target, "phone")}
                               onChange={formik.handleChange}
                               value={formik.values.mobilePhone}
                             />
+                            <div
+                              hidden
+                              className="InvalidVaildation phoneVal mobilePhone"
+                            >
+                              Неверный формат телефона!
+                            </div>
                           </FormControl>
                         </div>
                       </FormControl>
@@ -674,7 +763,7 @@ export default function Anketa() {
                         Контактные данные родственника или знакомого:
                       </FormLabel>
                       <FormControl
-                        isRequired={false}
+                        isRequired={true}
                         display="flex"
                         flexWrap="wrap"
                         //   justifyContent="space-between"
@@ -691,8 +780,15 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
+                            onInput={(e) => validation(e.target, "phone")}
                             value={formik.values.relativePhone}
                           />
+                          <div
+                            hidden
+                            className="InvalidVaildation phoneVal relativePhone"
+                          >
+                            Неверный формат телефона!
+                          </div>
                         </div>
                         <div className="field">
                           <FormLabel htmlFor="text" fontSize={fSize}>
@@ -735,7 +831,7 @@ export default function Anketa() {
                       <FormControl
                         display="flex"
                         flexWrap="wrap"
-                        isRequired={false}
+                        isRequired={true}
                         //   justifyContent="space-between"
                       >
                         <div className="field">
@@ -815,7 +911,7 @@ export default function Anketa() {
                         </div>
                         <div className="field">
                           <FormControl
-                          // isRequired={false}={false}
+                          // isRequired={true}={false}
                           >
                             <FormLabel htmlFor="text" fontSize={fSize}>
                               Корпус:
@@ -990,15 +1086,27 @@ export default function Anketa() {
                 Remember me?
               </Checkbox> */}
                   <div className="buttons">
-                    <Button
-                      colorScheme="orange"
-                      width="30%"
-                      // type="submit"
-                      marginLeft="50px"
-                      type="submit"
-                    >
-                      Далее
-                    </Button>
+                    {allFieldsCorrect ? (
+                      <Button
+                        colorScheme="orange"
+                        width="30%"
+                        // type="submit"
+                        marginLeft="50px"
+                        type="submit"
+                      >
+                        Далее
+                      </Button>
+                    ) : (
+                      <Button
+                        colorScheme="red"
+                        width="30%"
+                        opacity={0.5}
+                        // type="submit"
+                        marginLeft="50px"
+                      >
+                        Далее
+                      </Button>
+                    )}
                     {formik.values.iin ? (
                       <Button
                         colorScheme="green"
@@ -1013,7 +1121,7 @@ export default function Anketa() {
                       <Button
                         colorScheme="red"
                         width="30%"
-                        opacity={0.3}
+                        opacity={0.5}
                         // type="submit"
                         marginLeft="50px"
                       >
@@ -1030,7 +1138,6 @@ export default function Anketa() {
     );
   }
   if (page === 2) {
-    console.log("values : ", formik.values);
     return (
       <ChakraProvider>
         <div className="bg">
@@ -1050,9 +1157,9 @@ export default function Anketa() {
                     <div className="fieldsContex">
                       {formik.values.educationList.map((education, i) => {
                         return (
-                          <div className="fieldsContex">
+                          <div className="fieldsContex" key={i}>
                             <FormControl
-                              isRequired={false}
+                              isRequired={true}
                               display="flex"
                               // justifyContent="space-between"
                               flexWrap="wrap"
@@ -1073,7 +1180,7 @@ export default function Anketa() {
                                   value={education?.startDate}
                                 />
                               </div>
-                              {console.log(formik.values.educationList)}
+
                               <div className="field">
                                 <FormLabel htmlFor="text" fontSize={fSize}>
                                   Дата окончания обучения:
@@ -1173,9 +1280,9 @@ export default function Anketa() {
                     <div className="fieldsContex">
                       {formik.values.extracurricularList.map((course, i) => {
                         return (
-                          <div className="fieldsContex">
+                          <div className="fieldsContex" key={i}>
                             <FormControl
-                              isRequired={false}
+                              isRequired={true}
                               display="flex"
                               // justifyContent="space-between"
                               flexWrap="wrap"
@@ -1333,7 +1440,7 @@ export default function Anketa() {
                   <div className="fieldsContainer">
                     <div className="filedsContex">
                       <FormControl
-                        isRequired={false}
+                        isRequired={true}
                         display="flex"
                         // justifyContent="space-between"
                         flexWrap="wrap"
@@ -1422,11 +1529,18 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
+                            onInput={(e) => validation(e.target, "phone")}
                             value={
                               formik.values.lastThreeWorkplaces[0]
                                 .organizationPhone
                             }
                           />
+                          <div
+                            hidden
+                            className="InvalidVaildation phoneVal organization1Phone"
+                          >
+                            Неверный формат телефона!
+                          </div>
                         </div>
                         <div className="field">
                           <FormLabel htmlFor="text" fontSize={fSize}>
@@ -1474,11 +1588,18 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
+                            onInput={(e) => validation(e.target, "phone")}
                             value={
                               formik.values.lastThreeWorkplaces[0]
                                 .employerNumber
                             }
                           />
+                          <div
+                            hidden
+                            className="InvalidVaildation phoneVal employer1Number"
+                          >
+                            Неверный формат телефона!
+                          </div>
                         </div>
                         <div className="field">
                           <FormLabel htmlFor="text" fontSize={fSize}>
@@ -1501,7 +1622,7 @@ export default function Anketa() {
                     </div>
                     <div className="filedsContex">
                       <FormControl
-                        isRequired={false}
+                        isRequired={true}
                         display="flex"
                         // justifyContent="space-between"
                         flexWrap="wrap"
@@ -1590,11 +1711,18 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
+                            onInput={(e) => validation(e.target, "phone")}
                             value={
                               formik.values.lastThreeWorkplaces[1]
                                 .organizationPhone
                             }
                           />
+                          <div
+                            hidden
+                            className="InvalidVaildation phoneVal organization2Phone"
+                          >
+                            Неверный формат телефона!
+                          </div>
                         </div>
                         <div className="field">
                           <FormLabel htmlFor="text" fontSize={fSize}>
@@ -1641,12 +1769,19 @@ export default function Anketa() {
                             name={`lastThreeWorkplaces[1].employerNumber`}
                             type="text"
                             variant="filled"
+                            onInput={(e) => validation(e.target, "phone")}
                             onChange={formik.handleChange}
                             value={
                               formik.values.lastThreeWorkplaces[1]
                                 .employerNumber
                             }
                           />
+                          <div
+                            hidden
+                            className="InvalidVaildation phoneVal employer2Number"
+                          >
+                            Неверный формат телефона!
+                          </div>
                         </div>
                         <div className="field">
                           <FormLabel htmlFor="text" fontSize={fSize}>
@@ -1669,7 +1804,7 @@ export default function Anketa() {
                     </div>
                     <div className="filedsContex">
                       <FormControl
-                        isRequired={false}
+                        isRequired={true}
                         display="flex"
                         // justifyContent="space-between"
                         flexWrap="wrap"
@@ -1758,11 +1893,18 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
+                            onInput={(e) => validation(e.target, "phone")}
                             value={
                               formik.values.lastThreeWorkplaces[2]
                                 .organizationPhone
                             }
                           />
+                          <div
+                            hidden
+                            className="InvalidVaildation phoneVal organization3Phone"
+                          >
+                            Неверный формат телефона!
+                          </div>
                         </div>
                         <div className="field">
                           <FormLabel htmlFor="text" fontSize={fSize}>
@@ -1810,11 +1952,18 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
+                            onInput={(e) => validation(e.target, "phone")}
                             value={
                               formik.values.lastThreeWorkplaces[2]
                                 .employerNumber
                             }
                           />
+                          <div
+                            hidden
+                            className="InvalidVaildation phoneVal employer3Number"
+                          >
+                            Неверный формат телефона!
+                          </div>
                         </div>
                         <div className="field">
                           <FormLabel htmlFor="text" fontSize={fSize}>
@@ -1844,7 +1993,7 @@ export default function Anketa() {
                   <div className="filedsContainer">
                     <div className="filedsContex">
                       <FormControl
-                        isRequired={false}
+                        isRequired={true}
                         display="flex"
                         // justifyContent="space-between"
                         flexWrap="wrap"
@@ -1915,17 +2064,24 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
+                            onInput={(e) => validation(e.target, "phone")}
                             value={
                               formik.values.threeRecommendationPeople[0]
                                 .peoplePhone
                             }
                           />
+                          <div
+                            hidden
+                            className="InvalidVaildation phoneVal people1Phone"
+                          >
+                            Неверный формат телефона!
+                          </div>
                         </div>
                       </FormControl>
                     </div>
                     <div className="filedsContex">
                       <FormControl
-                        isRequired={false}
+                        isRequired={true}
                         display="flex"
                         // justifyContent="space-between"
                         flexWrap="wrap"
@@ -1996,17 +2152,24 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
+                            onInput={(e) => validation(e.target, "phone")}
                             value={
                               formik.values.threeRecommendationPeople[1]
                                 .peoplePhone
                             }
                           />
+                          <div
+                            hidden
+                            className="InvalidVaildation phoneVal people2Phone"
+                          >
+                            Неверный формат телефона!
+                          </div>
                         </div>
                       </FormControl>
                     </div>
                     <div className="filedsContex">
                       <FormControl
-                        isRequired={false}
+                        isRequired={true}
                         display="flex"
                         // justifyContent="space-between"
                         flexWrap="wrap"
@@ -2077,11 +2240,18 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
+                            onInput={(e) => validation(e.target, "phone")}
                             value={
                               formik.values.threeRecommendationPeople[2]
                                 .peoplePhone
                             }
                           />
+                          <div
+                            hidden
+                            className="InvalidVaildation phoneVal people3Phone"
+                          >
+                            Неверный формат телефона!
+                          </div>
                         </div>
                       </FormControl>
                     </div>
@@ -2143,7 +2313,7 @@ export default function Anketa() {
                   </FormLabel>
                   <div className="field">
                     <Select
-                      isRequired={false}
+                      isRequired={true}
                       id="marriageStatus"
                       name="marriageStatus"
                       onChange={formik.handleChange}
@@ -2169,7 +2339,7 @@ export default function Anketa() {
                         <div className="fieldsContainer">
                           <div className="filedsContex">
                             <FormControl
-                              isRequired={false}
+                              isRequired={true}
                               display="flex"
                               // justifyContent="space-between"
                               flexWrap="wrap"
@@ -2283,8 +2453,15 @@ export default function Anketa() {
                                   type="text"
                                   variant="filled"
                                   onChange={formik.handleChange}
+                                  onInput={(e) => validation(e.target, "phone")}
                                   value={formik.values.lifeCompanion[0].phone}
                                 />
+                                <div
+                                  hidden
+                                  className="InvalidVaildation phoneVal marriagePhone"
+                                >
+                                  Неверный формат телефона!
+                                </div>
                               </div>
                             </FormControl>
                           </div>
@@ -2295,7 +2472,7 @@ export default function Anketa() {
                   <div className="fieldsContainer">
                     {formik.values.chilrenList.map((child, i) => {
                       return (
-                        <div className="filedsContex">
+                        <div className="filedsContex" key={i}>
                           <FormControl
                             display="flex"
                             // justifyContent="space-between"
@@ -2355,13 +2532,20 @@ export default function Anketa() {
                               <Input
                                 fontSize={fSize}
                                 w={fieldsSize}
-                                id={`chilrenList.${i}.studyOrWork`}
-                                name={`chilrenList.${i}.studyOrWork`}
+                                id={`chilrenList.${i}.phone`}
+                                name={`chilrenList.${i}.phone`}
                                 type="text"
                                 variant="filled"
                                 onChange={formik.handleChange}
-                                value={child?.studyOrWork}
+                                onInput={(e) => validation(e.target, "phone")}
+                                value={child?.phone}
                               />
+                              <div
+                                hidden
+                                className="InvalidVaildation phoneVal childPhone"
+                              >
+                                Неверный формат телефона!
+                              </div>
                             </div>
                           </FormControl>
                         </div>
@@ -2383,7 +2567,7 @@ export default function Anketa() {
                   <div className="fieldsContainer">
                     {formik.values.relativeList.map((relative, i) => {
                       return (
-                        <div className="filedsContex">
+                        <div className="filedsContex" key={i}>
                           <FormControl
                             display="flex"
                             // justifyContent="space-between"
@@ -2479,8 +2663,15 @@ export default function Anketa() {
                                 type="text"
                                 variant="filled"
                                 onChange={formik.handleChange}
+                                onInput={(e) => validation(e.target, "phone")}
                                 value={relative?.phone}
                               />
+                              <div
+                                hidden
+                                className="InvalidVaildation phoneVal relativePhone"
+                              >
+                                Неверный формат телефона!
+                              </div>
                             </div>
                           </FormControl>
                         </div>
@@ -2671,10 +2862,17 @@ export default function Anketa() {
                             type="text"
                             variant="filled"
                             onChange={formik.handleChange}
+                            onInput={(e) => validation(e.target, "phone")}
                             value={
                               formik.values.commercialOrganisationList[0].phone
                             }
                           />
+                          <div
+                            hidden
+                            className="InvalidVaildation phoneVal organizationPhone"
+                          >
+                            Неверный формат телефона!
+                          </div>
                         </div>
                       </div>
                     )}
@@ -2704,7 +2902,7 @@ export default function Anketa() {
                                 <div className="fieldsContainer">
                                   <div className="fieldsContex">
                                     <FormControl
-                                      isRequired={false}
+                                      isRequired={true}
                                       display="flex"
                                       // justifyContent="space-between"
                                       flexWrap="wrap"
@@ -2931,7 +3129,7 @@ export default function Anketa() {
                   <div className="field">
                     <span style={{ color: "red" }}>*</span>
                     <Select
-                      isRequired={false}
+                      isRequired={true}
                       id="military"
                       name="military"
                       onChange={formik.handleChange}

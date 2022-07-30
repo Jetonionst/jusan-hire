@@ -25,6 +25,9 @@ export default async function Service(request, content) {
           "Access-Control-Allow-Origin": "*",
         },
       });
+      if (!req.ok) {
+        alert("Анкеты с таким ИИН не найдено");
+      }
       const res = await req.json();
       return res;
     }
