@@ -41,7 +41,10 @@ export default async function Service(request, content) {
           "Access-Control-Allow-Origin": "*",
         },
       });
-      console.log(req);
+      if (!req.ok) {
+        alert("Не удалось сохранить анкету");
+      }
+      alert("Анкета сохранена");
     }
     if (request === "uploadForm") {
       const req = await fetch(`${url}/api/v1/anketa/submit`, {
