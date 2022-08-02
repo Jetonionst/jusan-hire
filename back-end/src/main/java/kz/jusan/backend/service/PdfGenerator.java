@@ -198,13 +198,13 @@ public class PdfGenerator {
         String date = DateTimeFormatter.ofPattern("Дата  dd / MMMM / yyyy г.")
                 .withLocale(new Locale("ru")).format(LocalDate.now());
         String podpis = "";
-        if (anketa.getFio().length()>=8){
-            podpis += anketa.getFio().substring(0,8);
+        if (anketa.getUserProfile().getFio().length()>=8){
+            podpis += anketa.getUserProfile().getFio().substring(0,8);
         } else {
-            podpis += anketa.getFio();
+            podpis += anketa.getUserProfile().getFio();
         }
         Paragraph paragraph = new Paragraph();
-        Chunk chunk1 = new Chunk("\n" + "ФИО " + anketa.getFio() + "   Подпись _________", normal12);
+        Chunk chunk1 = new Chunk("\n" + "ФИО " + anketa.getUserProfile().getFio() + "   Подпись _________", normal12);
         Chunk chunk2 = new Chunk(podpis + "_________\n", podpisFont);
         paragraph.add(chunk1);
         paragraph.add(chunk2);
@@ -218,7 +218,7 @@ public class PdfGenerator {
         table.setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
         table.setWidthPercentage(100);
         table.addCell(new Paragraph("ФИО", bold12));
-        table.addCell(new Paragraph(anketa.getFio()+" ", normal12));
+        table.addCell(new Paragraph(anketa.getUserProfile().getFio()+" ", normal12));
         table.addCell(new Paragraph("Если Вы сменили фамилию, укажите, пожалуйста, прежнюю", italic10));
         table.addCell(new Paragraph(anketa.getPreviousName()+" ", normal12));
         table.addCell(new Paragraph("Число, месяц и год рождения, место рождения", bold12));
@@ -246,11 +246,11 @@ public class PdfGenerator {
         phoneTypes.addCell(new Paragraph("рабочий", font));
         phoneTypes.addCell(new Paragraph(anketa.getWorkPhone()+" ", font));
         phoneTypes.addCell(new Paragraph("мобильный", font));
-        phoneTypes.addCell(new Paragraph(anketa.getMobilePhone()+" ", font));
+        phoneTypes.addCell(new Paragraph(anketa.getUserProfile().getMobilePhone()+" ", font));
         phoneTypes.addCell(new Paragraph("Контактный, ФИО, степень родства (родственника и/или знакомого)", font));
         phoneTypes.addCell(new Paragraph(anketa.getRelativePhone()+", "+anketa.getRelativeFIO()+", "+anketa.getRelativeLevel(), font));
         phoneTypes.addCell(new Paragraph("e-mail", font));
-        phoneTypes.addCell(new Paragraph(anketa.getEmail()+" ", font));
+        phoneTypes.addCell(new Paragraph(anketa.getUserProfile().getEmail()+" ", font));
         table.addCell(phoneTypes);
         document.add(table);
     }
@@ -262,7 +262,7 @@ public class PdfGenerator {
         table.addCell(new Paragraph("Адрес постоянной регистрации:", bold10));
         table.addCell(new Paragraph("Адрес фактического проживания:", bold10));
         table.addCell(new Paragraph("Город: "+anketa.getPermanentCity(), normal10));
-        table.addCell(new Paragraph("Город: "+anketa.getFactualCity(), normal10));
+        table.addCell(new Paragraph("Город: "+anketa.getUserProfile().getFactualCity(), normal10));
         table.addCell(new Paragraph("Область: "+anketa.getPermanentRegion(), normal10));
         table.addCell(new Paragraph("Область: "+anketa.getFactualRegion(), normal10));
         table.addCell(new Paragraph("Район: "+anketa.getPermanentDistrict(), normal10));
@@ -283,7 +283,7 @@ public class PdfGenerator {
         table.addCell(new Paragraph("Даты начала и окончания обучения", font));
         table.addCell(new Paragraph("Полное название учебного заведения", font));
         table.addCell(new Paragraph("Специальность,\n" + "форма обучения"+anketa.getPermanentCity(), font));
-        table.addCell(new Paragraph("Квалификация"+anketa.getFactualCity(), font));
+        table.addCell(new Paragraph("Квалификация"+anketa.getUserProfile().getFactualCity(), font));
         for (EducationDto educationDto: anketa.getEducationList()) {
             PdfPTable dates = new PdfPTable(2);
             dates.addCell(new Paragraph(educationDto.getStartDate(), font));
