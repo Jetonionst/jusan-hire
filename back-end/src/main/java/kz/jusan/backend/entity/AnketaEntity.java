@@ -17,8 +17,9 @@ import java.util.List;
 @Table(name = "anketas")
 public class AnketaEntity {
     @Id
+    @Column(name = "user_profile_iin")
     private String iin;
-    private String fio;
+//    private String fio;
     private String previousName;
     private String birthDate;
     private String birthPlace;
@@ -30,11 +31,11 @@ public class AnketaEntity {
     private String passportIssuedAt;
     private String homePhone;
     private String workPhone;
-    private String mobilePhone;
+//    private String mobilePhone;
     private String relativePhone;
     private String relativeFIO;
     private String relativeLevel;
-    private String email;
+//    private String email;
     private String permanentCity;
     private String permanentRegion;
     private String permanentDistrict;
@@ -43,7 +44,7 @@ public class AnketaEntity {
     private String permanentCorpus;
     private String permanentApartment;
     private boolean isAddressMatches = false;
-    private String factualCity;
+//    private String factualCity;
     private String factualRegion;
     private String factualDistrict;
     private String factualStreet;
@@ -90,4 +91,23 @@ public class AnketaEntity {
     private String isHooliganAnswer;
     private String additionalInfo;
     private String extraIncome;
+
+    @OneToOne
+    @MapsId
+    @JoinColumn(name = "user_profile_id")
+    private UserProfile userProfile;
+//
+//    @OneToOne(orphanRemoval = true)
+//    @JoinTable(name = "anketas_user_profile",
+//            joinColumns = @JoinColumn(name = "anketa_entity_null"),
+//            inverseJoinColumns = @JoinColumn(name = "user_profile_iin"))
+//    private UserProfile userProfile;
+//
+    public UserProfile getUserProfile() {
+        return userProfile;
+    }
+
+    public void setUserProfile(UserProfile userProfile) {
+        this.userProfile = userProfile;
+    }
 }
