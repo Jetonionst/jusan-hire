@@ -1,7 +1,7 @@
-import { useFormik } from "formik";
-import ReactLoading from "react-loading";
-import { useParams } from "react-router-dom";
-import { InfoIcon } from "@chakra-ui/icons";
+import { useFormik } from 'formik';
+import ReactLoading from 'react-loading';
+import { useParams } from 'react-router-dom';
+import { InfoIcon } from '@chakra-ui/icons';
 import {
   Box,
   Button,
@@ -11,32 +11,34 @@ import {
   Input,
   Tooltip,
   VStack,
-} from "@chakra-ui/react";
-import Service from "../service/service";
-import AlertMessage from "../functions/alert";
-import { useState } from "react";
+} from '@chakra-ui/react';
+import Service from '../service/service';
+import AlertMessage from '../functions/alert';
+import { useState } from 'react';
 
 export default function UploadFiles() {
   const [showLoader, setShowLoader] = useState(false);
   const { iin } = useParams();
+
   const formik = useFormik({
     initialValues: {
       residentCard: null,
-      educationDoc: "",
-      laborActivity: "",
-      medDoc: "",
-      militaryDoc: "",
-      form: "",
-      image: "",
-      invalidDoc: "",
-      pensionerDoc: "",
-      lgotiDoc: "",
-      marriageDoc: "",
-      childDoc: "",
+      educationDoc: '',
+      laborActivity: '',
+      medDoc: '',
+      militaryDoc: '',
+      form: '',
+      image: '',
+      invalidDoc: '',
+      pensionerDoc: '',
+      lgotiDoc: '',
+      marriageDoc: '',
+      childDoc: '',
     },
     onSubmit: async (values) => {
       setShowLoader(true);
-      const requesToUploadFiles = await Service("uploadFiles", {
+
+      const requesToUploadFiles = await Service('uploadFiles', {
         files: values,
         iin: iin,
       });
@@ -44,8 +46,8 @@ export default function UploadFiles() {
       if (requesToUploadFiles) {
         setShowLoader(false);
         AlertMessage(
-          "Документы были успешно отправлены!\nМы свяжемся с вами в ближайшее время!",
-          "success"
+          'Документы были успешно отправлены!\nМы свяжемся с вами в ближайшее время!',
+          'success'
         );
       }
     },
@@ -56,11 +58,11 @@ export default function UploadFiles() {
       {showLoader && <ReactLoading color="orange" className="loader" />}
       <div className="bg">
         <Flex bg="gray.100" align="center" justify="center" p="25px">
-          <Box bg="white" p={6} rounded="md" w={"80%"}>
+          <Box bg="white" p={6} rounded="md" w={'80%'}>
             <form onSubmit={formik.handleSubmit}>
               <VStack spacing={4} align="flex-start">
                 <FormLabel htmlFor="text">
-                  АНКЕТА КАНДИДАТА (<span style={{ color: "red" }}>*</span>
+                  АНКЕТА КАНДИДАТА (<span style={{ color: 'red' }}>*</span>
                   обязательные поля)
                 </FormLabel>
                 <FormLabel w="100%">
@@ -72,7 +74,7 @@ export default function UploadFiles() {
                   <div className="fieldsForUpload">
                     <FormLabel w="100%">
                       1.Вид на жительство
-                      <span style={{ color: "red" }}>*</span>
+                      <span style={{ color: 'red' }}>*</span>
                     </FormLabel>
                     <div className="field">
                       <Input
@@ -80,13 +82,30 @@ export default function UploadFiles() {
                         type="file"
                         name="residentCard"
                         id="residentCard"
+                        accept=".gif,.jpg,.png,.pdf,.jpeg,.doc,.docx"
                         onChange={(event) => {
+                          if (event.currentTarget.files[0].size > 30000000) {
+                            AlertMessage('Файл слишком большой', 'error');
+                            event.currentTarget.value = '';
+                          }
+                          if (event.currentTarget.files[0].size > 30000000) {
+                            AlertMessage('Файл слишком большой', 'error');
+                            event.currentTarget.value = '';
+                          }
                           formik.setFieldValue(
-                            "residentCard",
+                            'residentCard',
                             event.currentTarget.files[0]
                           );
                         }}
                       />
+                      {formik.values.residentCard && (
+                        <div className="fileData">
+                          <div className="fileSize">
+                            Размер файла :{' '}
+                            {formik.values.residentCard.size / 1000}КБ
+                          </div>
+                        </div>
+                      )}
                       <Tooltip
                         label="Вид на жительство иностранца в Республике Казахстан или удостоверение лица без гражданства (для иностранцев и лиц без гражданства, постоянно проживающих на территории Республики Казахстан)"
                         fontSize="md"
@@ -99,7 +118,7 @@ export default function UploadFiles() {
                   <div className="fieldsForUpload">
                     <FormLabel w="100%">
                       2.Документ об образовании (с приложением)
-                      <span style={{ color: "red" }}>*</span>
+                      <span style={{ color: 'red' }}>*</span>
                     </FormLabel>
                     <div className="field">
                       <Input
@@ -107,13 +126,26 @@ export default function UploadFiles() {
                         type="file"
                         name="educationDoc"
                         id="educationDoc"
+                        accept=".gif,.jpg,.png,.pdf,.jpeg,.doc,.docx"
                         onChange={(event) => {
+                          if (event.currentTarget.files[0].size > 30000000) {
+                            AlertMessage('Файл слишком большой', 'error');
+                            event.currentTarget.value = '';
+                          }
                           formik.setFieldValue(
-                            "educationDoc",
+                            'educationDoc',
                             event.currentTarget.files[0]
                           );
                         }}
                       />
+                      {formik.values.educationDoc && (
+                        <div className="fileData">
+                          <div className="fileSize">
+                            Размер файла :{' '}
+                            {formik.values.educationDoc.size / 1000}КБ
+                          </div>
+                        </div>
+                      )}
                       <Tooltip
                         label="Документ об образовании (с приложением), квалификации, наличии специальных знаний или профессиональной подготовки при заключении трудового договора на работу, требующую соответствующих знаний, умений и навыков"
                         fontSize="md"
@@ -127,7 +159,7 @@ export default function UploadFiles() {
                     <FormLabel w="100%">
                       3. Документ, подтверждающий трудовую деятельность (для
                       лиц, имеющих трудовой стаж)
-                      <span style={{ color: "red" }}>*</span>
+                      <span style={{ color: 'red' }}>*</span>
                     </FormLabel>
                     <div className="field">
                       <Input
@@ -135,13 +167,26 @@ export default function UploadFiles() {
                         type="file"
                         name="laborActivity"
                         id="laborActivity"
+                        accept=".gif,.jpg,.png,.pdf,.jpeg,.doc,.docx"
                         onChange={(event) => {
+                          if (event.currentTarget.files[0].size > 30000000) {
+                            AlertMessage('Файл слишком большой', 'error');
+                            event.currentTarget.value = '';
+                          }
                           formik.setFieldValue(
-                            "laborActivity",
+                            'laborActivity',
                             event.currentTarget.files[0]
                           );
                         }}
                       />
+                      {formik.values.laborActivity && (
+                        <div className="fileData">
+                          <div className="fileSize">
+                            Размер файла :{' '}
+                            {formik.values.laborActivity.size / 1000}КБ
+                          </div>
+                        </div>
+                      )}
                       <Tooltip
                         label="Документ, подтверждающий трудовую деятельность (для лиц, имеющих трудовой стаж)"
                         fontSize="md"
@@ -155,7 +200,7 @@ export default function UploadFiles() {
                     <FormLabel w="100%">
                       4. Документ о прохождении предварительного медицинского
                       освидетельствования (форма 075/у, для водителей 083/у)
-                      <span style={{ color: "red" }}>*</span>
+                      <span style={{ color: 'red' }}>*</span>
                     </FormLabel>
                     <div className="field">
                       <Input
@@ -163,13 +208,25 @@ export default function UploadFiles() {
                         type="file"
                         name="medDoc"
                         id="medDoc"
+                        accept=".gif,.jpg,.png,.pdf,.jpeg,.doc,.docx"
                         onChange={(event) => {
+                          if (event.currentTarget.files[0].size > 30000000) {
+                            AlertMessage('Файл слишком большой', 'error');
+                            event.currentTarget.value = '';
+                          }
                           formik.setFieldValue(
-                            "medDoc",
+                            'medDoc',
                             event.currentTarget.files[0]
                           );
                         }}
                       />
+                      {formik.values.medDoc && (
+                        <div className="fileData">
+                          <div className="fileSize">
+                            Размер файла : {formik.values.medDoc.size / 1000}КБ
+                          </div>
+                        </div>
+                      )}
                       <Tooltip
                         label="Документ о прохождении предварительного медицинского освидетельствования (форма 075/у, для водителей 083/у)"
                         fontSize="md"
@@ -182,7 +239,7 @@ export default function UploadFiles() {
                   <div className="fieldsForUpload">
                     <FormLabel w="100%">
                       5. Военный билет/приписное свидетельство (для
-                      военнообязанных)<span style={{ color: "red" }}>*</span>
+                      военнообязанных)<span style={{ color: 'red' }}>*</span>
                     </FormLabel>
                     <div className="field">
                       <Input
@@ -190,13 +247,26 @@ export default function UploadFiles() {
                         type="file"
                         name="militaryDoc"
                         id="militaryDoc"
+                        accept=".gif,.jpg,.png,.pdf,.jpeg,.doc,.docx"
                         onChange={(event) => {
+                          if (event.currentTarget.files[0].size > 30000000) {
+                            AlertMessage('Файл слишком большой', 'error');
+                            event.currentTarget.value = '';
+                          }
                           formik.setFieldValue(
-                            "militaryDoc",
+                            'militaryDoc',
                             event.currentTarget.files[0]
                           );
                         }}
                       />
+                      {formik.values.militaryDoc && (
+                        <div className="fileData">
+                          <div className="fileSize">
+                            Размер файла :{' '}
+                            {formik.values.militaryDoc.size / 1000}КБ
+                          </div>
+                        </div>
+                      )}
                       <Tooltip
                         label="Военный билет/приписное свидетельство (для военнообязанных)"
                         fontSize="md"
@@ -209,7 +279,7 @@ export default function UploadFiles() {
                   <div className="fieldsForUpload">
                     <FormLabel w="100%">
                       6. Анкета (оригинал)
-                      <span style={{ color: "red" }}>*</span>
+                      <span style={{ color: 'red' }}>*</span>
                     </FormLabel>
                     <div className="field">
                       <Input
@@ -217,13 +287,26 @@ export default function UploadFiles() {
                         type="file"
                         name="formOriginal"
                         id="formOriginal"
+                        accept=".gif,.jpg,.png,.pdf,.jpeg,.doc,.docx"
                         onChange={(event) => {
+                          if (event.currentTarget.files[0].size > 30000000) {
+                            AlertMessage('Файл слишком большой', 'error');
+                            event.currentTarget.value = '';
+                          }
                           formik.setFieldValue(
-                            "formOriginal",
+                            'formOriginal',
                             event.currentTarget.files[0]
                           );
                         }}
                       />
+                      {formik.values.formOriginal && (
+                        <div className="fileData">
+                          <div className="fileSize">
+                            Размер файла :{' '}
+                            {formik.values.formOriginal.size / 1000}КБ
+                          </div>
+                        </div>
+                      )}
                       <Tooltip
                         label="Анкета (оригинал)"
                         fontSize="md"
@@ -235,7 +318,7 @@ export default function UploadFiles() {
                   </div>
                   <div className="fieldsForUpload">
                     <FormLabel w="100%">
-                      7. Фото 3*4<span style={{ color: "red" }}>*</span>
+                      7. Фото 3*4<span style={{ color: 'red' }}>*</span>
                     </FormLabel>
                     <div className="field">
                       <Input
@@ -243,13 +326,25 @@ export default function UploadFiles() {
                         type="file"
                         name="image"
                         id="image"
+                        accept=".gif,.jpg,.png,.pdf,.jpeg,.doc,.docx"
                         onChange={(event) => {
+                          if (event.currentTarget.files[0].size > 30000000) {
+                            AlertMessage('Файл слишком большой', 'error');
+                            event.currentTarget.value = '';
+                          }
                           formik.setFieldValue(
-                            "image",
+                            'image',
                             event.currentTarget.files[0]
                           );
                         }}
                       />
+                      {formik.values.image && (
+                        <div className="fileData">
+                          <div className="fileSize">
+                            Размер файла : {formik.values.image.size / 1000}КБ
+                          </div>
+                        </div>
+                      )}
                       <Tooltip
                         label="Фото 3*4 (1 шт) + электронное в формате Jpeg для оформления служебного пропуска"
                         fontSize="md"
@@ -274,13 +369,26 @@ export default function UploadFiles() {
                         type="file"
                         name="invalidDoc"
                         id="invalidDoc"
+                        accept=".gif,.jpg,.png,.pdf,.jpeg,.doc,.docx"
                         onChange={(event) => {
+                          if (event.currentTarget.files[0].size > 30000000) {
+                            AlertMessage('Файл слишком большой', 'error');
+                            event.currentTarget.value = '';
+                          }
                           formik.setFieldValue(
-                            "invalidDoc",
+                            'invalidDoc',
                             event.currentTarget.files[0]
                           );
                         }}
                       />
+                      {formik.values.invalidDoc && (
+                        <div className="fileData">
+                          <div className="fileSize">
+                            Размер файла :{' '}
+                            {formik.values.invalidDoc.size / 1000}КБ
+                          </div>
+                        </div>
+                      )}
                       <Tooltip
                         label="Копия документа, подтверждающего статус инвалида, с указанием группы инвалидности, срока действия (при наличии)"
                         fontSize="md"
@@ -299,13 +407,26 @@ export default function UploadFiles() {
                           type="file"
                           name="pensionerDoc"
                           id="pensionerDoc"
+                          accept=".gif,.jpg,.png,.pdf,.jpeg,.doc,.docx"
                           onChange={(event) => {
+                            if (event.currentTarget.files[0].size > 30000000) {
+                              AlertMessage('Файл слишком большой', 'error');
+                              event.currentTarget.value = '';
+                            }
                             formik.setFieldValue(
-                              "pensionerDoc",
+                              'pensionerDoc',
                               event.currentTarget.files[0]
                             );
                           }}
                         />
+                        {formik.values.pensionerDoc && (
+                          <div className="fileData">
+                            <div className="fileSize">
+                              Размер файла :{' '}
+                              {formik.values.pensionerDoc.size / 1000}КБ
+                            </div>
+                          </div>
+                        )}
                         <Tooltip
                           label="Копия удостоверения, подтверждающего статус пенсионера"
                           fontSize="md"
@@ -326,13 +447,26 @@ export default function UploadFiles() {
                           type="file"
                           name="lgotiDoc"
                           id="lgotiDoc"
+                          accept=".gif,.jpg,.png,.pdf,.jpeg,.doc,.docx"
                           onChange={(event) => {
+                            if (event.currentTarget.files[0].size > 30000000) {
+                              AlertMessage('Файл слишком большой', 'error');
+                              event.currentTarget.value = '';
+                            }
                             formik.setFieldValue(
-                              "lgotiDoc",
+                              'lgotiDoc',
                               event.currentTarget.files[0]
                             );
                           }}
                         />
+                        {formik.values.lgotiDoc && (
+                          <div className="fileData">
+                            <div className="fileSize">
+                              Размер файла :{' '}
+                              {formik.values.lgotiDoc.size / 1000}КБ
+                            </div>
+                          </div>
+                        )}
                         <Tooltip
                           label="Копия документа, подтверждающего право на льготы для лиц, проживающих в экологически неблагополучных регионах Казахстана"
                           fontSize="md"
@@ -351,13 +485,26 @@ export default function UploadFiles() {
                           type="file"
                           name="marriageDoc"
                           id="marriageDoc"
+                          accept=".gif,.jpg,.png,.pdf,.jpeg,.doc,.docx"
                           onChange={(event) => {
+                            if (event.currentTarget.files[0].size > 30000000) {
+                              AlertMessage('Файл слишком большой', 'error');
+                              event.currentTarget.value = '';
+                            }
                             formik.setFieldValue(
-                              "marriageDoc",
+                              'marriageDoc',
                               event.currentTarget.files[0]
                             );
                           }}
                         />
+                        {formik.values.marriageDoc && (
+                          <div className="fileData">
+                            <div className="fileSize">
+                              Размер файла :{' '}
+                              {formik.values.marriageDoc.size / 1000}КБ
+                            </div>
+                          </div>
+                        )}
                         <Tooltip
                           label="Копия свидетельства о заключении/о расторжении брака"
                           fontSize="md"
@@ -377,13 +524,26 @@ export default function UploadFiles() {
                           type="file"
                           name="childDoc"
                           id="childDoc"
+                          accept=".gif,.jpg,.png,.pdf,.jpeg,.doc,.docx"
                           onChange={(event) => {
+                            if (event.currentTarget.files[0].size > 30000000) {
+                              AlertMessage('Файл слишком большой', 'error');
+                              event.currentTarget.value = '';
+                            }
                             formik.setFieldValue(
-                              "childDoc",
+                              'childDoc',
                               event.currentTarget.files[0]
                             );
                           }}
                         />
+                        {formik.values.childDoc && (
+                          <div className="fileData">
+                            <div className="fileSize">
+                              Размер файла :{' '}
+                              {formik.values.childDoc.size / 1000}КБ
+                            </div>
+                          </div>
+                        )}
                         <Tooltip
                           label="Копию свидетельства о рождении ребенка (детей) (до 14 лет)"
                           fontSize="md"
