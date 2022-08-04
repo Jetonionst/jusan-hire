@@ -1,24 +1,26 @@
 package kz.jusan.backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import kz.jusan.backend.dto.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@Data
+
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 @Entity
 @Table(name = "anketas")
 public class AnketaEntity {
     @Id
+    @Column(name = "iin")
     private String iin;
-    private String fio;
+//    private String fio;
     private String previousName;
     private String birthDate;
     private String birthPlace;
@@ -30,11 +32,11 @@ public class AnketaEntity {
     private String passportIssuedAt;
     private String homePhone;
     private String workPhone;
-    private String mobilePhone;
+//    private String mobilePhone;
     private String relativePhone;
     private String relativeFIO;
     private String relativeLevel;
-    private String email;
+//    private String email;
     private String permanentCity;
     private String permanentRegion;
     private String permanentDistrict;
@@ -43,7 +45,7 @@ public class AnketaEntity {
     private String permanentCorpus;
     private String permanentApartment;
     private boolean isAddressMatches = false;
-    private String factualCity;
+//    private String factualCity;
     private String factualRegion;
     private String factualDistrict;
     private String factualStreet;
@@ -90,4 +92,7 @@ public class AnketaEntity {
     private String isHooliganAnswer;
     private String additionalInfo;
     private String extraIncome;
+
+    @OneToOne(mappedBy = "anketa")
+    private UserProfile userProfile;
 }
