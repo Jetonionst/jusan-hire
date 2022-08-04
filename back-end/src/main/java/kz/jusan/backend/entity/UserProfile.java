@@ -1,5 +1,6 @@
 package kz.jusan.backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -9,7 +10,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-@Table(name = "user_profile")
+@Table(name = "profile")
 public class UserProfile {
     @Id
     @Column(name = "iin")
@@ -18,7 +19,16 @@ public class UserProfile {
     private String mobilePhone;
     private String email;
     private String factualCity;
-    @OneToOne(mappedBy = "userProfile", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
+
+//    @JsonIgnore
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinTable(name = "profile_anketa_entity",
+            joinColumns = @JoinColumn(name = "user_profile_iin"),
+            inverseJoinColumns = @JoinColumn(name = "anketa_entity_iin"))
+    @JsonIgnore
     private AnketaEntity anketa;
+
+    @OneToOne(mappedBy = "userProfile")
+    @JsonIgnore
+    private UserEntity userEntity;
 }
