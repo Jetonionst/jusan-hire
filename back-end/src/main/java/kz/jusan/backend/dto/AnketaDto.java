@@ -3,14 +3,15 @@ package kz.jusan.backend.dto;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import java.util.*;
 
 @Data
 public class AnketaDto {
     @NotBlank
     private String iin;
+    private UserProfileDto userProfileDto;
     @NotBlank
-    private String fio;
     private String previousName;
     @NotBlank
     private String birthDate;
@@ -30,13 +31,9 @@ public class AnketaDto {
     private String passportIssuedAt;
     private String homePhone;
     private String workPhone;
-    @NotBlank
-    private String mobilePhone;
     private String relativePhone;
     private String relativeFIO;
     private String relativeLevel;
-    @NotBlank
-    private String email;
     @NotBlank
     private String permanentCity;
     @NotBlank
@@ -50,7 +47,6 @@ public class AnketaDto {
     private String permanentCorpus;
     private String permanentApartment;
     private boolean isAddressMatches = false;
-    private String factualCity;
     private String factualRegion;
     private String factualDistrict;
     private String factualStreet;
