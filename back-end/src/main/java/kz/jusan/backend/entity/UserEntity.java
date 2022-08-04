@@ -1,17 +1,16 @@
 package kz.jusan.backend.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Collection;
 
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Getter
+@Setter
 @Entity
 @Table(name = "users")
 public class UserEntity {
@@ -26,4 +25,11 @@ public class UserEntity {
     @JoinColumn(name = "role_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private RoleEntity roleEntity;
+
+    @JsonIgnore
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinTable(name = "users_user_profile",
+            joinColumns = @JoinColumn(name = "user_entity_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_profile_iin"))
+    private UserProfile userProfile;
 }
