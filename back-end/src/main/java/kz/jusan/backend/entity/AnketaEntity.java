@@ -1,23 +1,24 @@
 package kz.jusan.backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import kz.jusan.backend.dto.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@Data
+
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 @Entity
 @Table(name = "anketas")
 public class AnketaEntity {
     @Id
-    @Column(name = "user_profile_iin")
+    @Column(name = "iin")
     private String iin;
 //    private String fio;
     private String previousName;
@@ -92,22 +93,6 @@ public class AnketaEntity {
     private String additionalInfo;
     private String extraIncome;
 
-    @OneToOne
-    @MapsId
-    @JoinColumn(name = "user_profile_id")
+    @OneToOne(mappedBy = "anketa")
     private UserProfile userProfile;
-//
-//    @OneToOne(orphanRemoval = true)
-//    @JoinTable(name = "anketas_user_profile",
-//            joinColumns = @JoinColumn(name = "anketa_entity_null"),
-//            inverseJoinColumns = @JoinColumn(name = "user_profile_iin"))
-//    private UserProfile userProfile;
-//
-    public UserProfile getUserProfile() {
-        return userProfile;
-    }
-
-    public void setUserProfile(UserProfile userProfile) {
-        this.userProfile = userProfile;
-    }
 }
