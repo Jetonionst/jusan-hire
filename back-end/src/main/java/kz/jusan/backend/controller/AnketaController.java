@@ -5,9 +5,10 @@ import com.itextpdf.text.pdf.PdfWriter;
 import kz.jusan.backend.dto.AnketaDto;
 import kz.jusan.backend.entity.AnketaEntity;
 import kz.jusan.backend.entity.Attachment;
-import kz.jusan.backend.service.AnketaService;
-import kz.jusan.backend.service.AttachmentService;
-import kz.jusan.backend.service.PdfGenerator;
+import kz.jusan.backend.entity.UserEntity;
+import kz.jusan.backend.entity.UserProfile;
+import kz.jusan.backend.security.JwtProvider;
+import kz.jusan.backend.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
@@ -18,9 +19,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 import java.io.FileOutputStream;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/anketa")
@@ -29,6 +33,12 @@ public class AnketaController {
     private AnketaService anketaService;
     @Autowired
     private AttachmentService attachmentService;
+    @Autowired
+    UserProfileService userProfileService;
+    @Autowired
+    private UserService userService;
+    @Autowired
+    JwtProvider jwtProvider;
     @PostMapping("/submit")
     public ResponseEntity<Object> postAnketa(@RequestBody AnketaDto anketaDto) {
         anketaService.createAnketa(anketaDto);
@@ -40,10 +50,24 @@ public class AnketaController {
         return anketaService.getAllAnketas();
     }
 
-    @GetMapping("/{iin}")
-    public AnketaEntity findAnketaByIIN(@PathVariable("iin") String iin) {
-        return anketaService.findAnketaByIIN(iin);
+//    @GetMapping("/{iin}")
+//    public AnketaEntity findAnketaByIIN(@PathVariable("iin") String iin) {
+//        return anketaService.findAnketaByIIN(iin);
+//    }
+    @GetMapping("/get")
+    public ResponseEntity<Object> getAnketa(HttpServletRequest request) {
+        String token = request.getHeader("Authorization").replace("Bearer ", "");
+        Map<String, Object> responseMessage = new HashMap<>();
+        try {
+            UserEntity user = userService.findByUsername(jwtProvider.getUsernameFromToken(token));
+            UserProfile profile = userProfileService.getProfile(user);
+            return new ResponseEntity<>(profile.getAnketa(), HttpStatus.OK);
+        } catch (Exception e) {
+            responseMessage.put("message", "There is no anketa for this user yet");
+            return new ResponseEntity<>(responseMessage, HttpStatus.BAD_REQUEST);
+        }
     }
+
     @DeleteMapping("/delete/{iin}")
     @Transactional
     public void deleteAnketaByIIN(@PathVariable("iin") String iin) {
